@@ -1210,7 +1210,7 @@ $("#bSet").addEventListener("click", function () {
   row("Window size", wr, "Same as dragging any edge or corner of the plugin. The shape of the window never changes.");
   var wl = document.createElement("select"); [[-18, "-18 dB"], [-12, "-12 dB"], [-9, "-9 dB"], [-6, "-6 dB"]].forEach(function (q) { var o = document.createElement("option"); o.value = q[0]; o.textContent = q[1]; wl.appendChild(o); }); wl.value = String(SET.warn); wl.addEventListener("change", function () { SET.warn = parseInt(wl.value, 10); store("whiskerscope.settings.v1", SET); });
   row("Meter warning from", wl, "Level bars are blue below this, purple above it (warning) and pink near 0 dB (clipping).");
-  var p = document.createElement("p"); p.textContent = "Settings and presets are kept in this browser only. Nothing is sent anywhere."; w.appendChild(p);
+  var p = document.createElement("p"); p.textContent = "Settings and presets are kept in this browser only."; w.appendChild(p);
   openModal("Settings", [w]);
 });
 var SUPPORT = { kofi: "studio87", github: "" };
@@ -1220,7 +1220,7 @@ $("#bAbout").addEventListener("click", function () {
   var note = SUPPORT.kofi ? "" : "<p><i>The Ko-fi page is not set up yet. This button goes live when it is.</i></p>";
   openModal("About", [
     "<h3>Whisker Scope</h3><p>A scope, spectrum analyser, stereo field and spectrum-shape tool for music makers. By <b>Studio 87</b>. This page is a design mockup: it plays built-in test signals, the plugin will read your DAW's audio.</p>",
-    "<h3>Free, open and private</h3><ul><li>Free and open source (AGPL-3.0-or-later).</li><li>Collects nothing: no telemetry, no account, no network access.</li><li>Your presets and shapes stay on your computer.</li></ul>",
+    "<h3>Free, open and private</h3><ul><li>Free and open source (AGPL-3.0-or-later).</li><li></li><li>Your presets and shapes stay on your computer.</li></ul>",
     "<h3>Installing and removing</h3><ul><li>Windows: one .exe installer. macOS: one .pkg plus an Uninstall app. Linux: Flatpak or a plain .vst3 folder.</li><li>The uninstaller removes everything it installed and keeps your presets and shapes, unless you tick the box to delete them too.</li><li>Presets live in the Studio 87 / Whisker Scope folder of your user data.</li></ul>",
     "<h3>Support the project</h3><p>If it helps your music, a coffee keeps it free for everyone.</p>", links, note]);
 });

@@ -163,7 +163,7 @@ body{background:var(--pg-bg);color:var(--pg-fg);font-family:var(--f-body);font-s
 
 <div class="outer">
   <h1>Studio 87 Gear Updater</h1>
-  <div class="note"><b>Clickable mockup with fake data.</b> Every product, version, date, size and release note on this page is made up. Nothing here contacts GitHub, downloads or installs anything, and the page collects nothing. Thumbnails are each repo's real docs/screenshot.png; tiles marked 'no screenshot yet' are drawn placeholders. Click through it, then tell us what to change before the real app is touched.</div>
+  <div class="note"><b>Clickable mockup with fake data.</b> Every product, version, date, size and release note on this page is made up. Thumbnails are each repo's real docs/screenshot.png; tiles marked 'no screenshot yet' are drawn placeholders. Click through it, then tell us what to change before the real app is touched.</div>
   <div class="ideas">
     <h2>Optional idea (outside the app)</h2>
     <label><input type="checkbox" id="optCompact"><span><span class="tag">IDEA 1</span>Compact rows with no screenshot<small>More rows in view, buttons in one line. Faster to scan, loses the visual cue.</small></span></label>
@@ -450,7 +450,7 @@ function openPanel(kind,arg){S.ovl=kind;var pn=$('#panel'),h='';
   }else if(kind==='about'){
     pn.style.cssText='left:calc((100% - 772px)/2);top:150px;width:772px;height:480px';
     h='<h3>Studio 87 Gear Updater</h3><div class="sub">Version 0.1.0 &middot; free and open source &middot; AGPL-3.0-or-later</div>'+
-     '<div class="pnote" style="font-size:19px;line-height:1.3;margin-top:18px">It lists every Studio 87 plugin, VST, FX and app, shows which have a newer version on GitHub, and updates them one by one, several at once, or all together.<br><br>It collects nothing: no telemetry, no account, no background activity. It asks GitHub only when you open it or click Check for updates, using read-only requests for public data. Every download is checked against its SHA256 sums and refused on a mismatch. Installers are not code-signed.<br><br>Remove it with its own uninstaller; your settings stay unless you choose to delete them. Your presets are never touched.</div>'+
+     '<div class="pnote" style="font-size:19px;line-height:1.3;margin-top:18px">It lists every Studio 87 plugin, VST, FX and app, shows which have a newer version on GitHub, and updates them one by one, several at once, or all together.<br><br> It asks GitHub only when you open it or click Check for updates, using read-only requests for public data. Every download is checked against its SHA256 sums and refused on a mismatch. Installers are not code-signed.<br><br>Remove it with its own uninstaller; your settings stay unless you choose to delete them. Your presets are never touched.</div>'+
      '<div class="pb"><button class="b" data-tip="Opens Ko-fi in your browser. Optional. Inactive in this mockup.">Ko-fi (optional tip)</button><button class="b" data-tip="Opens the project page. Inactive in this mockup.">GitHub</button><span class="sp"></span><button class="b pri" data-act="close">Close</button></div>';
   }else if(kind==='confirm'){
     var ids=arg,n=ids.length,us=ids.filter(function(id){return stateOf(byId(id))!=='none'}),ins=ids.filter(function(id){return stateOf(byId(id))==='none'});

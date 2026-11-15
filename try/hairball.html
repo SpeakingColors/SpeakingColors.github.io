@@ -201,7 +201,7 @@ footer { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wr
         <canvas id="main" width="1000" height="212"></canvas>
         <div class="dropnote" id="dropnote">Drop an audio file here</div>
         <div class="legend" id="legend"></div>
-        <div class="overlay" id="overlay"><div><button id="bStart">Start audio</button><small>Everything is made inside this page. Nothing is sent anywhere.</small></div></div>
+        <div class="overlay" id="overlay"><div><button id="bStart">Start audio</button><small>Everything is made inside this page.</small></div></div>
       </div>
       <div class="box transport" id="srcKnobs"><h3>Buffer</h3><div class="knobs" id="srcK" style="display:flex;flex-wrap:wrap;gap:6px 2px"></div></div>
     </section>
@@ -224,7 +224,7 @@ footer { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wr
       <div class="kbdctl"><span>Octave <b id="octLbl">C4</b></span><div class="two"><button id="octDn">-</button><button id="octUp">+</button></div></div>
       <div class="kbd" id="kbd" aria-label="Piano keys"></div>
     </div>
-    <footer><span>Studio 87 · Hairball v0.1 design mockup</span><span id="foot2">Collects nothing. No network calls. Reports 0 samples of latency.</span></footer>
+    <footer><span>Studio 87 · Hairball v0.1 design mockup</span><span id="foot2"> Reports 0 samples of latency.</span></footer>
   </div>
   <div class="cheek r" id="cheekR"></div>
 </div>
@@ -873,7 +873,7 @@ $('#pimp').addEventListener('click', () => modal('Import preset', `<div class="h
 // ---------- dialogs ----------
 $('#bGuide').addEventListener('click', () => modal('Guide', `<ol><li>Click <b>Start audio</b>.</li><li><b>Instrument</b>: drop an audio file on the display or use a demo loop, then play the keys (also Z S X D C on the computer keyboard).</li><li><b>FX</b>: the loop plays through Hairball. Press <b>Freeze</b> to loop what it just heard, or <b>Hold</b> for a stutter.</li><li><b>Capture</b> turns the frozen buffer into a small sample you can play.</li><li><b>Riser</b>: grains shrink, get closer and fuse into a pitched tone while pitch and filter climb.</li><li><b>Thicken</b>: width, EQ, filter, Drive / Transistor / Fuzz and Dance.</li></ol><div class="hint">Key to: Percent, Step and Transient use the keys from C5 up (green marks). Every control is a host parameter in the plugin, so it can be automated.</div>`, [['Close', null, 'on']]));
 $('#bSet').addEventListener('click', () => modal('Settings', `<label class="row"><input type="checkbox" id="sTip" ${tipOn ? 'checked' : ''}> Info bubbles (after 1 second)</label><label class="row"><input type="checkbox" id="sPow" ${powerSave ? 'checked' : ''}> Power saving (slower drawing)</label><label class="row"><input type="checkbox" id="sGr" ${state.showGrains ? 'checked' : ''}> Show grains on the display</label>`, [['Reset window size', () => { setZoom(1); return false; }], ['Close', m => { tipOn = $('#sTip', m).checked; powerSave = $('#sPow', m).checked; state.showGrains = $('#sGr', m).checked; store.set('hb.set', JSON.stringify({ tipOn, powerSave, grains: state.showGrains })); }, 'on']]));
-$('#bAbout').addEventListener('click', () => modal('About & Support', `<p><b>Hairball</b> by Studio 87, version 0.1 design mockup.</p><p>Free and open source (AGPL-3.0-or-later). It collects nothing and makes no network calls. The button below only opens a link when you click it.</p><p>Presets in the plugin live in your user data folder under <i>Studio 87 / Hairball / presets</i>. In this mockup they stay in the browser.</p><p><a class="btn" href="https://ko-fi.com/studio87" target="_blank" rel="noopener">Support on Ko-fi</a></p>`, [['Close', null, 'on']]));
+$('#bAbout').addEventListener('click', () => modal('About & Support', `<p><b>Hairball</b> by Studio 87, version 0.1 design mockup.</p><p>Free and open source (AGPL-3.0-or-later). The button below only opens a link when you click it.</p><p>Presets in the plugin live in your user data folder under <i>Studio 87 / Hairball / presets</i>. In this mockup they stay in the browser.</p><p><a class="btn" href="https://ko-fi.com/studio87" target="_blank" rel="noopener">Support on Ko-fi</a></p>`, [['Close', null, 'on']]));
 
 // ---------- resize ----------
 let zoom = 1, base = 1; const ZSTEPS = [.75, 1, 1.25, 1.5, 2]; const DW = 1240; let DH = 700;
