@@ -87,8 +87,12 @@ Control your hardware synths from your DAW on Linux.
 - [MX400 controller](https://speakingcolors.github.io/mx400-vst-linux/): Controller plugin for the MX400 on Linux. Early work in progress. (test build)
 - [M-VAVE FM-1 controller](https://speakingcolors.github.io/mwave-fm1-linux-vst/): Controller plugin for the M-VAVE FM-1 on Linux. Early work in progress.
 - [Modal Cobalt8M controller](https://speakingcolors.github.io/cobalt8m-controller-vst/): MIDI controller plugin (VST3 and standalone) for the Modal Cobalt8M: sends and receives its CC messages from your DAW. Early build. (test build)
-- [Behringer TD-3-MO controller](https://speakingcolors.github.io/td3mo-vst/): Controller and sequencer companion plugin for the Behringer TD-3-MO bass line synth on Linux, with an offline recipe book and 16 step pattern roll. (test build)
-- [Behringer Pro-1 patch book](https://speakingcolors.github.io/catpro1/): Patch book and global-settings tool for the Behringer Pro-1 on Linux, with an offline recipe book that draws the Pro-1 front panel. (test build)
+
+## Recipe book
+
+One book for synths that have no patch memory: write down your sounds as recipes.
+
+- [Cat Recipe Book](https://speakingcolors.github.io/cat-recipe-book/): One patch recipe book for synths without patch memory: Behringer Pro-1, CAT, TD-3-MO and TD-3. It draws each front panel, keeps your recipes in the browser, and works offline. (test build)
 
 ## Korg minilogue xd and drumlogue units
 
