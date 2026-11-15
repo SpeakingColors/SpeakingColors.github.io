@@ -1,6 +1,7 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>html,body{margin:0;padding:0}body{font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><style>@font-face{font-family:"Barlow Condensed";font-weight:500;font-display:swap;src:url(/try/fonts/pack-barlow-condensed-latin-500-normal.woff2) format("woff2")}@font-face{font-family:"Barlow Condensed";font-weight:600;font-display:swap;src:url(/try/fonts/pack-barlow-condensed-latin-600-normal.woff2) format("woff2")}@font-face{font-family:"Barlow Condensed";font-weight:700;font-display:swap;src:url(/try/fonts/pack-barlow-condensed-latin-700-normal.woff2) format("woff2")}@font-face{font-family:"JetBrains Mono";font-weight:400;font-display:swap;src:url(/try/fonts/pack-jetbrains-mono-latin-400-normal.woff2) format("woff2")}@font-face{font-family:"JetBrains Mono";font-weight:500;font-display:swap;src:url(/try/fonts/pack-jetbrains-mono-latin-500-normal.woff2) format("woff2")}</style></head><body>
 <title>Studio 87 Gear Updater Mockup</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-
 <style>
 /* Layout: a note and optional-idea toggles outside; the 1000 x 640 app window (wood cheeks, header, tabs, 5-row list, pager, footer) scaled as one piece. */
 :root{
@@ -10,7 +11,7 @@
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--pg-bg:#101116;--pg-fg:#ecedf2;--pg-dim:#a0a3b0;--pg-card:#1a1b22;--pg-line:#33353f;--pg-accent:#02EBBA;--pg-warn:#ffc27a;--pg-warn-bg:#2b2012;color-scheme:dark}}
 :root[data-theme="dark"]{--pg-bg:#101116;--pg-fg:#ecedf2;--pg-dim:#a0a3b0;--pg-card:#1a1b22;--pg-line:#33353f;--pg-accent:#02EBBA;--pg-warn:#ffc27a;--pg-warn-bg:#2b2012;color-scheme:dark}
-body{background:var(--pg-bg);color:var(--pg-fg);font-family:var(--f-body);font-size:15px;line-height:1.45;padding-block:18px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));overflow-x:hidden}
+body{background:var(--pg-bg);color:var(--pg-fg);font-family:var(--f-body);font-size:15px;line-height:1.45;padding-block:8px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));overflow-x:hidden}
 .outer{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
 .outer h1{font:700 30px/1.1 var(--f-cond);margin:0;letter-spacing:.01em}
 .note{background:var(--pg-warn-bg);color:var(--pg-fg);border:1px solid var(--pg-warn);border-radius:6px;padding:10px 14px;min-width:0}
@@ -159,15 +160,10 @@ body{background:var(--pg-bg);color:var(--pg-fg);font-family:var(--f-body);font-s
 #stage.big .l5{margin-top:3px}
 #stage.big .btns{top:14px}
 </style>
+<!-- v10 -->
 <!-- v8: portrait 1047 x 1150 design, larger thumbnails, opens on Updates -->
 
 <div class="outer">
-  <h1>Studio 87 Gear Updater</h1>
-  <div class="note"><b>Clickable mockup with fake data.</b> Every product, version, date, size and release note on this page is made up. Thumbnails are each repo's real docs/screenshot.png; tiles marked 'no screenshot yet' are drawn placeholders. Click through it, then tell us what to change before the real app is touched.</div>
-  <div class="ideas">
-    <h2>Optional idea (outside the app)</h2>
-    <label><input type="checkbox" id="optCompact"><span><span class="tag">IDEA 1</span>Compact rows with no screenshot<small>More rows in view, buttons in one line. Faster to scan, loses the visual cue.</small></span></label>
-  </div>
   <div id="wrap">
     <div id="frame" data-look="purr">
       <div id="stage">
@@ -197,7 +193,7 @@ body{background:var(--pg-bg);color:var(--pg-fg);font-family:var(--f-body);font-s
           <span class="sp2" id="cnt"></span>
         </div>
         <div id="foot">
-          <span class="l">Studio 87 &middot; Gear Updater v0.1.0 mockup v9</span>
+          <span class="l">Studio 87 &middot; Gear Updater v0.1.0 mockup v10</span>
           <span class="c" id="sz"></span>
           <span class="r"><button class="b" data-act="zout" data-tip="Smaller. Drag a corner to scale everything; drag a side to change only the width or the height.">-</button><span id="zpct" class="mono" style="line-height:28px;font-size:13px;color:var(--dim);width:44px;text-align:center"></span><button class="b" data-act="zin" data-tip="Bigger.">+</button><button class="b" data-act="zfit" style="width:44px" data-tip="Fit to window: back to the default 1047 x 1150 shape, scaled to fit this pane. Double click on either wood side does the same.">Fit</button><button class="b" data-act="z11" style="width:44px" data-tip="1:1: the default 1047 x 1150 shape at true size, in pixels. The page may scroll if your window is smaller.">1:1</button></span>
         </div>
@@ -208,7 +204,6 @@ body{background:var(--pg-bg);color:var(--pg-fg);font-family:var(--f-body);font-s
       <div class="h ne" data-d="ne"></div><div class="h nw" data-d="nw"></div><div class="h se" data-d="se"></div><div class="h sw" data-d="sw"></div>
     </div>
   </div>
-  <div class="try"><b>Try:</b> scroll the list with the wheel; type in the search box; open the Synths, Controllers, Apps and logue and Not installed tabs and install any product from the list; tick two rows and press Update selected; press Update all and read the warning; open Changelog on any row; use Settings to switch the look; hover a button for a second; drag any edge or corner; double click a wood side. The Controller row with a red dot shows the "could not check" case, the logue unit shows the guided install route.</div>
 </div>
 
 <script>
@@ -536,7 +531,7 @@ function setScale(s,manual){
   var st=$('#stage');st.style.setProperty('--W',DW+'px');st.style.setProperty('--H',DH+'px');var f=$('#frame');f.style.width=Math.round(DW*s)+'px';f.style.height=Math.round(DH*s)+'px';$('#stage').style.transform='scale('+s+')';
   var pc=Math.round(s*100),cu=(DW!==DEFW||DH!==DEFH);$('#sz').textContent=DW+' x '+DH+(cu?' custom':' design')+', shown at '+pc+'%'+(pc===100?' (true size)':S.manual?'':' (scaled to fit)');$('#zpct').textContent=pc+'%';hideBub();
 }
-function fitDefault(){S.def=Math.max(.35,Math.min(1,($('#wrap').clientWidth-16)/DW,(window.innerHeight-30)/DH))}
+function fitDefault(){S.def=Math.max(.35,Math.min(1,($('#wrap').clientWidth-16)/DW,(window.innerHeight-40)/DH))}
 function resetScale(){DW=DEFW;DH=DEFH;S.manual=false;fitDefault();setScale(S.def)}
 ['#cl','#cr'].forEach(function(s){$(s).addEventListener('dblclick',resetScale)});
 document.querySelectorAll('.h').forEach(function(h){
@@ -554,11 +549,11 @@ document.querySelectorAll('.h').forEach(function(h){
 window.addEventListener('resize',function(){fitDefault();setScale(S.manual?S.scale:S.def,false)});
 
 /* optional ideas */
-function opt(id,key){$(id).addEventListener('change',function(e){S[key]=e.target.checked;S.page=0;render()})}
-opt('#optCompact','compact');
+
 
 fitDefault();setScale(S.def);render();
 /* the app polls GitHub when it opens: simulated */
 setTimeout(check,700);setTimeout(function(){if(S.mode==='all')openPanel('firstrun')},350);
 })();
 </script>
+</body></html>
