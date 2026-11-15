@@ -135,6 +135,10 @@ footer{margin-top:24px;padding:28px 0 48px;color:var(--mut);font-size:15px}.fcol
 .art{position:relative;width:100%;height:100%;overflow:hidden;background:var(--card)}.art svg{position:absolute;inset:0;width:100%;height:100%}
 .art .an{position:absolute;left:16px;bottom:30px;font:800 clamp(20px,2.4vw,26px)/1.05 'Bricolage Grotesque',sans-serif;letter-spacing:-.03em;color:var(--fg)}
 .art small{position:absolute;left:16px;bottom:10px;color:var(--mut);font-size:13px}.art.big .an{font-size:clamp(28px,4vw,44px);left:26px;bottom:44px}.art.big small{left:26px;bottom:20px;font-size:15px}
+
+.clips{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-top:14px}
+.clip{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px 18px}.clip b{font:800 20px 'Bricolage Grotesque',sans-serif;letter-spacing:-.02em}
+.clip p{margin:4px 0 12px;color:var(--mut);font-size:15.5px;line-height:1.5}.clip audio{width:100%;height:40px}
 .skip{position:absolute;left:-999px;top:8px;background:var(--teal);color:#06221d;padding:8px 14px;border-radius:8px;z-index:50;font-weight:700}.skip:focus{left:8px}
 a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--yellow);outline-offset:3px;border-radius:8px}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
@@ -166,6 +170,7 @@ function cur(){var t=r.getAttribute('data-theme');if(t)return t;return window.ma
 function label(){b.textContent=cur()==='dark'?'Light':'Dark'}
 b.addEventListener('click',function(){var n=cur()==='dark'?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem('s87-theme',n)}catch(e){}label()});label()})();
 </script><script>
+document.addEventListener('play',function(e){[].forEach.call(document.querySelectorAll('audio'),function(a){if(a!==e.target)a.pause()})},true);
 (function(){var w=document.querySelector('.try');if(!w)return;var b=w.querySelector('.tbtn');if(!b)return;var VW=1100;
 b.addEventListener('click',function(){var poster=w.innerHTML;var f=document.createElement('iframe');f.src=w.getAttribute('data-src');f.title=w.getAttribute('data-title');
 f.setAttribute('sandbox','allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox');

@@ -135,6 +135,10 @@ footer{margin-top:24px;padding:28px 0 48px;color:var(--mut);font-size:15px}.fcol
 .art{position:relative;width:100%;height:100%;overflow:hidden;background:var(--card)}.art svg{position:absolute;inset:0;width:100%;height:100%}
 .art .an{position:absolute;left:16px;bottom:30px;font:800 clamp(20px,2.4vw,26px)/1.05 'Bricolage Grotesque',sans-serif;letter-spacing:-.03em;color:var(--fg)}
 .art small{position:absolute;left:16px;bottom:10px;color:var(--mut);font-size:13px}.art.big .an{font-size:clamp(28px,4vw,44px);left:26px;bottom:44px}.art.big small{left:26px;bottom:20px;font-size:15px}
+
+.clips{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-top:14px}
+.clip{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px 18px}.clip b{font:800 20px 'Bricolage Grotesque',sans-serif;letter-spacing:-.02em}
+.clip p{margin:4px 0 12px;color:var(--mut);font-size:15.5px;line-height:1.5}.clip audio{width:100%;height:40px}
 .skip{position:absolute;left:-999px;top:8px;background:var(--teal);color:#06221d;padding:8px 14px;border-radius:8px;z-index:50;font-weight:700}.skip:focus{left:8px}
 a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--yellow);outline-offset:3px;border-radius:8px}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
@@ -150,7 +154,7 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(-
 <a class="skip" href="#main">Skip to content</a>
 <div class="top"><div class="wrap"><a class="brand" href="/"><svg class="logo" viewBox="0 0 48 48" aria-hidden="true"><path d="M8 40V10l9 8h14l9-8v30z" fill="none" stroke="#ff6aa5" stroke-width="3.5" stroke-linejoin="round"/><circle cx="18" cy="28" r="2.4" fill="#2dd4bf"/><circle cx="30" cy="28" r="2.4" fill="#2dd4bf"/><path d="M3 30l7 1M3 36l7-2M45 30l-7 1M45 36l-7-2" stroke="#2dd4bf" stroke-width="2.2" stroke-linecap="round"/></svg>STUDIO 87</a><nav class="nav"><a class="keep" href="/#all">Software</a><a href="/#synths">Synths</a><a href="/#dynamics">Effects</a><a href="/#hardware-controllers">Controllers</a><a href="/gearupdater/">Gear Updater</a><button class="tog" id="tog" type="button" aria-label="Switch between light and dark mode">Theme</button><a class="pill" href="https://ko-fi.com/studio87">Ko-fi</a></nav></div></div>
 <main id="main"><div class="wrap"><p class="crumbs"><a href="/">Studio 87</a> › <a href="/#studio-tools">Studio tools and apps</a> › WhiskerMix</p>
-<div class="phero"><div><img class="shot" src="/img/full/whiskermix.jpg" alt="WhiskerMix screenshot" width="1200" height="1032"></div><div>
+<div class="phero"><div><div class="try" data-src="/try/whiskermix.html" data-title="WhiskerMix interactive mockup" style="aspect-ratio:1077 / 1200"><img src="/img/full/whiskermix.jpg" alt="WhiskerMix screenshot" width="1077" height="1200"><button class="tbtn" type="button">&#9654; Try the interface</button></div><p class="tnote">Interactive mockup of the interface: click and drag the controls. The real plugin makes the sound. <a href="/play/whiskermix/">Open full screen</a></p></div><div>
 <div style="margin-bottom:12px"><span class="lab pink">Tool</span> <span class="badge">TEST BUILD</span></div>
 <h1 class="hd">WhiskerMix</h1><p class="lead">TotalMix-style mixer and studio hub for Linux: RME Digiface USB control, MIDI hub, Pulse 16 support and built-in FX. Design phase.</p>
 <a class="btn p" href="https://github.com/SpeakingColors/whiskermix/releases/tag/v0.5.5">⬇ Download v0.5.5</a> <a class="btn o" href="https://github.com/SpeakingColors/whiskermix"><svg class="gh" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg> View source</a>
@@ -166,6 +170,7 @@ function cur(){var t=r.getAttribute('data-theme');if(t)return t;return window.ma
 function label(){b.textContent=cur()==='dark'?'Light':'Dark'}
 b.addEventListener('click',function(){var n=cur()==='dark'?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem('s87-theme',n)}catch(e){}label()});label()})();
 </script><script>
+document.addEventListener('play',function(e){[].forEach.call(document.querySelectorAll('audio'),function(a){if(a!==e.target)a.pause()})},true);
 (function(){var w=document.querySelector('.try');if(!w)return;var b=w.querySelector('.tbtn');if(!b)return;var VW=1100;
 b.addEventListener('click',function(){var poster=w.innerHTML;var f=document.createElement('iframe');f.src=w.getAttribute('data-src');f.title=w.getAttribute('data-title');
 f.setAttribute('sandbox','allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox');
