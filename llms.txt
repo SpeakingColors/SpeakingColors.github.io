@@ -92,7 +92,7 @@ Control your hardware synths from your DAW on Linux.
 
 One book for synths that have no patch memory: write down your sounds as recipes.
 
-- [Cat Recipe Book](https://speakingcolors.github.io/cat-recipe-book/): One patch recipe book for synths without patch memory: Behringer Pro-1, CAT, TD-3-MO and TD-3. It draws each front panel, keeps your recipes in the browser, and works offline. (test build)
+- [Synth Cook Book](https://speakingcolors.github.io/synth-cook-book/): A patch recipe book for synths without patch memory: Behringer Pro-1, CAT, TD-3-MO and TD-3. It draws each front panel, keeps your recipes in the browser, and works offline. (test build)
 
 ## Korg minilogue xd and drumlogue units
 
