@@ -29,6 +29,7 @@ Compressors, limiters, transient shaping and EQ in classic and new styles.
 - [PunchPaw](https://speakingcolors.github.io/punchpaw/): Free open source kick and drum limiter plugin (VST3) for Linux, Windows and macOS. (test build)
 - [Clawpressor](https://speakingcolors.github.io/clawpressor-vst/): Free open source multiband compressor and limiter VST3 for Linux. Up to 4 bands, per band limiter, drawable rhythmic gain patterns, scopes. Defaults for house, UK hardcore and hardstyle. (test build)
 - [MultiPaw Compressor](https://speakingcolors.github.io/multipawcompressor/): Free open source multiband compressor and limiter with multiband sidechain in one plugin (VST3), Linux first. Test build. (test build)
+- [Purrr Voice Channel](https://speakingcolors.github.io/purrrvoicechannel/): Free open source tube channel strip for voices (design mockup): tube preamp, compressor, de-esser, gate and 4 band EQ in one channel. VST3 planned, Linux first.
 - [ClawShaper](https://speakingcolors.github.io/clawshaper/): Multiband transient shaper with limiter (VST3). (test build)
 - [Pawltec](https://speakingcolors.github.io/pawltec/): Free open source tube program EQ plugin in the Pultec style (VST3) for Linux, Windows and macOS. (test build)
 - [CatRack](https://speakingcolors.github.io/catrack/): Channel strip plugin with 28 built-in units from the Studio 87 effects, in one all-in-one plugin. (test build)
