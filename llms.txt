@@ -5,6 +5,8 @@
 Website: https://speakingcolors.github.io/
 Source code and releases: https://github.com/SpeakingColors
 Support: https://ko-fi.com/studio87
+About supporting the project: https://speakingcolors.github.io/support/
+Privacy: https://speakingcolors.github.io/privacy/
 
 ## Synths
 
