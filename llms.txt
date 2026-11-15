@@ -12,104 +12,104 @@ Privacy: https://speakingcolors.github.io/privacy/
 
 Free open source synth plugins for bass, leads, supersaws and wavetables.
 
-- [SupurrSaw](https://speakingcolors.github.io/supurrrsaw-vst/): SupurrSaw: free open source supersaw, hoover and acid synth. VST3 plugin and standalone for Linux, Windows and macOS. JP-8000 style supersaw, built-in FX, presets.
-- [PurrOne](https://speakingcolors.github.io/purrone/): PurrOne: free open source mono synth plugin with a thick, smooth sound for bass and lead. VST3 and standalone, Linux first, Windows and macOS targeted. (test build)
-- [JPurrr-8000](https://speakingcolors.github.io/jpurrr-8000/): Free open source JP-8000 style supersaw synth for trance (VST3 and standalone). (test build)
-- [Whiskerwave](https://speakingcolors.github.io/whiskerwave-vst/): Free open source wavetable synth VST3 for Linux: morphing wavetable oscillators, layered voices, mod matrix, built-in FX, sample your own hardware into wavetables. CC0 waves.
+- [SupurrSaw](https://speakingcolors.github.io/supurrrsaw-vst/): A big supersaw, hoover and acid synth for trance, hard dance and house.
+- [PurrOne](https://speakingcolors.github.io/purrone/): A thick, smooth mono synth for fat basslines and singing leads. (test build)
+- [JPurrr-8000](https://speakingcolors.github.io/jpurrr-8000/): A trance supersaw synth in the spirit of the Roland JP-8000. (test build)
+- [Whiskerwave](https://speakingcolors.github.io/whiskerwave-vst/): A wavetable synth with morphing waves and a tool to sample your own gear.
 
 ## Compressors, limiters and EQ
 
 Compressors, limiters, transient shaping and EQ in classic and new styles.
 
-- [Apurrr2500](https://speakingcolors.github.io/apurrr2500/): Free open source bus compressor plugin (VST3) for Linux, Windows and macOS. (test build)
-- [FetlinePounce](https://speakingcolors.github.io/fetlinepounce/): Free open source FET compressor plugin in the style of the 1176 (VST3) for Linux, Windows and macOS. (test build)
-- [LapCat2A](https://speakingcolors.github.io/lapcat2a/): Free open source optical compressor and limiter plugin in the LA-2A style (VST3). (test build)
-- [Furchild](https://speakingcolors.github.io/furchild/): Free open source variable-mu tube compressor plugin in the Fairchild style (VST3). (test build)
-- [Purrrstressor](https://speakingcolors.github.io/purrrstressor/): Free open source compressor plugin in the Distressor style (VST3) for Linux, Windows and macOS. (test build)
-- [PunchPaw](https://speakingcolors.github.io/punchpaw/): Free open source kick and drum limiter plugin (VST3) for Linux, Windows and macOS. (test build)
-- [Clawpressor](https://speakingcolors.github.io/clawpressor-vst/): Free open source multiband compressor and limiter VST3 for Linux. Up to 4 bands, per band limiter, drawable rhythmic gain patterns, scopes. Defaults for house, UK hardcore and hardstyle. (test build)
-- [MultiPaw Compressor](https://speakingcolors.github.io/multipawcompressor/): Free open source multiband compressor and limiter with multiband sidechain in one plugin (VST3), Linux first. Test build. (test build)
-- [Purrr Voice Channel](https://speakingcolors.github.io/purrrvoicechannel/): Free open source tube channel strip for voices (design mockup): tube preamp, compressor, de-esser, gate and 4 band EQ in one channel. VST3 planned, Linux first.
-- [ClawShaper](https://speakingcolors.github.io/clawshaper/): Multiband transient shaper with limiter (VST3). (test build)
-- [Pawltec](https://speakingcolors.github.io/pawltec/): Free open source tube program EQ plugin in the Pultec style (VST3) for Linux, Windows and macOS. (test build)
-- [CatRack](https://speakingcolors.github.io/catrack/): Channel strip plugin with 28 built-in units from the Studio 87 effects, in one all-in-one plugin. (test build)
+- [Apurrr2500](https://speakingcolors.github.io/apurrr2500/): A stereo bus compressor for gluing a mix together. (test build)
+- [FetlinePounce](https://speakingcolors.github.io/fetlinepounce/): Fast, punchy FET-style compression for drums, vocals, bass and buses. (test build)
+- [LapCat2A](https://speakingcolors.github.io/lapcat2a/): Smooth optical-style leveling for vocals, bass and anything that should sit evenly. (test build)
+- [Furchild](https://speakingcolors.github.io/furchild/): A warm stereo variable-mu tube compressor in the Fairchild style. (test build)
+- [Purrrstressor](https://speakingcolors.github.io/purrrstressor/): A flexible compressor with a famous Nuke mode, inspired by the Distressor. (test build)
+- [PunchPaw](https://speakingcolors.github.io/punchpaw/): Make kicks and drums hit harder with a limiter built for punch. (test build)
+- [Clawpressor](https://speakingcolors.github.io/clawpressor-vst/): A four-band compressor and limiter with rhythmic gain patterns, tuned for house and hardstyle. (test build)
+- [MultiPaw Compressor](https://speakingcolors.github.io/multipawcompressor/): Multiband compression and multiband sidechain in one plugin. (test build)
+- [Purrr Voice Channel](https://speakingcolors.github.io/purrrvoicechannel/): A tube channel strip for voices: preamp, compressor, de-esser, gate and EQ in one.
+- [ClawShaper](https://speakingcolors.github.io/clawshaper/): Shape the punch and the tail of your drums, band by band. (test build)
+- [Pawltec](https://speakingcolors.github.io/pawltec/): A tube program EQ with big, smooth lows and highs, in the Pultec style. (test build)
+- [CatRack](https://speakingcolors.github.io/catrack/): A channel strip built from Studio 87's own effects: stack up to 12 in one window. (test build)
 
 ## Saturation, distortion and tone
 
 Warmth, grit, bass weight and loudness.
 
-- [Cat Crusher](https://speakingcolors.github.io/catcrusher-vst/): Free open source distortion, compressor and filter plugin (VST3 and standalone) for Linux. Tube, fold and hard clip shapers, multimode filter, live displays. Early. (test build)
-- [Fat Cat](https://speakingcolors.github.io/fatcat/): Free open source saturator (VST3 and standalone) for Linux, macOS and Windows that keeps the dynamics of your sound. Drive, fuzz, colour, stereo, mix. (test build)
-- [Meowbass](https://speakingcolors.github.io/meowbass/): Free open source psychoacoustic bass enhancer (VST3 and standalone) for Linux: makes harmonics from the bass so small speakers suggest deep bass. Early. (test build)
-- [Meowximizer](https://speakingcolors.github.io/meowximizer/): Free open source sonic enhancer, bass enhancer and exciter (VST3 and standalone) for Linux. Three bands, OTT-style squeeze, saturation and output limiter. Early. (test build)
+- [Cat Crusher](https://speakingcolors.github.io/catcrusher-vst/): Drive, crush and filter: tube, fold and hard-clip distortion in one plugin. (test build)
+- [Fat Cat](https://speakingcolors.github.io/fatcat/): Thick saturation that keeps the dynamics of your sound. (test build)
+- [Meowbass](https://speakingcolors.github.io/meowbass/): Make small speakers sound like they have deep bass. (test build)
+- [Meowximizer](https://speakingcolors.github.io/meowximizer/): A three-band enhancer for weight, presence and air. (test build)
 
 ## Space, rhythm and special effects
 
 Reverb, ducking, volume shaping, phase fixing and freeze effects.
 
-- [shimmerstuff](https://speakingcolors.github.io/shimmerstuff/): Shimmer reverb and shimmer delay plugin (VST3 and standalone) for Linux, Windows and macOS, with a routing view. Plate, hall, shimmer and velvet reverbs. By Studio 87. (test build)
-- [Cat Spacer](https://speakingcolors.github.io/catspacer/): Free open source spectral sidechain ducker (VST3 and standalone) for Linux: the sidechain spectrum carves gaps in the main signal so a lead and a vocal or kick share the mix. 64 bands. (test build)
-- [Scaredy Cat](https://speakingcolors.github.io/scaredy-cat/): Free open source volume shaper plugin (VST3 and standalone): three bands with drawn volume curves for kick pumps, trance gates and chops. Tempo synced. (test build)
-- [phasepaw](https://speakingcolors.github.io/phasepaw/): Phase alignment plugin for kick and bass, for better mono compatibility. Free, open source, VST3.
-- [Hairball](https://speakingcolors.github.io/hairball/): Hairball: free open source grain-based audio freeze and transform plugin (VST3, instrument and FX) for dance, house, UK hardcore and hardstyle. Linux first. (test build)
+- [shimmerstuff](https://speakingcolors.github.io/shimmerstuff/): Shimmering reverbs and delays that glow. (test build)
+- [Cat Spacer](https://speakingcolors.github.io/catspacer/): Carve space for a lead or vocal by ducking only the frequencies that clash. (test build)
+- [Scaredy Cat](https://speakingcolors.github.io/scaredy-cat/): Draw volume curves for kick pumps, trance gates and chops. (test build)
+- [phasepaw](https://speakingcolors.github.io/phasepaw/): See whether your kick and bass fight each other, and fix it.
+- [Hairball](https://speakingcolors.github.io/hairball/): Freeze a sound, shred it into grains and turn it into something new. (test build)
 
 ## DJ and creative tools
 
 Scratch, DJ decks, sample tools and generators.
 
-- [Scratch Cat FX](https://speakingcolors.github.io/scratchcatfx-vst/): Scratch effect plugin (VST3 and standalone): scratch, brake and backspin audio from your DAW, with EQ, colour and a 3 slot FX chain. Early, free and open source. (test build)
-- [Scratch Cat Duo](https://speakingcolors.github.io/scratchcatduo-vst/): Two DJ decks and a mixer in one plugin (VST3 and standalone). Free and open source, Linux first. Hot cues, loops, sampler, pad FX, EQ and kill switches. (test build)
-- [Stretch Cat](https://speakingcolors.github.io/stretch-cat-vst/): Sampler with time stretch (VST3 and standalone): change speed without changing pitch, or pitch without changing speed. Early, free and open source. (test build)
-- [Copycat](https://speakingcolors.github.io/copycat-vst/): Sound analyser plugin (VST3 and standalone): play a sound through it and it estimates note, key, chord, tempo, oscillator shape, voices, filter and envelope to help rebuild it. Early. (test build)
-- [Kick Kitten](https://speakingcolors.github.io/kickkitten/): Free open source trance kick maker (VST3 and standalone). (test build)
-- [AI Purrformer](https://speakingcolors.github.io/ai-purrformer/): Free open source AI singing voice tool for Linux: sing badly, get a better voice back, on time and in key. Part of the Studio 87 cat plugin suite.
+- [Scratch Cat FX](https://speakingcolors.github.io/scratchcatfx-vst/): Scratch, brake and backspin the sound from your DAW. (test build)
+- [Scratch Cat Duo](https://speakingcolors.github.io/scratchcatduo-vst/): Two DJ decks and a mixer in one plugin. (test build)
+- [Stretch Cat](https://speakingcolors.github.io/stretch-cat-vst/): Change the speed without the pitch, or the pitch without the speed. (test build)
+- [Copycat](https://speakingcolors.github.io/copycat-vst/): Hear a sound you love and find out how to rebuild it. (test build)
+- [Kick Kitten](https://speakingcolors.github.io/kickkitten/): Design your own trance kicks, from the thump to the punch. (test build)
+- [AI Purrformer](https://speakingcolors.github.io/ai-purrformer/): Sing badly, get a better voice back, on time and in key.
 
 ## Studio tools and apps
 
 Editors, analysers, sample manager, mixer and the Gear Updater launcher.
 
-- [Meowcorder](https://speakingcolors.github.io/meowcorder/): Meowcorder: work in progress audio editor and recorder by Studio 87. (test build)
-- [Purrfect Cut](https://speakingcolors.github.io/purrfect-cut/): Audio editor and VST plugin from one install (Linux, Windows, macOS): cut, trim, fade, normalise, reverse, plus Auto-Tune style pitch pages for voices and leads. Free and open source. (test build)
-- [CATalog](https://speakingcolors.github.io/catalog/): Sample manager for your studio (standalone and VST3): scan sample folders, search, tag, rate, favourite and preview. Early, free and open source. (test build)
-- [Whisker Scope](https://speakingcolors.github.io/whiskerscope/): Whisker Scope: free open source analyser plugin (VST3 and standalone): scope, spectrum and frequency analyzer from Studio 87. (test build)
-- [WhiskerMix](https://speakingcolors.github.io/whiskermix/): TotalMix-style mixer and studio hub for Linux: RME Digiface USB control, MIDI hub, Pulse 16 support and built-in FX. Design phase. (test build)
-- [Gear Updater](https://speakingcolors.github.io/gearupdater/): Launcher for Studio 87 software: browse, download, install and update every plugin and app in one place, no GitHub hunting. (test build)
-- [Stardrift TV Launcher](https://speakingcolors.github.io/stardrifttvlauncher/): Couldn't find a TV Launcher I like, so I made one.
+- [Meowcorder](https://speakingcolors.github.io/meowcorder/): Record, cut and process sound quickly in the middle of a project. (test build)
+- [Purrfect Cut](https://speakingcolors.github.io/purrfect-cut/): An audio editor and a vocal pitch tool in one install. (test build)
+- [CATalog](https://speakingcolors.github.io/catalog/): Find the right sample fast: scan, search, tag, rate and preview. (test build)
+- [Whisker Scope](https://speakingcolors.github.io/whiskerscope/): See your sound: scope, spectrum and frequency analyser. (test build)
+- [WhiskerMix](https://speakingcolors.github.io/whiskermix/): A TotalMix-style mixer and studio hub for Linux. (test build)
+- [Gear Updater](https://speakingcolors.github.io/gearupdater/): One app to browse, download and update all Studio 87 software. (test build)
+- [Stardrift TV Launcher](https://speakingcolors.github.io/stardrifttvlauncher/): A calm, ad-free home screen for Google TV with a slowly drifting night sky.
 
 ## Hardware controller plugins
 
 Control your hardware synths from your DAW on Linux.
 
-- [Novation Peak controller](https://speakingcolors.github.io/linux-peak-controller/): Controller plugin (VST3 and standalone) for the Novation Peak, built for Linux first: sends and receives CC and NRPN messages. Early build. (test build)
-- [Novation UltraNova controller](https://speakingcolors.github.io/linux-ultranova-controller/): Controller plugin for the Novation UltraNova and MiniNova on Linux, with MIDI implementation notes (CC and NRPN maps). (test build)
-- [Korg minilogue xd controller](https://speakingcolors.github.io/minilogue-xd-controller/): MIDI controller plugin (VST3 and standalone) for the Korg minilogue xd: sends and receives its CC messages from your DAW. Early build. (test build)
-- [Korg drumlogue controller](https://speakingcolors.github.io/drumlogue-linux-controller/): Controller plugin (VST3 and standalone) for the Korg drumlogue on Linux: sends and receives CC messages from your DAW. Early build. (test build)
-- [Behringer JT-4000 controller](https://speakingcolors.github.io/jt4000-vst/): MIDI controller plugin (VST3 and standalone) for the Behringer JT-4000 (JT-4000 Micro): sends and receives its CC messages from your DAW. Early build. (test build)
-- [Behringer PRO VS Mini controller](https://speakingcolors.github.io/provsmini-vst/): Controller plugin for the Behringer PRO VS Mini vector synthesizer on Linux. Planning stage.
-- [Yamaha MODX M controller](https://speakingcolors.github.io/modxm-controller-vst/): MIDI controller plugin (VST3 and standalone) for the Yamaha MODX M: sends and receives its CC messages from your DAW. Early build. (test build)
-- [MX400 controller](https://speakingcolors.github.io/mx400-vst-linux/): Controller plugin for the MX400 on Linux. Early work in progress. (test build)
-- [M-VAVE FM-1 controller](https://speakingcolors.github.io/mwave-fm1-linux-vst/): Controller plugin for the M-VAVE FM-1 on Linux. Early work in progress.
-- [Modal Cobalt8M controller](https://speakingcolors.github.io/cobalt8m-controller-vst/): MIDI controller plugin (VST3 and standalone) for the Modal Cobalt8M: sends and receives its CC messages from your DAW. Early build. (test build)
+- [Novation Peak controller](https://speakingcolors.github.io/linux-peak-controller/): Edit and automate your Novation Peak from your DAW. (test build)
+- [Novation UltraNova controller](https://speakingcolors.github.io/linux-ultranova-controller/): Edit your Novation UltraNova or MiniNova from your DAW on Linux. (test build)
+- [Korg minilogue xd controller](https://speakingcolors.github.io/minilogue-xd-controller/): Edit and automate your Korg minilogue xd from your DAW. (test build)
+- [Korg drumlogue controller](https://speakingcolors.github.io/drumlogue-linux-controller/): Edit and automate your Korg drumlogue from your DAW on Linux. (test build)
+- [Behringer JT-4000 controller](https://speakingcolors.github.io/jt4000-vst/): Edit and automate your Behringer JT-4000 Micro from your DAW. (test build)
+- [Behringer PRO VS Mini controller](https://speakingcolors.github.io/provsmini-vst/): A controller for the Behringer PRO VS Mini vector synth, in planning.
+- [Yamaha MODX M controller](https://speakingcolors.github.io/modxm-controller-vst/): Edit and automate your Yamaha MODX M from your DAW. (test build)
+- [MX400 controller](https://speakingcolors.github.io/mx400-vst-linux/): Control your Lexicon MX400 effects unit from your DAW. (test build)
+- [M-VAVE FM-1 controller](https://speakingcolors.github.io/mwave-fm1-linux-vst/): A controller for the M-VAVE FM-1 on Linux, early work in progress.
+- [Modal Cobalt8M controller](https://speakingcolors.github.io/cobalt8m-controller-vst/): Edit and automate your Modal Cobalt8M from your DAW. (test build)
 
 ## Recipe book
 
 One book for synths that have no patch memory: write down your sounds as recipes.
 
-- [Synth Cook Book](https://speakingcolors.github.io/synth-cook-book/): A patch recipe book for synths without patch memory: Behringer Pro-1, CAT, TD-3-MO and TD-3. It draws each front panel, keeps your recipes in the browser, and works offline. (test build)
+- [Synth Cook Book](https://speakingcolors.github.io/synth-cook-book/): A patch recipe book for synths with no memory: Pro-1, CAT, TD-3-MO and TD-3. (test build)
 
 ## Korg minilogue xd and drumlogue units
 
 Oscillator and effect units for the Korg minilogue xd and drumlogue.
 
-- [MegaSaw XD](https://speakingcolors.github.io/megasaw-xd/): Bigger SuperSaw oscillator for the Korg minilogue xd: two JP-8000 style layers, up to 11 voices each, saw, square, pulse, glass or Ah vocal waves. Free.
-- [hypersaw-xd](https://speakingcolors.github.io/hypersaw-xd/): Three layers of JP-8000 style supersaw in one oscillator for the Korg minilogue xd: 7 detuned voices per layer, saw, square, glass and Ah vocal waves. (test build)
-- [sawwiden-xd](https://speakingcolors.github.io/sawwiden-xd/): Mono-safe stereo widener unit for the Korg minilogue xd that spreads supersaws without phasing; bass stays centered. (test build)
-- [hypersaw-drumlogue](https://speakingcolors.github.io/hypersaw-drumlogue/): JP-8000 style supersaw oscillator for the Korg drumlogue. Early work in progress.
-- [HyperSawX](https://speakingcolors.github.io/super-duper-stuff/): Free JP-8000 style SuperSaw user oscillator for the Korg minilogue xd: 15 detuned saws, sub oscillator, analog-style drift and vibrato.
+- [MegaSaw XD](https://speakingcolors.github.io/megasaw-xd/): A bigger supersaw oscillator for the Korg minilogue xd.
+- [hypersaw-xd](https://speakingcolors.github.io/hypersaw-xd/): Three layers of supersaw in one oscillator for the Korg minilogue xd. (test build)
+- [sawwiden-xd](https://speakingcolors.github.io/sawwiden-xd/): A stereo widener for the Korg minilogue xd that keeps your bass in the middle. (test build)
+- [hypersaw-drumlogue](https://speakingcolors.github.io/hypersaw-drumlogue/): A supersaw oscillator for the Korg drumlogue.
+- [HyperSawX](https://speakingcolors.github.io/super-duper-stuff/): A 15-voice supersaw oscillator for the Korg minilogue xd.
 
 ## For developers
 
 Shared building blocks and the Claude skills used to make this software.
 
-- [cat-ui](https://speakingcolors.github.io/cat-ui/): Shared JUCE look and feel for the Studio 87 cat plugins: wood side cheeks, knobs, header, resizable from every corner and edge with locked aspect ratio.
-- [claude-skills](https://speakingcolors.github.io/claude-skills/): The Claude skills I made for building Studio 87 software, free to reuse. (test build)
+- [cat-ui](https://speakingcolors.github.io/cat-ui/): The shared look of every Studio 87 plugin.
+- [claude-skills](https://speakingcolors.github.io/claude-skills/): Free Claude skills for music makers, DJs and Linux users. (test build)
