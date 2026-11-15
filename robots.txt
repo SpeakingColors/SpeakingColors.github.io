@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://speakingcolors.github.io/sitemap.xml
