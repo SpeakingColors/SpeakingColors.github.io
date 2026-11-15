@@ -15,28 +15,38 @@ Free open source synth plugins for bass, leads, supersaws and wavetables.
 - [JPurrr-8000](https://speakingcolors.github.io/jpurrr-8000/): Free open source JP-8000 style supersaw synth for trance (VST3 and standalone). (test build)
 - [Whiskerwave](https://speakingcolors.github.io/whiskerwave-vst/): Free open source wavetable synth VST3 for Linux: morphing wavetable oscillators, layered voices, mod matrix, built-in FX, sample your own hardware into wavetables. CC0 waves.
 
-## Effects and dynamics
+## Compressors, limiters and EQ
 
-Compressors, limiters, EQ, saturation, reverb and more.
+Compressors, limiters, transient shaping and EQ in classic and new styles.
+
+- [Apurrr2500](https://speakingcolors.github.io/apurrr2500/): Free open source bus compressor plugin (VST3) for Linux, Windows and macOS. (test build)
+- [FetlinePounce](https://speakingcolors.github.io/fetlinepounce/): Free open source FET compressor plugin in the style of the 1176 (VST3) for Linux, Windows and macOS. (test build)
+- [LapCat2A](https://speakingcolors.github.io/lapcat2a/): Free open source optical compressor and limiter plugin in the LA-2A style (VST3). (test build)
+- [Furchild](https://speakingcolors.github.io/furchild/): Free open source variable-mu tube compressor plugin in the Fairchild style (VST3). (test build)
+- [Purrrstressor](https://speakingcolors.github.io/purrrstressor/): Free open source compressor plugin in the Distressor style (VST3) for Linux, Windows and macOS. (test build)
+- [PunchPaw](https://speakingcolors.github.io/punchpaw/): Free open source kick and drum limiter plugin (VST3) for Linux, Windows and macOS. (test build)
+- [Clawpressor](https://speakingcolors.github.io/clawpressor-vst/): Free open source multiband compressor and limiter VST3 for Linux. Up to 4 bands, per band limiter, drawable rhythmic gain patterns, scopes. Defaults for house, UK hardcore and hardstyle. (test build)
+- [MultiPaw Compressor](https://speakingcolors.github.io/multipawcompressor/): Free open source multiband compressor and limiter with multiband sidechain in one plugin (VST3), Linux first. Test build. (test build)
+- [ClawShaper](https://speakingcolors.github.io/clawshaper/): Multiband transient shaper with limiter (VST3). (test build)
+- [Pawltec](https://speakingcolors.github.io/pawltec/): Free open source tube program EQ plugin in the Pultec style (VST3) for Linux, Windows and macOS. (test build)
+- [CatRack](https://speakingcolors.github.io/catrack/): Channel strip plugin with 28 built-in units from the Studio 87 effects, in one all-in-one plugin. (test build)
+
+## Saturation, distortion and tone
+
+Warmth, grit, bass weight and loudness.
 
 - [Cat Crusher](https://speakingcolors.github.io/catcrusher-vst/): Free open source distortion, compressor and filter plugin (VST3 and standalone) for Linux. Tube, fold and hard clip shapers, multimode filter, live displays. Early. (test build)
 - [Fat Cat](https://speakingcolors.github.io/fatcat/): Free open source saturator (VST3 and standalone) for Linux, macOS and Windows that keeps the dynamics of your sound. Drive, fuzz, colour, stereo, mix. (test build)
-- [Cat Spacer](https://speakingcolors.github.io/catspacer/): Free open source spectral sidechain ducker (VST3 and standalone) for Linux: the sidechain spectrum carves gaps in the main signal so a lead and a vocal or kick share the mix. 64 bands. (test build)
 - [Meowbass](https://speakingcolors.github.io/meowbass/): Free open source psychoacoustic bass enhancer (VST3 and standalone) for Linux: makes harmonics from the bass so small speakers suggest deep bass. Early. (test build)
 - [Meowximizer](https://speakingcolors.github.io/meowximizer/): Free open source sonic enhancer, bass enhancer and exciter (VST3 and standalone) for Linux. Three bands, OTT-style squeeze, saturation and output limiter. Early. (test build)
-- [Scaredy Cat](https://speakingcolors.github.io/scaredy-cat/): Free open source volume shaper plugin (VST3 and standalone): three bands with drawn volume curves for kick pumps, trance gates and chops. Tempo synced. (test build)
+
+## Space, rhythm and special effects
+
+Reverb, ducking, volume shaping, phase fixing and freeze effects.
+
 - [shimmerstuff](https://speakingcolors.github.io/shimmerstuff/): Shimmer reverb and shimmer delay plugin (VST3 and standalone) for Linux, Windows and macOS, with a routing view. Plate, hall, shimmer and velvet reverbs. By Studio 87. (test build)
-- [Clawpressor](https://speakingcolors.github.io/clawpressor-vst/): Free open source multiband compressor and limiter VST3 for Linux. Up to 4 bands, per band limiter, drawable rhythmic gain patterns, scopes. Defaults for house, UK hardcore and hardstyle. (test build)
-- [MultiPaw Compressor](https://speakingcolors.github.io/multipawcompressor/): Free open source multiband compressor and limiter with multiband sidechain in one plugin (VST3), Linux first. Test build. (test build)
-- [Apurrr2500](https://speakingcolors.github.io/apurrr2500/): Free open source bus compressor plugin (VST3) for Linux, Windows and macOS. (test build)
-- [PunchPaw](https://speakingcolors.github.io/punchpaw/): Free open source kick and drum limiter plugin (VST3) for Linux, Windows and macOS. (test build)
-- [Furchild](https://speakingcolors.github.io/furchild/): Free open source variable-mu tube compressor plugin in the Fairchild style (VST3). (test build)
-- [FetlinePounce](https://speakingcolors.github.io/fetlinepounce/): Free open source FET compressor plugin in the style of the 1176 (VST3) for Linux, Windows and macOS. (test build)
-- [LapCat2A](https://speakingcolors.github.io/lapcat2a/): Free open source optical compressor and limiter plugin in the LA-2A style (VST3). (test build)
-- [Pawltec](https://speakingcolors.github.io/pawltec/): Free open source tube program EQ plugin in the Pultec style (VST3) for Linux, Windows and macOS. (test build)
-- [Purrrstressor](https://speakingcolors.github.io/purrrstressor/): Free open source compressor plugin in the Distressor style (VST3) for Linux, Windows and macOS. (test build)
-- [ClawShaper](https://speakingcolors.github.io/clawshaper/): Multiband transient shaper with limiter (VST3). (test build)
-- [CatRack](https://speakingcolors.github.io/catrack/): Channel strip plugin with 28 built-in units from the Studio 87 effects, in one all-in-one plugin. (test build)
+- [Cat Spacer](https://speakingcolors.github.io/catspacer/): Free open source spectral sidechain ducker (VST3 and standalone) for Linux: the sidechain spectrum carves gaps in the main signal so a lead and a vocal or kick share the mix. 64 bands. (test build)
+- [Scaredy Cat](https://speakingcolors.github.io/scaredy-cat/): Free open source volume shaper plugin (VST3 and standalone): three bands with drawn volume curves for kick pumps, trance gates and chops. Tempo synced. (test build)
 - [phasepaw](https://speakingcolors.github.io/phasepaw/): Phase alignment plugin for kick and bass, for better mono compatibility. Free, open source, VST3.
 - [Hairball](https://speakingcolors.github.io/hairball/): Hairball: free open source grain-based audio freeze and transform plugin (VST3, instrument and FX) for dance, house, UK hardcore and hardstyle. Linux first. (test build)
 
