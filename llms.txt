@@ -5,6 +5,7 @@
 Website: https://speakingcolors.github.io/
 Source code and releases: https://github.com/SpeakingColors
 Support: https://ko-fi.com/studio87
+YouTube: https://www.youtube.com/@sonatural_
 About supporting the project: https://speakingcolors.github.io/support/
 Privacy: https://speakingcolors.github.io/privacy/
 
@@ -74,6 +75,11 @@ Editors, analysers, sample manager, mixer and the Gear Updater launcher.
 - [Whisker Scope](https://speakingcolors.github.io/whiskerscope/): See your sound: scope, spectrum and frequency analyser. (test build)
 - [WhiskerMix](https://speakingcolors.github.io/whiskermix/): A TotalMix-style mixer and studio hub for Linux. (test build)
 - [Gear Updater](https://speakingcolors.github.io/gearupdater/): One app to browse, download and update all Studio 87 software. (test build)
+
+## TV apps
+
+A calmer home screen for your TV.
+
 - [Stardrift TV Launcher](https://speakingcolors.github.io/stardrifttvlauncher/): A calm, ad-free home screen for Google TV with a slowly drifting night sky.
 
 ## Hardware controller plugins
