@@ -145,7 +145,7 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(-
 <a class="skip" href="#main">Skip to content</a>
 <div class="top"><div class="wrap"><a class="brand" href="/"><svg class="logo" viewBox="0 0 48 48" aria-hidden="true"><path d="M8 40V10l9 8h14l9-8v30z" fill="none" stroke="#ff6aa5" stroke-width="3.5" stroke-linejoin="round"/><circle cx="18" cy="28" r="2.4" fill="#2dd4bf"/><circle cx="30" cy="28" r="2.4" fill="#2dd4bf"/><path d="M3 30l7 1M3 36l7-2M45 30l-7 1M45 36l-7-2" stroke="#2dd4bf" stroke-width="2.2" stroke-linecap="round"/></svg>STUDIO 87</a><nav class="nav"><a class="keep" href="/#all">Software</a><a href="/#synths">Synths</a><a href="/#dynamics">Effects</a><a href="/#hardware-controllers">Controllers</a><a href="/gearupdater/">Gear Updater</a><button class="tog" id="tog" type="button" aria-label="Switch between light and dark mode">Theme</button><a class="pill" href="https://ko-fi.com/studio87">Ko-fi</a></nav></div></div>
 <main id="main"><div class="wrap"><p class="crumbs"><a href="/">Studio 87</a> › <a href="/#dynamics">Compressors, limiters and EQ</a> › LapCat2A</p>
-<div class="phero"><div><div class="try" data-src="/try/lapcat2a.html" data-title="LapCat2A interactive mockup" style="aspect-ratio:1200 / 650"><img src="/img/full/LapCat2A.jpg" alt="LapCat2A screenshot" width="1200" height="650"><button class="tbtn" type="button">&#9654; Try the interface</button></div><p class="tnote">Interactive mockup of the interface: click and drag the controls. The real plugin makes the sound. <a href="/try/lapcat2a.html" target="_blank" rel="noopener">Open full screen</a></p></div><div>
+<div class="phero"><div><div class="try" data-src="/try/lapcat2a.html" data-title="LapCat2A interactive mockup" style="aspect-ratio:1200 / 650"><img src="/img/full/LapCat2A.jpg" alt="LapCat2A screenshot" width="1200" height="650"><button class="tbtn" type="button">&#9654; Try the interface</button></div><p class="tnote">Interactive mockup of the interface: click and drag the controls. The real plugin makes the sound. <a href="/play/lapcat2a/">Open full screen</a></p></div><div>
 <div style="margin-bottom:12px"><span class="lab teal">Dynamics</span> <span class="badge">TEST BUILD</span></div>
 <h1 class="hd">LapCat2A</h1><p class="lead">Free open source optical compressor and limiter plugin in the LA-2A style (VST3).</p>
 <a class="btn p" href="https://github.com/SpeakingColors/LapCat2A/releases/tag/v0.1.1">⬇ Download v0.1.1</a> <a class="btn o" href="https://github.com/SpeakingColors/LapCat2A">View source</a>
@@ -161,7 +161,16 @@ function cur(){var t=r.getAttribute('data-theme');if(t)return t;return window.ma
 function label(){b.textContent=cur()==='dark'?'Light':'Dark'}
 b.addEventListener('click',function(){var n=cur()==='dark'?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem('s87-theme',n)}catch(e){}label()});label()})();
 </script><script>
-(function(){var b=document.querySelector('.try .tbtn');if(!b)return;var w=b.parentNode;b.addEventListener('click',function(){var f=document.createElement('iframe');f.src=w.getAttribute('data-src');f.title=w.getAttribute('data-title');f.setAttribute('sandbox','allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox');f.setAttribute('loading','eager');w.innerHTML='';w.appendChild(f);f.focus()})})();
+(function(){var w=document.querySelector('.try');if(!w)return;var b=w.querySelector('.tbtn');if(!b)return;var VW=1100;
+b.addEventListener('click',function(){var poster=w.innerHTML;var f=document.createElement('iframe');f.src=w.getAttribute('data-src');f.title=w.getAttribute('data-title');
+f.setAttribute('sandbox','allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox');
+f.style.cssText='position:absolute;left:0;top:0;width:'+VW+'px;height:1400px;border:0;transform-origin:0 0;opacity:0;transition:opacity .4s';
+b.textContent='Loading...';b.disabled=true;w.appendChild(f);var H=0;
+function fit(){if(!H)return;var s=w.clientWidth/VW;f.style.height=H+'px';f.style.transform='scale('+s+')';w.style.aspectRatio=VW+' / '+H}
+f.addEventListener('load',function(){setTimeout(function(){try{var d=f.contentDocument,cw=f.contentWindow,bot=0;
+[].forEach.call(d.body.children,function(el){var cs=cw.getComputedStyle(el);if(cs.position==='fixed'||cs.display==='none'||el.tagName==='SCRIPT'||el.tagName==='STYLE')return;var r=el.getBoundingClientRect();if(r.height>2)bot=Math.max(bot,r.bottom)});
+H=Math.ceil(Math.max(320,bot+10));[].slice.call(w.children).forEach(function(c){if(c!==f)w.removeChild(c)});fit();f.style.opacity=1;f.focus()}catch(e){f.style.opacity=1}},900)});
+if('ResizeObserver' in window)new ResizeObserver(fit).observe(w);window.addEventListener('resize',fit)})})();
 </script><script>
 (function(){var R=document.documentElement;if(!R.classList.contains('js'))return;
 var vh=window.innerHeight;window.addEventListener('resize',function(){vh=window.innerHeight},{passive:true});
