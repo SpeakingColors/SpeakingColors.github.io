@@ -80,7 +80,7 @@ Editors, analysers, sample manager, mixer and the Gear Updater launcher.
 
 A calmer home screen for your TV.
 
-- [Stardrift TV Launcher](https://speakingcolors.github.io/stardrifttvlauncher/): A calm, ad-free home screen for Google TV with a slowly drifting night sky.
+- [Stardrift TV Launcher](https://speakingcolors.github.io/stardrifttvlauncher/): A calm, ad-free home screen for Google TV: a slowly drifting night sky, your apps, your news, your shows.
 
 ## Hardware controller plugins
 
