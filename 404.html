@@ -172,7 +172,7 @@ f.setAttribute('sandbox','allow-scripts allow-same-origin allow-popups allow-pop
 f.style.cssText='position:absolute;left:0;top:0;width:'+VW+'px;height:1400px;border:0;transform-origin:0 0;opacity:0;transition:opacity .4s';
 b.textContent='Loading...';b.disabled=true;w.appendChild(f);var H=0;
 function fit(){if(!H)return;var s=w.clientWidth/VW;f.style.height=H+'px';f.style.transform='scale('+s+')';w.style.aspectRatio=VW+' / '+H}
-f.addEventListener('load',function(){var prev=-1,tries=0;
+f.addEventListener('load',function(){var R=parseFloat(w.getAttribute('data-ratio')||0);if(R){H=Math.round(VW*R);[].slice.call(w.children).forEach(function(c){if(c!==f)w.removeChild(c)});fit();f.style.opacity=1;f.focus();if('ResizeObserver' in window)new ResizeObserver(fit).observe(w);return}var prev=-1,tries=0;
 function measure(){var d=f.contentDocument,cw=f.contentWindow,bot=0;
 var vh=cw.innerHeight;function fixedFull(el){var cs=cw.getComputedStyle(el),r=el.getBoundingClientRect();return cs.position==='fixed'&&r.height>=vh*0.97}
 function skip(el){var cs=cw.getComputedStyle(el);return(cs.position==='fixed'&&!fixedFull(el))||cs.display==='none'||el.tagName==='SCRIPT'||el.tagName==='STYLE'}
