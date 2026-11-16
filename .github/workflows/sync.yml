@@ -1,0 +1,35 @@
+name: Sync the site with the repos
+
+# Every 30 minutes (and on demand) this reads the public SpeakingColors repos,
+# rebuilds the site with tools/sync.py and publishes if all checks pass.
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: site-sync
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pages: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Rebuild and publish
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python3 -I tools/sync.py "$GITHUB_WORKSPACE/tools" "$GITHUB_WORKSPACE" --publish | tee "$RUNNER_TEMP/report.txt"
+          if grep -q "^PUBLISHED" "$RUNNER_TEMP/report.txt"; then
+            gh api -X POST "repos/$GITHUB_REPOSITORY/pages/builds" || true
+          fi
+          if grep -q "PROBLEMS\|FAILED" "$RUNNER_TEMP/report.txt"; then
+            echo "::error::The sync found problems and did not publish. See the report above."
+            exit 1
+          fi
