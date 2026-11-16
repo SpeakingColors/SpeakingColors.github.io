@@ -22,7 +22,12 @@ def tojpg(src, out, q, size):
     if shutil.which("sips"):
         sh(["sips", "-s", "format", "jpeg", "-s", "formatOptions", str(q), "-Z", str(size), src, "--out", out])
     else:
-        sh(["convert", src + "[0]", "-background", "#141618", "-alpha", "remove", "-alpha", "off", "-resize", f"{size}x{size}>", "-quality", str(q), out])
+        from PIL import Image
+        im = Image.open(src)
+        if im.mode in ("RGBA", "LA", "P"):
+            im = im.convert("RGBA"); bg = Image.new("RGB", im.size, (20, 22, 24)); bg.paste(im, mask=im.split()[3]); im = bg
+        else: im = im.convert("RGB")
+        im.thumbnail((size, size), Image.LANCZOS); im.save(out, "JPEG", quality=q, optimize=True)
 
 for _d in ("shots", "img/full", "img/thumb", "audio"):
     os.makedirs(f"{S}/{_d}", exist_ok=True)

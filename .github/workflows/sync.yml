@@ -21,10 +21,14 @@ jobs:
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
+      - name: Install the image library
+        run: sudo apt-get install -y -qq python3-pil
       - name: Rebuild and publish
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
         run: |
+          set -eo pipefail
           python3 -I tools/sync.py "$GITHUB_WORKSPACE/tools" "$GITHUB_WORKSPACE" --publish | tee "$RUNNER_TEMP/report.txt"
           if grep -q "^PUBLISHED" "$RUNNER_TEMP/report.txt"; then
             gh api -X POST "repos/$GITHUB_REPOSITORY/pages/builds" || true

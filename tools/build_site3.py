@@ -23,8 +23,11 @@ def dims(path):
         o = subprocess.run(["sips", "-g", "pixelWidth", "-g", "pixelHeight", path], capture_output=True, text=True).stdout
         w = re.search(r"pixelWidth: (\d+)", o); h = re.search(r"pixelHeight: (\d+)", o)
         return (int(w.group(1)), int(h.group(1))) if w and h else (1200, 700)
-    o = subprocess.run(["identify", "-format", "%w %h", path], capture_output=True, text=True).stdout.split()
-    return (int(o[0]), int(o[1])) if len(o) == 2 else (1200, 700)
+    try:
+        from PIL import Image
+        return Image.open(path).size
+    except Exception:
+        return (1200, 700)
 
 os.makedirs(OUT + "/img", exist_ok=True); os.makedirs(OUT + "/fonts", exist_ok=True)
 for d in ("full", "thumb"):
