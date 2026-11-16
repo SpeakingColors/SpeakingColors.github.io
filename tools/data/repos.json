@@ -1,5 +1,108 @@
 [
  {
+  "name": "FetlinePounce",
+  "description": "Free open source FET compressor plugin in the style of the 1176 (VST3) for Linux, Windows and macOS.",
+  "topics": [
+   "1176",
+   "audio-plugin",
+   "compressor",
+   "cpp",
+   "dynamics",
+   "free-vst",
+   "juce",
+   "limiter",
+   "linux-audio",
+   "music-production",
+   "open-source",
+   "vst3",
+   "fet-compressor"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-16T01:53:47Z",
+  "release": [
+   "v0.1.0",
+   "https://github.com/SpeakingColors/FetlinePounce/releases/tag/v0.1.0",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "CatRack",
+  "description": "Channel strip plugin with 28 built-in units from the Studio 87 effects, in one all-in-one plugin.",
+  "topics": [
+   "audio-plugin",
+   "channel-strip",
+   "cpp",
+   "effects",
+   "free-vst",
+   "juce",
+   "linux-audio",
+   "mixing",
+   "music-production",
+   "open-source",
+   "vst3"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-16T01:53:13Z",
+  "release": [
+   "v0.1.3",
+   "https://github.com/SpeakingColors/CatRack/releases/tag/v0.1.3",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "Purrrstressor",
+  "description": "Free open source compressor plugin in the Distressor style (VST3) for Linux, Windows and macOS.",
+  "topics": [
+   "audio-plugin",
+   "compressor",
+   "cpp",
+   "dynamics",
+   "free-vst",
+   "juce",
+   "linux-audio",
+   "music-production",
+   "open-source",
+   "vst3",
+   "distressor"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-16T01:49:47Z",
+  "release": [
+   "v0.1.0",
+   "https://github.com/SpeakingColors/Purrrstressor/releases/tag/v0.1.0",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "PunchPaw",
+  "description": "Free open source kick and drum limiter plugin (VST3) for Linux, Windows and macOS.",
+  "topics": [
+   "audio-plugin",
+   "cpp",
+   "dynamics",
+   "free-vst",
+   "juce",
+   "kick",
+   "limiter",
+   "linux-audio",
+   "music-production",
+   "open-source",
+   "vst3",
+   "drum-limiter"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-16T01:49:35Z",
+  "release": [
+   "v0.1.0",
+   "https://github.com/SpeakingColors/PunchPaw/releases/tag/v0.1.0",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
   "name": "Furchild",
   "description": "Free open source variable-mu tube compressor plugin in the Fairchild style (VST3).",
   "topics": [
@@ -18,10 +121,89 @@
    "variable-mu"
   ],
   "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T01:44:56Z",
+  "pushed": "2026-11-16T01:49:33Z",
   "release": [
    "v0.1.0",
    "https://github.com/SpeakingColors/Furchild/releases/tag/v0.1.0",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "Pawltec",
+  "description": "Free open source tube program EQ plugin in the Pultec style (VST3) for Linux, Windows and macOS.",
+  "topics": [
+   "audio-plugin",
+   "cpp",
+   "eq",
+   "equalizer",
+   "free-vst",
+   "juce",
+   "linux-audio",
+   "mastering",
+   "music-production",
+   "open-source",
+   "vst3",
+   "tube-eq"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-16T01:49:30Z",
+  "release": [
+   "v0.1.1",
+   "https://github.com/SpeakingColors/Pawltec/releases/tag/v0.1.1",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "LapCat2A",
+  "description": "Free open source optical compressor and limiter plugin in the LA-2A style (VST3).",
+  "topics": [
+   "audio-plugin",
+   "compressor",
+   "cpp",
+   "dynamics",
+   "free-vst",
+   "juce",
+   "limiter",
+   "linux-audio",
+   "music-production",
+   "open-source",
+   "vst3",
+   "la-2a",
+   "opto-compressor"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-16T01:49:26Z",
+  "release": [
+   "v0.1.1",
+   "https://github.com/SpeakingColors/LapCat2A/releases/tag/v0.1.1",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "Apurrr2500",
+  "description": "Free open source bus compressor plugin (VST3) for Linux, Windows and macOS.",
+  "topics": [
+   "audio-plugin",
+   "bus-compressor",
+   "compressor",
+   "cpp",
+   "dynamics",
+   "free-vst",
+   "juce",
+   "linux-audio",
+   "mastering",
+   "music-production",
+   "open-source",
+   "vst3"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-16T01:49:13Z",
+  "release": [
+   "v0.1.2",
+   "https://github.com/SpeakingColors/Apurrr2500/releases/tag/v0.1.2",
    "true"
   ],
   "shot": "docs/screenshot.png"
@@ -542,59 +724,6 @@
   "shot": "docs/screenshot.png"
  },
  {
-  "name": "PunchPaw",
-  "description": "Free open source kick and drum limiter plugin (VST3) for Linux, Windows and macOS.",
-  "topics": [
-   "audio-plugin",
-   "cpp",
-   "dynamics",
-   "free-vst",
-   "juce",
-   "kick",
-   "limiter",
-   "linux-audio",
-   "music-production",
-   "open-source",
-   "vst3",
-   "drum-limiter"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-15T06:33:24Z",
-  "release": [
-   "v0.1.0",
-   "https://github.com/SpeakingColors/PunchPaw/releases/tag/v0.1.0",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "FetlinePounce",
-  "description": "Free open source FET compressor plugin in the style of the 1176 (VST3) for Linux, Windows and macOS.",
-  "topics": [
-   "1176",
-   "audio-plugin",
-   "compressor",
-   "cpp",
-   "dynamics",
-   "free-vst",
-   "juce",
-   "limiter",
-   "linux-audio",
-   "music-production",
-   "open-source",
-   "vst3",
-   "fet-compressor"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-15T06:32:28Z",
-  "release": [
-   "v0.1.0",
-   "https://github.com/SpeakingColors/FetlinePounce/releases/tag/v0.1.0",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
   "name": "clawshaper",
   "description": "Multiband transient shaper with limiter (VST3).",
   "topics": [
@@ -616,110 +745,6 @@
   "release": [
    "v0.1.0",
    "https://github.com/SpeakingColors/clawshaper/releases/tag/v0.1.0",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "Pawltec",
-  "description": "Free open source tube program EQ plugin in the Pultec style (VST3) for Linux, Windows and macOS.",
-  "topics": [
-   "audio-plugin",
-   "cpp",
-   "eq",
-   "equalizer",
-   "free-vst",
-   "juce",
-   "linux-audio",
-   "mastering",
-   "music-production",
-   "open-source",
-   "vst3",
-   "tube-eq"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-15T06:27:58Z",
-  "release": [
-   "v0.1.1",
-   "https://github.com/SpeakingColors/Pawltec/releases/tag/v0.1.1",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "LapCat2A",
-  "description": "Free open source optical compressor and limiter plugin in the LA-2A style (VST3).",
-  "topics": [
-   "audio-plugin",
-   "compressor",
-   "cpp",
-   "dynamics",
-   "free-vst",
-   "juce",
-   "limiter",
-   "linux-audio",
-   "music-production",
-   "open-source",
-   "vst3",
-   "la-2a",
-   "opto-compressor"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-15T06:27:49Z",
-  "release": [
-   "v0.1.1",
-   "https://github.com/SpeakingColors/LapCat2A/releases/tag/v0.1.1",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "Apurrr2500",
-  "description": "Free open source bus compressor plugin (VST3) for Linux, Windows and macOS.",
-  "topics": [
-   "audio-plugin",
-   "bus-compressor",
-   "compressor",
-   "cpp",
-   "dynamics",
-   "free-vst",
-   "juce",
-   "linux-audio",
-   "mastering",
-   "music-production",
-   "open-source",
-   "vst3"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-15T06:27:41Z",
-  "release": [
-   "v0.1.2",
-   "https://github.com/SpeakingColors/Apurrr2500/releases/tag/v0.1.2",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "Purrrstressor",
-  "description": "Free open source compressor plugin in the Distressor style (VST3) for Linux, Windows and macOS.",
-  "topics": [
-   "audio-plugin",
-   "compressor",
-   "cpp",
-   "dynamics",
-   "free-vst",
-   "juce",
-   "linux-audio",
-   "music-production",
-   "open-source",
-   "vst3",
-   "distressor"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-15T06:27:39Z",
-  "release": [
-   "v0.1.0",
-   "https://github.com/SpeakingColors/Purrrstressor/releases/tag/v0.1.0",
    "true"
   ],
   "shot": "docs/screenshot.png"
@@ -991,31 +1016,6 @@
   "release": [
    "v0.1.0",
    "https://github.com/SpeakingColors/CATalog/releases/tag/v0.1.0",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "CatRack",
-  "description": "Channel strip plugin with 28 built-in units from the Studio 87 effects, in one all-in-one plugin.",
-  "topics": [
-   "audio-plugin",
-   "channel-strip",
-   "cpp",
-   "effects",
-   "free-vst",
-   "juce",
-   "linux-audio",
-   "mixing",
-   "music-production",
-   "open-source",
-   "vst3"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-15T05:09:41Z",
-  "release": [
-   "v0.1.3",
-   "https://github.com/SpeakingColors/CatRack/releases/tag/v0.1.3",
    "true"
   ],
   "shot": "docs/screenshot.png"
