@@ -1,5 +1,717 @@
 [
  {
+  "name": "stretch-cat-vst",
+  "description": "Sampler with time stretch (VST3 and standalone): change speed without changing pitch, or pitch without changing speed. Early, free and open source.",
+  "topics": [
+   "audio-effects",
+   "audio-plugin",
+   "cpp",
+   "free-vst",
+   "juce",
+   "linux-audio",
+   "music-production",
+   "open-source",
+   "pitch-shift",
+   "sample",
+   "sampler",
+   "time-stretch",
+   "vst3"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-16T19:55:50Z",
+  "release": [
+   "v0.3.0",
+   "https://github.com/SpeakingColors/stretch-cat-vst/releases/tag/v0.3.0",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "shimmerstuff",
+  "description": "Shimmer reverb and shimmer delay plugin (VST3 and standalone) for Linux, Windows and macOS, with a routing view. Plate, hall, shimmer and velvet reverbs. By Studio 87.",
+  "topics": [
+   "audio-plugin",
+   "cpp",
+   "delay",
+   "effects",
+   "free-vst",
+   "fx",
+   "juce",
+   "linux-audio",
+   "music-production",
+   "open-source",
+   "reverb",
+   "shimmer-reverb",
+   "vst3"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-16T19:52:31Z",
+  "release": [
+   "v0.2.0",
+   "https://github.com/SpeakingColors/shimmerstuff/releases/tag/v0.2.0",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "CatRack",
+  "description": "Channel strip plugin with 28 built-in units from the Studio 87 effects, in one all-in-one plugin.",
+  "topics": [
+   "audio-plugin",
+   "channel-strip",
+   "cpp",
+   "effects",
+   "free-vst",
+   "juce",
+   "linux-audio",
+   "mixing",
+   "music-production",
+   "open-source",
+   "vst3"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-16T19:51:02Z",
+  "release": [
+   "v0.1.3",
+   "https://github.com/SpeakingColors/CatRack/releases/tag/v0.1.3",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "scratchcatfx-vst",
+  "description": "Scratch effect plugin (VST3 and standalone): scratch, brake and backspin audio from your DAW, with EQ, colour and a 3 slot FX chain. Early, free and open source.",
+  "topics": [
+   "audio-plugin",
+   "cpp",
+   "dj",
+   "effects",
+   "free-vst",
+   "fx",
+   "juce",
+   "linux-audio",
+   "music-production",
+   "open-source",
+   "scratch",
+   "turntablism",
+   "vst3"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-16T19:48:14Z",
+  "release": [
+   "v0.2.0",
+   "https://github.com/SpeakingColors/scratchcatfx-vst/releases/tag/v0.2.0",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "scratchcatduo-vst",
+  "description": "Two DJ decks and a mixer in one plugin (VST3 and standalone). Free and open source, Linux first. Hot cues, loops, sampler, pad FX, EQ and kill switches.",
+  "topics": [
+   "audio-plugin",
+   "cpp",
+   "dj",
+   "dj-software",
+   "free-vst",
+   "juce",
+   "linux-audio",
+   "mixer",
+   "music-production",
+   "open-source",
+   "scratch",
+   "turntable",
+   "vst3"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-16T19:46:00Z",
+  "release": [
+   "v0.2.0",
+   "https://github.com/SpeakingColors/scratchcatduo-vst/releases/tag/v0.2.0",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "gearupdater",
+  "description": "Launcher for Studio 87 software: browse, download, install and update every plugin and app in one place, no GitHub hunting.",
+  "topics": [
+   "cpp",
+   "juce",
+   "linux-audio",
+   "music-production",
+   "open-source",
+   "plugin-manager",
+   "updater"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-16T19:45:39Z",
+  "release": [
+   "v0.1.2",
+   "https://github.com/SpeakingColors/gearupdater/releases/tag/v0.1.2",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "PunchPaw",
+  "description": "Free open source kick and drum limiter plugin (VST3) for Linux, Windows and macOS.",
+  "topics": [
+   "audio-plugin",
+   "cpp",
+   "dynamics",
+   "free-vst",
+   "juce",
+   "kick",
+   "limiter",
+   "linux-audio",
+   "music-production",
+   "open-source",
+   "vst3",
+   "drum-limiter"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-16T19:45:16Z",
+  "release": [
+   "v0.1.0",
+   "https://github.com/SpeakingColors/PunchPaw/releases/tag/v0.1.0",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "Clawpressor-vst",
+  "description": "Free open source multiband compressor and limiter VST3 for Linux. Up to 4 bands, per band limiter, drawable rhythmic gain patterns, scopes. Defaults for house, UK hardcore and hardstyle.",
+  "topics": [
+   "audio-plugin",
+   "compressor",
+   "cpp",
+   "dynamics",
+   "free-vst",
+   "juce",
+   "limiter",
+   "linux-audio",
+   "mastering",
+   "multiband-compressor",
+   "music-production",
+   "open-source",
+   "vst3"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-16T19:45:15Z",
+  "release": [
+   "v0.2.0",
+   "https://github.com/SpeakingColors/Clawpressor-vst/releases/tag/v0.2.0",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "purrfect-cut",
+  "description": "Audio editor and VST plugin from one install (Linux, Windows, macOS): cut, trim, fade, normalise, reverse, plus Auto-Tune style pitch pages for voices and leads. Free and open source.",
+  "topics": [
+   "audio-editor",
+   "audio-plugin",
+   "auto-tune",
+   "cpp",
+   "free-vst",
+   "juce",
+   "linux-audio",
+   "music-production",
+   "open-source",
+   "pitch-correction",
+   "sampler",
+   "vst3",
+   "wave-editor"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-16T19:44:31Z",
+  "release": [
+   "v0.2.0",
+   "https://github.com/SpeakingColors/purrfect-cut/releases/tag/v0.2.0",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "scaredy-cat",
+  "description": "Free open source volume shaper plugin (VST3 and standalone): three bands with drawn volume curves for kick pumps, trance gates and chops. Tempo synced.",
+  "topics": [
+   "audio-plugin",
+   "cpp",
+   "free-vst",
+   "gate",
+   "juce",
+   "linux-audio",
+   "music-production",
+   "open-source",
+   "sidechain",
+   "vst3",
+   "kickstart-alternative",
+   "trance-gate",
+   "volume-shaper"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-16T19:43:50Z",
+  "release": [
+   "v0.2.5",
+   "https://github.com/SpeakingColors/scaredy-cat/releases/tag/v0.2.5",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "copycat-vst",
+  "description": "Sound analyser plugin (VST3 and standalone): play a sound through it and it estimates note, key, chord, tempo, oscillator shape, voices, filter and envelope to help rebuild it. Early.",
+  "topics": [
+   "audio-analysis",
+   "audio-plugin",
+   "bpm-detection",
+   "cpp",
+   "free-vst",
+   "juce",
+   "key-detection",
+   "linux-audio",
+   "music-production",
+   "open-source",
+   "sound-design",
+   "synth",
+   "vst3"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-16T19:41:05Z",
+  "release": [
+   "v0.2.0",
+   "https://github.com/SpeakingColors/copycat-vst/releases/tag/v0.2.0",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "CATalog",
+  "description": "Sample manager for your studio (standalone and VST3): scan sample folders, search, tag, rate, favourite and preview. Early, free and open source.",
+  "topics": [
+   "audio-library",
+   "audio-plugin",
+   "cpp",
+   "free-vst",
+   "juce",
+   "linux-audio",
+   "music-production",
+   "open-source",
+   "sample-browser",
+   "sample-library",
+   "sample-manager",
+   "tagging",
+   "vst3"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-16T19:40:19Z",
+  "release": [
+   "v0.1.0",
+   "https://github.com/SpeakingColors/CATalog/releases/tag/v0.1.0",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "FetlinePounce",
+  "description": "Free open source FET compressor plugin in the style of the 1176 (VST3) for Linux, Windows and macOS.",
+  "topics": [
+   "1176",
+   "audio-plugin",
+   "compressor",
+   "cpp",
+   "dynamics",
+   "free-vst",
+   "juce",
+   "limiter",
+   "linux-audio",
+   "music-production",
+   "open-source",
+   "vst3",
+   "fet-compressor"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-16T19:38:24Z",
+  "release": [
+   "v0.1.0",
+   "https://github.com/SpeakingColors/FetlinePounce/releases/tag/v0.1.0",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "Furchild",
+  "description": "Free open source variable-mu tube compressor plugin in the Fairchild style (VST3).",
+  "topics": [
+   "audio-plugin",
+   "compressor",
+   "cpp",
+   "dynamics",
+   "free-vst",
+   "juce",
+   "limiter",
+   "linux-audio",
+   "music-production",
+   "open-source",
+   "tube-compressor",
+   "vst3",
+   "variable-mu"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-16T19:32:07Z",
+  "release": [
+   "v0.1.0",
+   "https://github.com/SpeakingColors/Furchild/releases/tag/v0.1.0",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "JPurrr-8000",
+  "description": "Free open source JP-8000 style supersaw synth for trance (VST3 and standalone).",
+  "topics": [
+   "audio-plugin",
+   "cpp",
+   "free-vst",
+   "juce",
+   "linux-audio",
+   "music-production",
+   "open-source",
+   "supersaw",
+   "synthesizer",
+   "trance",
+   "vst3",
+   "jp-8000"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-16T19:31:08Z",
+  "release": [
+   "v0.3.3-rc1",
+   "https://github.com/SpeakingColors/JPurrr-8000/releases/tag/v0.3.3-rc1",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "phasepaw",
+  "description": "Phase alignment plugin for kick and bass, for better mono compatibility. Free, open source, VST3.",
+  "topics": [
+   "audio-plugin",
+   "cpp",
+   "free-vst",
+   "juce",
+   "linux-audio",
+   "mixing",
+   "mono-compatibility",
+   "music-production",
+   "open-source",
+   "phase-alignment",
+   "vst3"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-16T19:31:05Z",
+  "release": null,
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "mx400-vst-linux",
+  "description": "Controller plugin for the MX400 on Linux. Early work in progress.",
+  "topics": [
+   "juce",
+   "linux-audio",
+   "midi-controller",
+   "open-source",
+   "vst3"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-16T19:31:03Z",
+  "release": [
+   "v0.1.2",
+   "https://github.com/SpeakingColors/mx400-vst-linux/releases/tag/v0.1.2",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "clawshaper",
+  "description": "Multiband transient shaper with limiter (VST3).",
+  "topics": [
+   "audio-plugin",
+   "cpp",
+   "dynamics",
+   "free-vst",
+   "juce",
+   "limiter",
+   "linux-audio",
+   "multiband",
+   "music-production",
+   "open-source",
+   "transient-shaper",
+   "vst3"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-16T19:30:58Z",
+  "release": [
+   "v0.1.0",
+   "https://github.com/SpeakingColors/clawshaper/releases/tag/v0.1.0",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "multipawcompressor",
+  "description": "Free open source multiband compressor and limiter with multiband sidechain in one plugin (VST3), Linux first. Test build.",
+  "topics": [
+   "audio-plugin",
+   "cpp",
+   "dynamics",
+   "free-vst",
+   "juce",
+   "limiter",
+   "linux-audio",
+   "multiband-compressor",
+   "music-production",
+   "open-source",
+   "sidechain",
+   "vst3"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-16T19:30:56Z",
+  "release": [
+   "v0.1.1",
+   "https://github.com/SpeakingColors/multipawcompressor/releases/tag/v0.1.1",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "Meowcorder",
+  "description": "Meowcorder: work in progress audio editor and recorder by Studio 87.",
+  "topics": [
+   "audio-editor",
+   "audio-recorder",
+   "linux-audio",
+   "music-production",
+   "open-source"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-16T19:30:53Z",
+  "release": [
+   "v0.2.1",
+   "https://github.com/SpeakingColors/Meowcorder/releases/tag/v0.2.1",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "whiskerscope",
+  "description": "Whisker Scope: free open source analyser plugin (VST3 and standalone): scope, spectrum and frequency analyzer from Studio 87.",
+  "topics": [
+   "analyzer",
+   "audio-analysis",
+   "audio-plugin",
+   "cpp",
+   "free-vst",
+   "juce",
+   "linux-audio",
+   "metering",
+   "music-production",
+   "open-source",
+   "oscilloscope",
+   "spectrum-analyzer",
+   "vst3"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-16T19:30:50Z",
+  "release": [
+   "v0.3.1",
+   "https://github.com/SpeakingColors/whiskerscope/releases/tag/v0.3.1",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "KickKitten",
+  "description": "Free open source trance kick maker (VST3 and standalone).",
+  "topics": [
+   "audio-plugin",
+   "cpp",
+   "free-vst",
+   "juce",
+   "kick-drum",
+   "kick-generator",
+   "linux-audio",
+   "music-production",
+   "open-source",
+   "trance",
+   "vst3"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-16T19:30:48Z",
+  "release": [
+   "v0.1.1",
+   "https://github.com/SpeakingColors/KickKitten/releases/tag/v0.1.1",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "hairball",
+  "description": "Hairball: free open source grain-based audio freeze and transform plugin (VST3, instrument and FX) for dance, house, UK hardcore and hardstyle. Linux first.",
+  "topics": [
+   "audio-plugin",
+   "cpp",
+   "effects",
+   "free-vst",
+   "freeze",
+   "granular",
+   "granular-synthesis",
+   "juce",
+   "linux-audio",
+   "music-production",
+   "open-source",
+   "sampler",
+   "vst3"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-16T19:30:46Z",
+  "release": [
+   "v0.1.1",
+   "https://github.com/SpeakingColors/hairball/releases/tag/v0.1.1",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "purrrvoicechannel",
+  "description": "Free open source tube channel strip for voices (design mockup): tube preamp, compressor, de-esser, gate and 4 band EQ in one channel. VST3 planned, Linux first.",
+  "topics": [
+   "audio-plugin",
+   "channel-strip",
+   "compressor",
+   "de-esser",
+   "design-mockup",
+   "equalizer",
+   "free-vst",
+   "linux-audio",
+   "music-production",
+   "noise-gate",
+   "open-source",
+   "tube",
+   "vst3"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-16T19:30:19Z",
+  "release": null,
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "Purrrstressor",
+  "description": "Free open source compressor plugin in the Distressor style (VST3) for Linux, Windows and macOS.",
+  "topics": [
+   "audio-plugin",
+   "compressor",
+   "cpp",
+   "dynamics",
+   "free-vst",
+   "juce",
+   "linux-audio",
+   "music-production",
+   "open-source",
+   "vst3",
+   "distressor"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-16T19:30:03Z",
+  "release": [
+   "v0.1.0",
+   "https://github.com/SpeakingColors/Purrrstressor/releases/tag/v0.1.0",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "Pawltec",
+  "description": "Free open source tube program EQ plugin in the Pultec style (VST3) for Linux, Windows and macOS.",
+  "topics": [
+   "audio-plugin",
+   "cpp",
+   "eq",
+   "equalizer",
+   "free-vst",
+   "juce",
+   "linux-audio",
+   "mastering",
+   "music-production",
+   "open-source",
+   "vst3",
+   "tube-eq"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-16T19:29:54Z",
+  "release": [
+   "v0.1.1",
+   "https://github.com/SpeakingColors/Pawltec/releases/tag/v0.1.1",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "LapCat2A",
+  "description": "Free open source optical compressor and limiter plugin in the LA-2A style (VST3).",
+  "topics": [
+   "audio-plugin",
+   "compressor",
+   "cpp",
+   "dynamics",
+   "free-vst",
+   "juce",
+   "limiter",
+   "linux-audio",
+   "music-production",
+   "open-source",
+   "vst3",
+   "la-2a",
+   "opto-compressor"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-16T19:29:47Z",
+  "release": [
+   "v0.1.1",
+   "https://github.com/SpeakingColors/LapCat2A/releases/tag/v0.1.1",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "Apurrr2500",
+  "description": "Free open source bus compressor plugin (VST3) for Linux, Windows and macOS.",
+  "topics": [
+   "audio-plugin",
+   "bus-compressor",
+   "compressor",
+   "cpp",
+   "dynamics",
+   "free-vst",
+   "juce",
+   "linux-audio",
+   "mastering",
+   "music-production",
+   "open-source",
+   "vst3"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-16T19:29:19Z",
+  "release": [
+   "v0.1.2",
+   "https://github.com/SpeakingColors/Apurrr2500/releases/tag/v0.1.2",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
   "name": "catcrusher-vst",
   "description": "Free open source distortion, compressor and filter plugin (VST3 and standalone) for Linux. Tube, fold and hard clip shapers, multimode filter, live displays. Early.",
   "topics": [
@@ -81,27 +793,6 @@
   "shot": "docs/screenshot.png"
  },
  {
-  "name": "gearupdater",
-  "description": "Launcher for Studio 87 software: browse, download, install and update every plugin and app in one place, no GitHub hunting.",
-  "topics": [
-   "cpp",
-   "juce",
-   "linux-audio",
-   "music-production",
-   "open-source",
-   "plugin-manager",
-   "updater"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T06:39:39Z",
-  "release": [
-   "v0.1.2",
-   "https://github.com/SpeakingColors/gearupdater/releases/tag/v0.1.2",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
   "name": "catspacer",
   "description": "Free open source spectral sidechain ducker (VST3 and standalone) for Linux: the sidechain spectrum carves gaps in the main signal so a lead and a vocal or kick share the mix. 64 bands.",
   "topics": [
@@ -124,221 +815,6 @@
   "release": [
    "v0.2.4",
    "https://github.com/SpeakingColors/catspacer/releases/tag/v0.2.4",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "PunchPaw",
-  "description": "Free open source kick and drum limiter plugin (VST3) for Linux, Windows and macOS.",
-  "topics": [
-   "audio-plugin",
-   "cpp",
-   "dynamics",
-   "free-vst",
-   "juce",
-   "kick",
-   "limiter",
-   "linux-audio",
-   "music-production",
-   "open-source",
-   "vst3",
-   "drum-limiter"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T04:31:48Z",
-  "release": [
-   "v0.1.0",
-   "https://github.com/SpeakingColors/PunchPaw/releases/tag/v0.1.0",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "stretch-cat-vst",
-  "description": "Sampler with time stretch (VST3 and standalone): change speed without changing pitch, or pitch without changing speed. Early, free and open source.",
-  "topics": [
-   "audio-effects",
-   "audio-plugin",
-   "cpp",
-   "free-vst",
-   "juce",
-   "linux-audio",
-   "music-production",
-   "open-source",
-   "pitch-shift",
-   "sample",
-   "sampler",
-   "time-stretch",
-   "vst3"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T04:31:07Z",
-  "release": [
-   "v0.3.0",
-   "https://github.com/SpeakingColors/stretch-cat-vst/releases/tag/v0.3.0",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "Furchild",
-  "description": "Free open source variable-mu tube compressor plugin in the Fairchild style (VST3).",
-  "topics": [
-   "audio-plugin",
-   "compressor",
-   "cpp",
-   "dynamics",
-   "free-vst",
-   "juce",
-   "limiter",
-   "linux-audio",
-   "music-production",
-   "open-source",
-   "tube-compressor",
-   "vst3",
-   "variable-mu"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T04:13:21Z",
-  "release": [
-   "v0.1.0",
-   "https://github.com/SpeakingColors/Furchild/releases/tag/v0.1.0",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "Clawpressor-vst",
-  "description": "Free open source multiband compressor and limiter VST3 for Linux. Up to 4 bands, per band limiter, drawable rhythmic gain patterns, scopes. Defaults for house, UK hardcore and hardstyle.",
-  "topics": [
-   "audio-plugin",
-   "compressor",
-   "cpp",
-   "dynamics",
-   "free-vst",
-   "juce",
-   "limiter",
-   "linux-audio",
-   "mastering",
-   "multiband-compressor",
-   "music-production",
-   "open-source",
-   "vst3"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T04:05:43Z",
-  "release": [
-   "v0.2.0",
-   "https://github.com/SpeakingColors/Clawpressor-vst/releases/tag/v0.2.0",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "scaredy-cat",
-  "description": "Free open source volume shaper plugin (VST3 and standalone): three bands with drawn volume curves for kick pumps, trance gates and chops. Tempo synced.",
-  "topics": [
-   "audio-plugin",
-   "cpp",
-   "free-vst",
-   "gate",
-   "juce",
-   "linux-audio",
-   "music-production",
-   "open-source",
-   "sidechain",
-   "vst3",
-   "kickstart-alternative",
-   "trance-gate",
-   "volume-shaper"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T04:03:25Z",
-  "release": [
-   "v0.2.5",
-   "https://github.com/SpeakingColors/scaredy-cat/releases/tag/v0.2.5",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "FetlinePounce",
-  "description": "Free open source FET compressor plugin in the style of the 1176 (VST3) for Linux, Windows and macOS.",
-  "topics": [
-   "1176",
-   "audio-plugin",
-   "compressor",
-   "cpp",
-   "dynamics",
-   "free-vst",
-   "juce",
-   "limiter",
-   "linux-audio",
-   "music-production",
-   "open-source",
-   "vst3",
-   "fet-compressor"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T04:00:38Z",
-  "release": [
-   "v0.1.0",
-   "https://github.com/SpeakingColors/FetlinePounce/releases/tag/v0.1.0",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "scratchcatfx-vst",
-  "description": "Scratch effect plugin (VST3 and standalone): scratch, brake and backspin audio from your DAW, with EQ, colour and a 3 slot FX chain. Early, free and open source.",
-  "topics": [
-   "audio-plugin",
-   "cpp",
-   "dj",
-   "effects",
-   "free-vst",
-   "fx",
-   "juce",
-   "linux-audio",
-   "music-production",
-   "open-source",
-   "scratch",
-   "turntablism",
-   "vst3"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T03:58:06Z",
-  "release": [
-   "v0.2.0",
-   "https://github.com/SpeakingColors/scratchcatfx-vst/releases/tag/v0.2.0",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "shimmerstuff",
-  "description": "Shimmer reverb and shimmer delay plugin (VST3 and standalone) for Linux, Windows and macOS, with a routing view. Plate, hall, shimmer and velvet reverbs. By Studio 87.",
-  "topics": [
-   "audio-plugin",
-   "cpp",
-   "delay",
-   "effects",
-   "free-vst",
-   "fx",
-   "juce",
-   "linux-audio",
-   "music-production",
-   "open-source",
-   "reverb",
-   "shimmer-reverb",
-   "vst3"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T03:53:04Z",
-  "release": [
-   "v0.2.0",
-   "https://github.com/SpeakingColors/shimmerstuff/releases/tag/v0.2.0",
    "true"
   ],
   "shot": "docs/screenshot.png"
@@ -387,85 +863,6 @@
   "release": [
    "v0.5.5",
    "https://github.com/SpeakingColors/whiskermix/releases/tag/v0.5.5",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "CATalog",
-  "description": "Sample manager for your studio (standalone and VST3): scan sample folders, search, tag, rate, favourite and preview. Early, free and open source.",
-  "topics": [
-   "audio-library",
-   "audio-plugin",
-   "cpp",
-   "free-vst",
-   "juce",
-   "linux-audio",
-   "music-production",
-   "open-source",
-   "sample-browser",
-   "sample-library",
-   "sample-manager",
-   "tagging",
-   "vst3"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T03:42:24Z",
-  "release": [
-   "v0.1.0",
-   "https://github.com/SpeakingColors/CATalog/releases/tag/v0.1.0",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "CatRack",
-  "description": "Channel strip plugin with 28 built-in units from the Studio 87 effects, in one all-in-one plugin.",
-  "topics": [
-   "audio-plugin",
-   "channel-strip",
-   "cpp",
-   "effects",
-   "free-vst",
-   "juce",
-   "linux-audio",
-   "mixing",
-   "music-production",
-   "open-source",
-   "vst3"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T03:25:09Z",
-  "release": [
-   "v0.1.3",
-   "https://github.com/SpeakingColors/CatRack/releases/tag/v0.1.3",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "scratchcatduo-vst",
-  "description": "Two DJ decks and a mixer in one plugin (VST3 and standalone). Free and open source, Linux first. Hot cues, loops, sampler, pad FX, EQ and kill switches.",
-  "topics": [
-   "audio-plugin",
-   "cpp",
-   "dj",
-   "dj-software",
-   "free-vst",
-   "juce",
-   "linux-audio",
-   "mixer",
-   "music-production",
-   "open-source",
-   "scratch",
-   "turntable",
-   "vst3"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T03:23:12Z",
-  "release": [
-   "v0.2.0",
-   "https://github.com/SpeakingColors/scratchcatduo-vst/releases/tag/v0.2.0",
    "true"
   ],
   "shot": "docs/screenshot.png"
@@ -560,60 +957,6 @@
   "shot": "docs/screenshot.png"
  },
  {
-  "name": "purrfect-cut",
-  "description": "Audio editor and VST plugin from one install (Linux, Windows, macOS): cut, trim, fade, normalise, reverse, plus Auto-Tune style pitch pages for voices and leads. Free and open source.",
-  "topics": [
-   "audio-editor",
-   "audio-plugin",
-   "auto-tune",
-   "cpp",
-   "free-vst",
-   "juce",
-   "linux-audio",
-   "music-production",
-   "open-source",
-   "pitch-correction",
-   "sampler",
-   "vst3",
-   "wave-editor"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T03:08:59Z",
-  "release": [
-   "v0.2.0",
-   "https://github.com/SpeakingColors/purrfect-cut/releases/tag/v0.2.0",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "copycat-vst",
-  "description": "Sound analyser plugin (VST3 and standalone): play a sound through it and it estimates note, key, chord, tempo, oscillator shape, voices, filter and envelope to help rebuild it. Early.",
-  "topics": [
-   "audio-analysis",
-   "audio-plugin",
-   "bpm-detection",
-   "cpp",
-   "free-vst",
-   "juce",
-   "key-detection",
-   "linux-audio",
-   "music-production",
-   "open-source",
-   "sound-design",
-   "synth",
-   "vst3"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T03:08:16Z",
-  "release": [
-   "v0.2.0",
-   "https://github.com/SpeakingColors/copycat-vst/releases/tag/v0.2.0",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
   "name": "drumlogue-linux-controller",
   "description": "Controller plugin (VST3 and standalone) for the Korg drumlogue on Linux: sends and receives CC messages from your DAW. Early build.",
   "topics": [
@@ -641,33 +984,6 @@
   "shot": "docs/screenshot.png"
  },
  {
-  "name": "whiskerscope",
-  "description": "Whisker Scope: free open source analyser plugin (VST3 and standalone): scope, spectrum and frequency analyzer from Studio 87.",
-  "topics": [
-   "analyzer",
-   "audio-analysis",
-   "audio-plugin",
-   "cpp",
-   "free-vst",
-   "juce",
-   "linux-audio",
-   "metering",
-   "music-production",
-   "open-source",
-   "oscilloscope",
-   "spectrum-analyzer",
-   "vst3"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T02:55:57Z",
-  "release": [
-   "v0.3.1",
-   "https://github.com/SpeakingColors/whiskerscope/releases/tag/v0.3.1",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
   "name": "modxm-controller-vst",
   "description": "MIDI controller plugin (VST3 and standalone) for the Yamaha MODX M: sends and receives its CC messages from your DAW. Early build.",
   "topics": [
@@ -690,58 +1006,6 @@
   "release": [
    "v0.2.1",
    "https://github.com/SpeakingColors/modxm-controller-vst/releases/tag/v0.2.1",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "hairball",
-  "description": "Hairball: free open source grain-based audio freeze and transform plugin (VST3, instrument and FX) for dance, house, UK hardcore and hardstyle. Linux first.",
-  "topics": [
-   "audio-plugin",
-   "cpp",
-   "effects",
-   "free-vst",
-   "freeze",
-   "granular",
-   "granular-synthesis",
-   "juce",
-   "linux-audio",
-   "music-production",
-   "open-source",
-   "sampler",
-   "vst3"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T02:43:29Z",
-  "release": [
-   "v0.1.1",
-   "https://github.com/SpeakingColors/hairball/releases/tag/v0.1.1",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "Purrrstressor",
-  "description": "Free open source compressor plugin in the Distressor style (VST3) for Linux, Windows and macOS.",
-  "topics": [
-   "audio-plugin",
-   "compressor",
-   "cpp",
-   "dynamics",
-   "free-vst",
-   "juce",
-   "linux-audio",
-   "music-production",
-   "open-source",
-   "vst3",
-   "distressor"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T02:41:59Z",
-  "release": [
-   "v0.1.0",
-   "https://github.com/SpeakingColors/Purrrstressor/releases/tag/v0.1.0",
    "true"
   ],
   "shot": "docs/screenshot.png"
@@ -848,162 +1112,6 @@
   "shot": "docs/screenshot.png"
  },
  {
-  "name": "multipawcompressor",
-  "description": "Free open source multiband compressor and limiter with multiband sidechain in one plugin (VST3), Linux first. Test build.",
-  "topics": [
-   "audio-plugin",
-   "cpp",
-   "dynamics",
-   "free-vst",
-   "juce",
-   "limiter",
-   "linux-audio",
-   "multiband-compressor",
-   "music-production",
-   "open-source",
-   "sidechain",
-   "vst3"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T02:30:54Z",
-  "release": [
-   "v0.1.1",
-   "https://github.com/SpeakingColors/multipawcompressor/releases/tag/v0.1.1",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "clawshaper",
-  "description": "Multiband transient shaper with limiter (VST3).",
-  "topics": [
-   "audio-plugin",
-   "cpp",
-   "dynamics",
-   "free-vst",
-   "juce",
-   "limiter",
-   "linux-audio",
-   "multiband",
-   "music-production",
-   "open-source",
-   "transient-shaper",
-   "vst3"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T02:30:50Z",
-  "release": [
-   "v0.1.0",
-   "https://github.com/SpeakingColors/clawshaper/releases/tag/v0.1.0",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "Pawltec",
-  "description": "Free open source tube program EQ plugin in the Pultec style (VST3) for Linux, Windows and macOS.",
-  "topics": [
-   "audio-plugin",
-   "cpp",
-   "eq",
-   "equalizer",
-   "free-vst",
-   "juce",
-   "linux-audio",
-   "mastering",
-   "music-production",
-   "open-source",
-   "vst3",
-   "tube-eq"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T02:30:38Z",
-  "release": [
-   "v0.1.1",
-   "https://github.com/SpeakingColors/Pawltec/releases/tag/v0.1.1",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "LapCat2A",
-  "description": "Free open source optical compressor and limiter plugin in the LA-2A style (VST3).",
-  "topics": [
-   "audio-plugin",
-   "compressor",
-   "cpp",
-   "dynamics",
-   "free-vst",
-   "juce",
-   "limiter",
-   "linux-audio",
-   "music-production",
-   "open-source",
-   "vst3",
-   "la-2a",
-   "opto-compressor"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T02:30:34Z",
-  "release": [
-   "v0.1.1",
-   "https://github.com/SpeakingColors/LapCat2A/releases/tag/v0.1.1",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "Apurrr2500",
-  "description": "Free open source bus compressor plugin (VST3) for Linux, Windows and macOS.",
-  "topics": [
-   "audio-plugin",
-   "bus-compressor",
-   "compressor",
-   "cpp",
-   "dynamics",
-   "free-vst",
-   "juce",
-   "linux-audio",
-   "mastering",
-   "music-production",
-   "open-source",
-   "vst3"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T02:30:19Z",
-  "release": [
-   "v0.1.2",
-   "https://github.com/SpeakingColors/Apurrr2500/releases/tag/v0.1.2",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "KickKitten",
-  "description": "Free open source trance kick maker (VST3 and standalone).",
-  "topics": [
-   "audio-plugin",
-   "cpp",
-   "free-vst",
-   "juce",
-   "kick-drum",
-   "kick-generator",
-   "linux-audio",
-   "music-production",
-   "open-source",
-   "trance",
-   "vst3"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T02:28:12Z",
-  "release": [
-   "v0.1.1",
-   "https://github.com/SpeakingColors/KickKitten/releases/tag/v0.1.1",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
   "name": "SupurrrSaw-VST",
   "description": "SupurrSaw: free open source supersaw, hoover and acid synth. VST3 plugin and standalone for Linux, Windows and macOS. JP-8000 style supersaw, built-in FX, presets.",
   "topics": [
@@ -1082,25 +1190,6 @@
   "shot": "docs/screenshot.png"
  },
  {
-  "name": "mx400-vst-linux",
-  "description": "Controller plugin for the MX400 on Linux. Early work in progress.",
-  "topics": [
-   "juce",
-   "linux-audio",
-   "midi-controller",
-   "open-source",
-   "vst3"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T02:21:43Z",
-  "release": [
-   "v0.1.2",
-   "https://github.com/SpeakingColors/mx400-vst-linux/releases/tag/v0.1.2",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
   "name": "jt4000-vst",
   "description": "MIDI controller plugin (VST3 and standalone) for the Behringer JT-4000 (JT-4000 Micro): sends and receives its CC messages from your DAW. Early build.",
   "topics": [
@@ -1123,32 +1212,6 @@
   "release": [
    "v0.2.0",
    "https://github.com/SpeakingColors/jt4000-vst/releases/tag/v0.2.0",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "JPurrr-8000",
-  "description": "Free open source JP-8000 style supersaw synth for trance (VST3 and standalone).",
-  "topics": [
-   "audio-plugin",
-   "cpp",
-   "free-vst",
-   "juce",
-   "linux-audio",
-   "music-production",
-   "open-source",
-   "supersaw",
-   "synthesizer",
-   "trance",
-   "vst3",
-   "jp-8000"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T02:19:22Z",
-  "release": [
-   "v0.3.3-rc1",
-   "https://github.com/SpeakingColors/JPurrr-8000/releases/tag/v0.3.3-rc1",
    "true"
   ],
   "shot": "docs/screenshot.png"
@@ -1199,25 +1262,6 @@
    "v0.1-cpu",
    "https://github.com/SpeakingColors/AI-Purrformer/releases/tag/v0.1-cpu",
    "false"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "Meowcorder",
-  "description": "Meowcorder: work in progress audio editor and recorder by Studio 87.",
-  "topics": [
-   "audio-editor",
-   "audio-recorder",
-   "linux-audio",
-   "music-production",
-   "open-source"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T02:15:23Z",
-  "release": [
-   "v0.2.1",
-   "https://github.com/SpeakingColors/Meowcorder/releases/tag/v0.2.1",
-   "true"
   ],
   "shot": "docs/screenshot.png"
  },
@@ -1282,50 +1326,6 @@
   ],
   "license": "GNU General Public License v3.0",
   "pushed": "2026-11-16T02:06:26Z",
-  "release": null,
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "phasepaw",
-  "description": "Phase alignment plugin for kick and bass, for better mono compatibility. Free, open source, VST3.",
-  "topics": [
-   "audio-plugin",
-   "cpp",
-   "free-vst",
-   "juce",
-   "linux-audio",
-   "mixing",
-   "mono-compatibility",
-   "music-production",
-   "open-source",
-   "phase-alignment",
-   "vst3"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T02:06:17Z",
-  "release": null,
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "purrrvoicechannel",
-  "description": "Free open source tube channel strip for voices (design mockup): tube preamp, compressor, de-esser, gate and 4 band EQ in one channel. VST3 planned, Linux first.",
-  "topics": [
-   "audio-plugin",
-   "channel-strip",
-   "compressor",
-   "de-esser",
-   "design-mockup",
-   "equalizer",
-   "free-vst",
-   "linux-audio",
-   "music-production",
-   "noise-gate",
-   "open-source",
-   "tube",
-   "vst3"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T02:03:55Z",
   "release": null,
   "shot": "docs/screenshot.png"
  },
