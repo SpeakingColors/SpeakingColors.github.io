@@ -1,5 +1,74 @@
 [
  {
+  "name": "linux-peak-controller",
+  "description": "Controller plugin (VST3 and standalone) for the Novation Peak, built for Linux first: sends and receives CC and NRPN messages. Early build.",
+  "topics": [
+   "audio-plugin",
+   "cpp",
+   "free-vst",
+   "juce",
+   "linux-audio",
+   "midi-controller",
+   "music-production",
+   "novation",
+   "nrpn",
+   "open-source",
+   "synth-editor",
+   "vst3",
+   "novation-peak"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-19T06:16:21Z",
+  "release": [
+   "v0.1.0",
+   "https://github.com/SpeakingColors/linux-peak-controller/releases/tag/v0.1.0",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "linux-ultranova-controller",
+  "description": "Controller plugin for the Novation UltraNova and MiniNova on Linux, with MIDI implementation notes (CC and NRPN maps).",
+  "topics": [
+   "audio-plugin",
+   "cpp",
+   "free-vst",
+   "juce",
+   "linux-audio",
+   "midi-controller",
+   "mininova",
+   "music-production",
+   "novation",
+   "nrpn",
+   "open-source",
+   "ultranova",
+   "vst3"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-19T06:13:12Z",
+  "release": [
+   "v0.5.0",
+   "https://github.com/SpeakingColors/linux-ultranova-controller/releases/tag/v0.5.0",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "StarDriftTVLauncher",
+  "description": "Couldn't find a TV Launcher I like, so I made one.",
+  "topics": [
+   "android-tv",
+   "google-tv",
+   "launcher",
+   "no-ads",
+   "open-source"
+  ],
+  "license": "GNU General Public License v3.0",
+  "pushed": "2026-11-19T06:10:49Z",
+  "release": null,
+  "shot": "docs/screenshot.png"
+ },
+ {
   "name": "gearupdater",
   "description": "Launcher for Studio 87 software: browse, download, install and update every plugin and app in one place, no GitHub hunting.",
   "topics": [
@@ -12,7 +81,7 @@
    "updater"
   ],
   "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-18T20:38:13Z",
+  "pushed": "2026-11-19T02:38:07Z",
   "release": [
    "v0.1.2",
    "https://github.com/SpeakingColors/gearupdater/releases/tag/v0.1.2",
@@ -1217,33 +1286,6 @@
   "shot": "docs/screenshot.png"
  },
  {
-  "name": "linux-ultranova-controller",
-  "description": "Controller plugin for the Novation UltraNova and MiniNova on Linux, with MIDI implementation notes (CC and NRPN maps).",
-  "topics": [
-   "audio-plugin",
-   "cpp",
-   "free-vst",
-   "juce",
-   "linux-audio",
-   "midi-controller",
-   "mininova",
-   "music-production",
-   "novation",
-   "nrpn",
-   "open-source",
-   "ultranova",
-   "vst3"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T02:16:46Z",
-  "release": [
-   "v0.5.0",
-   "https://github.com/SpeakingColors/linux-ultranova-controller/releases/tag/v0.5.0",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
   "name": "AI-Purrformer",
   "description": "Free open source AI singing voice tool for Linux: sing badly, get a better voice back, on time and in key. Part of the Studio 87 cat plugin suite.",
   "topics": [
@@ -1262,33 +1304,6 @@
    "v0.1-cpu",
    "https://github.com/SpeakingColors/AI-Purrformer/releases/tag/v0.1-cpu",
    "false"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "linux-peak-controller",
-  "description": "Controller plugin (VST3 and standalone) for the Novation Peak, built for Linux first: sends and receives CC and NRPN messages. Early build.",
-  "topics": [
-   "audio-plugin",
-   "cpp",
-   "free-vst",
-   "juce",
-   "linux-audio",
-   "midi-controller",
-   "music-production",
-   "novation",
-   "nrpn",
-   "open-source",
-   "synth-editor",
-   "vst3",
-   "novation-peak"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T02:13:37Z",
-  "release": [
-   "v0.1.0",
-   "https://github.com/SpeakingColors/linux-peak-controller/releases/tag/v0.1.0",
-   "true"
   ],
   "shot": "docs/screenshot.png"
  },
@@ -1312,21 +1327,6 @@
    "https://github.com/SpeakingColors/hypersaw-xd/releases/tag/v1.3.0",
    "true"
   ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "StarDriftTVLauncher",
-  "description": "Couldn't find a TV Launcher I like, so I made one.",
-  "topics": [
-   "android-tv",
-   "google-tv",
-   "launcher",
-   "no-ads",
-   "open-source"
-  ],
-  "license": "GNU General Public License v3.0",
-  "pushed": "2026-11-16T02:06:26Z",
-  "release": null,
   "shot": "docs/screenshot.png"
  },
  {
