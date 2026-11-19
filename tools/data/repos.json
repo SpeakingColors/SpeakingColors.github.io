@@ -1,5 +1,26 @@
 [
  {
+  "name": "gearupdater",
+  "description": "Launcher for Studio 87 software: browse, download, install and update every plugin and app in one place, no GitHub hunting.",
+  "topics": [
+   "cpp",
+   "juce",
+   "linux-audio",
+   "music-production",
+   "open-source",
+   "plugin-manager",
+   "updater"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-19T11:47:10Z",
+  "release": [
+   "v0.1.2",
+   "https://github.com/SpeakingColors/gearupdater/releases/tag/v0.1.2",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
   "name": "linux-peak-controller",
   "description": "Controller plugin (VST3 and standalone) for the Novation Peak, built for Linux first: sends and receives CC and NRPN messages. Early build.",
   "topics": [
@@ -66,27 +87,6 @@
   "license": "GNU General Public License v3.0",
   "pushed": "2026-11-19T06:10:49Z",
   "release": null,
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "gearupdater",
-  "description": "Launcher for Studio 87 software: browse, download, install and update every plugin and app in one place, no GitHub hunting.",
-  "topics": [
-   "cpp",
-   "juce",
-   "linux-audio",
-   "music-production",
-   "open-source",
-   "plugin-manager",
-   "updater"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-19T02:38:07Z",
-  "release": [
-   "v0.1.2",
-   "https://github.com/SpeakingColors/gearupdater/releases/tag/v0.1.2",
-   "true"
-  ],
   "shot": "docs/screenshot.png"
  },
  {
