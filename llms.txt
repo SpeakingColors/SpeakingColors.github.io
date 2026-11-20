@@ -17,6 +17,7 @@ Free open source synth plugins for bass, leads, supersaws and wavetables.
 - [PurrOne](https://speakingcolors.github.io/purrone/): A thick, smooth mono synth for fat basslines and singing leads. (test build)
 - [JPurrr-8000](https://speakingcolors.github.io/jpurrr-8000/): A trance supersaw synth in the spirit of the Roland JP-8000. (test build)
 - [Whiskerwave](https://speakingcolors.github.io/whiskerwave-vst/): A wavetable synth with morphing waves and a tool to sample your own gear.
+- [Kick Kitten](https://speakingcolors.github.io/kickkitten/): Design your own trance kicks, from the thump to the punch. (test build)
 
 ## Compressors, limiters and EQ
 
@@ -62,7 +63,6 @@ Scratch, DJ decks, sample tools and generators.
 - [Scratch Cat Duo](https://speakingcolors.github.io/scratchcatduo-vst/): Two DJ decks and a mixer in one plugin. (test build)
 - [Stretch Cat](https://speakingcolors.github.io/stretch-cat-vst/): Change the speed without the pitch, or the pitch without the speed. (test build)
 - [Copycat](https://speakingcolors.github.io/copycat-vst/): Hear a sound you love and find out how to rebuild it. (test build)
-- [Kick Kitten](https://speakingcolors.github.io/kickkitten/): Design your own trance kicks, from the thump to the punch. (test build)
 - [AI Purrformer](https://speakingcolors.github.io/ai-purrformer/): Sing badly, get a better voice back, on time and in key.
 
 ## Studio tools and apps

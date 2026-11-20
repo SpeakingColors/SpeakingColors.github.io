@@ -12,10 +12,202 @@
    "updater"
   ],
   "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-20T02:22:51Z",
+  "pushed": "2026-11-20T11:48:46Z",
   "release": [
    "v0.1.2",
    "https://github.com/SpeakingColors/gearupdater/releases/tag/v0.1.2",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "purrrvoicechannel",
+  "description": "Free open source tube channel strip for voices (design mockup): tube preamp, compressor, de-esser, gate and 4 band EQ in one channel. VST3 planned, Linux first.",
+  "topics": [
+   "audio-plugin",
+   "channel-strip",
+   "compressor",
+   "de-esser",
+   "design-mockup",
+   "equalizer",
+   "free-vst",
+   "linux-audio",
+   "music-production",
+   "noise-gate",
+   "open-source",
+   "tube",
+   "vst3"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-20T05:28:49Z",
+  "release": null,
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "PurrOne",
+  "description": "PurrOne: free open source mono synth plugin with a thick, smooth sound for bass and lead. VST3 and standalone, Linux first, Windows and macOS targeted.",
+  "topics": [
+   "audio-plugin",
+   "bass-synth",
+   "cpp",
+   "free-vst",
+   "juce",
+   "lead-synth",
+   "linux-audio",
+   "music-production",
+   "open-source",
+   "synthesizer",
+   "vst3",
+   "analog-style",
+   "mono-synth"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-20T05:23:45Z",
+  "release": [
+   "v0.7.0",
+   "https://github.com/SpeakingColors/PurrOne/releases/tag/v0.7.0",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "Meowcorder",
+  "description": "Meowcorder: work in progress audio editor and recorder by Studio 87.",
+  "topics": [
+   "audio-editor",
+   "audio-recorder",
+   "linux-audio",
+   "music-production",
+   "open-source"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-20T05:15:05Z",
+  "release": [
+   "v0.2.1",
+   "https://github.com/SpeakingColors/Meowcorder/releases/tag/v0.2.1",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "SupurrrSaw-VST",
+  "description": "SupurrSaw: free open source supersaw, hoover and acid synth. VST3 plugin and standalone for Linux, Windows and macOS. JP-8000 style supersaw, built-in FX, presets.",
+  "topics": [
+   "acid",
+   "audio-plugin",
+   "cpp",
+   "free-vst",
+   "hardstyle",
+   "hoover",
+   "juce",
+   "linux-audio",
+   "music-production",
+   "open-source",
+   "standalone",
+   "supersaw",
+   "synthesizer",
+   "trance",
+   "vst3"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-20T05:11:46Z",
+  "release": [
+   "v0.3.31",
+   "https://github.com/SpeakingColors/SupurrrSaw-VST/releases/tag/v0.3.31",
+   "false"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "KickKitten",
+  "description": "Free open source trance kick maker (VST3 and standalone).",
+  "topics": [
+   "audio-plugin",
+   "cpp",
+   "free-vst",
+   "juce",
+   "kick-drum",
+   "kick-generator",
+   "linux-audio",
+   "music-production",
+   "open-source",
+   "trance",
+   "vst3"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-20T05:04:39Z",
+  "release": [
+   "v0.1.1",
+   "https://github.com/SpeakingColors/KickKitten/releases/tag/v0.1.1",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "Cobalt8M-Controller-VST",
+  "description": "MIDI controller plugin (VST3 and standalone) for the Modal Cobalt8M: sends and receives its CC messages from your DAW. Early build.",
+  "topics": [
+   "audio-plugin",
+   "cpp",
+   "free-vst",
+   "juce",
+   "linux-audio",
+   "midi",
+   "midi-controller",
+   "music-production",
+   "open-source",
+   "synth-editor",
+   "vst3",
+   "cobalt8m",
+   "modal-electronics"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-20T05:02:07Z",
+  "release": [
+   "v0.2.0",
+   "https://github.com/SpeakingColors/Cobalt8M-Controller-VST/releases/tag/v0.2.0",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "StarDriftTVLauncher",
+  "description": "Couldn't find a TV Launcher I like, so I made one.",
+  "topics": [
+   "android-tv",
+   "google-tv",
+   "launcher",
+   "no-ads",
+   "open-source"
+  ],
+  "license": "GNU General Public License v3.0",
+  "pushed": "2026-11-20T04:59:07Z",
+  "release": null,
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "modxm-controller-vst",
+  "description": "MIDI controller plugin (VST3 and standalone) for the Yamaha MODX M: sends and receives its CC messages from your DAW. Early build.",
+  "topics": [
+   "audio-plugin",
+   "cpp",
+   "free-vst",
+   "juce",
+   "linux-audio",
+   "midi",
+   "midi-controller",
+   "modx",
+   "music-production",
+   "open-source",
+   "synth-editor",
+   "vst3",
+   "yamaha"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-20T04:52:59Z",
+  "release": [
+   "v0.2.1",
+   "https://github.com/SpeakingColors/modxm-controller-vst/releases/tag/v0.2.1",
    "true"
   ],
   "shot": "docs/screenshot.png"
@@ -72,21 +264,6 @@
    "https://github.com/SpeakingColors/linux-ultranova-controller/releases/tag/v0.5.0",
    "true"
   ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "StarDriftTVLauncher",
-  "description": "Couldn't find a TV Launcher I like, so I made one.",
-  "topics": [
-   "android-tv",
-   "google-tv",
-   "launcher",
-   "no-ads",
-   "open-source"
-  ],
-  "license": "GNU General Public License v3.0",
-  "pushed": "2026-11-19T06:10:49Z",
-  "release": null,
   "shot": "docs/screenshot.png"
  },
  {
@@ -556,25 +733,6 @@
   "shot": "docs/screenshot.png"
  },
  {
-  "name": "Meowcorder",
-  "description": "Meowcorder: work in progress audio editor and recorder by Studio 87.",
-  "topics": [
-   "audio-editor",
-   "audio-recorder",
-   "linux-audio",
-   "music-production",
-   "open-source"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T19:30:53Z",
-  "release": [
-   "v0.2.1",
-   "https://github.com/SpeakingColors/Meowcorder/releases/tag/v0.2.1",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
   "name": "whiskerscope",
   "description": "Whisker Scope: free open source analyser plugin (VST3 and standalone): scope, spectrum and frequency analyzer from Studio 87.",
   "topics": [
@@ -597,31 +755,6 @@
   "release": [
    "v0.3.1",
    "https://github.com/SpeakingColors/whiskerscope/releases/tag/v0.3.1",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "KickKitten",
-  "description": "Free open source trance kick maker (VST3 and standalone).",
-  "topics": [
-   "audio-plugin",
-   "cpp",
-   "free-vst",
-   "juce",
-   "kick-drum",
-   "kick-generator",
-   "linux-audio",
-   "music-production",
-   "open-source",
-   "trance",
-   "vst3"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T19:30:48Z",
-  "release": [
-   "v0.1.1",
-   "https://github.com/SpeakingColors/KickKitten/releases/tag/v0.1.1",
    "true"
   ],
   "shot": "docs/screenshot.png"
@@ -651,29 +784,6 @@
    "https://github.com/SpeakingColors/hairball/releases/tag/v0.1.1",
    "true"
   ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "purrrvoicechannel",
-  "description": "Free open source tube channel strip for voices (design mockup): tube preamp, compressor, de-esser, gate and 4 band EQ in one channel. VST3 planned, Linux first.",
-  "topics": [
-   "audio-plugin",
-   "channel-strip",
-   "compressor",
-   "de-esser",
-   "design-mockup",
-   "equalizer",
-   "free-vst",
-   "linux-audio",
-   "music-production",
-   "noise-gate",
-   "open-source",
-   "tube",
-   "vst3"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T19:30:19Z",
-  "release": null,
   "shot": "docs/screenshot.png"
  },
  {
@@ -1053,60 +1163,6 @@
   "shot": "docs/screenshot.png"
  },
  {
-  "name": "modxm-controller-vst",
-  "description": "MIDI controller plugin (VST3 and standalone) for the Yamaha MODX M: sends and receives its CC messages from your DAW. Early build.",
-  "topics": [
-   "audio-plugin",
-   "cpp",
-   "free-vst",
-   "juce",
-   "linux-audio",
-   "midi",
-   "midi-controller",
-   "modx",
-   "music-production",
-   "open-source",
-   "synth-editor",
-   "vst3",
-   "yamaha"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T02:44:10Z",
-  "release": [
-   "v0.2.1",
-   "https://github.com/SpeakingColors/modxm-controller-vst/releases/tag/v0.2.1",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "Cobalt8M-Controller-VST",
-  "description": "MIDI controller plugin (VST3 and standalone) for the Modal Cobalt8M: sends and receives its CC messages from your DAW. Early build.",
-  "topics": [
-   "audio-plugin",
-   "cpp",
-   "free-vst",
-   "juce",
-   "linux-audio",
-   "midi",
-   "midi-controller",
-   "music-production",
-   "open-source",
-   "synth-editor",
-   "vst3",
-   "cobalt8m",
-   "modal-electronics"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T02:38:26Z",
-  "release": [
-   "v0.2.0",
-   "https://github.com/SpeakingColors/Cobalt8M-Controller-VST/releases/tag/v0.2.0",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
   "name": "mwave-fm1-linux-vst",
   "description": "Controller plugin for the M-VAVE FM-1 on Linux. Early work in progress.",
   "topics": [
@@ -1181,35 +1237,6 @@
   "shot": "docs/screenshot.png"
  },
  {
-  "name": "SupurrrSaw-VST",
-  "description": "SupurrSaw: free open source supersaw, hoover and acid synth. VST3 plugin and standalone for Linux, Windows and macOS. JP-8000 style supersaw, built-in FX, presets.",
-  "topics": [
-   "acid",
-   "audio-plugin",
-   "cpp",
-   "free-vst",
-   "hardstyle",
-   "hoover",
-   "juce",
-   "linux-audio",
-   "music-production",
-   "open-source",
-   "standalone",
-   "supersaw",
-   "synthesizer",
-   "trance",
-   "vst3"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T02:25:58Z",
-  "release": [
-   "v0.3.31",
-   "https://github.com/SpeakingColors/SupurrrSaw-VST/releases/tag/v0.3.31",
-   "false"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
   "name": "SynthCookBook",
   "description": "A synth cook book: patch recipes for synths without patch memory (Behringer Pro-1, CAT, TD-3-MO, TD-3). Draws each front panel, saves recipes in the browser, works offline.",
   "topics": [
@@ -1227,33 +1254,6 @@
   "release": [
    "v0.1.0",
    "https://github.com/SpeakingColors/SynthCookBook/releases/tag/v0.1.0",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "PurrOne",
-  "description": "PurrOne: free open source mono synth plugin with a thick, smooth sound for bass and lead. VST3 and standalone, Linux first, Windows and macOS targeted.",
-  "topics": [
-   "audio-plugin",
-   "bass-synth",
-   "cpp",
-   "free-vst",
-   "juce",
-   "lead-synth",
-   "linux-audio",
-   "music-production",
-   "open-source",
-   "synthesizer",
-   "vst3",
-   "analog-style",
-   "mono-synth"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T02:23:59Z",
-  "release": [
-   "v0.7.0",
-   "https://github.com/SpeakingColors/PurrOne/releases/tag/v0.7.0",
    "true"
   ],
   "shot": "docs/screenshot.png"
