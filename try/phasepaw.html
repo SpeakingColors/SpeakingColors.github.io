@@ -1,9 +1,11 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>html,body{margin:0;padding:0}body{font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><style>@font-face{font-family:"Barlow Condensed";font-style:normal;font-weight:400;font-display:swap;src:url(/try/fonts/401ca0b177.woff2) format("woff2")}@font-face{font-family:"Barlow Condensed";font-style:normal;font-weight:500;font-display:swap;src:url(/try/fonts/f47020f443.woff2) format("woff2")}@font-face{font-family:"Barlow Condensed";font-style:normal;font-weight:600;font-display:swap;src:url(/try/fonts/5235b455d2.woff2) format("woff2")}@font-face{font-family:"Barlow Condensed";font-style:normal;font-weight:700;font-display:swap;src:url(/try/fonts/2ce948b471.woff2) format("woff2")}@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:400;font-display:swap;src:url(/try/fonts/9ac11e5d75.woff2) format("woff2")}@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:500;font-display:swap;src:url(/try/fonts/30ab2f9993.woff2) format("woff2")}@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:700;font-display:swap;src:url(/try/fonts/dbcf2348cc.woff2) format("woff2")}</style></head><body>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>PhasePaw v12 design mockup, Studio 87</title>
+<title>PhasePaw v13 design mockup, Studio 87</title>
 
 <style>
 :root,#page[data-skin="B"]{--page:#0b0b0d;--panel:#14151a;--panel2:#1e2028;--line:#343746;--disp:#06080a;--grid:#262b36;--text:#f4f5f7;--dim:#c3c7d2;--title:#E1CBF4;--selbg:#241238;--selbd:#CD92FE;--seltx:#E1CBF4;--kick:#FF1383;--bass:#02EBBA;--sum:#FFD100;--good:#02EBBA;--warn:#FFD100;--bad:#FF1383}
@@ -90,7 +92,7 @@ textarea{height:auto;width:100%;font:500 14px 'JetBrains Mono','DejaVu Sans Mono
 #vtext{font-size:17px;color:var(--dim);min-height:40px}
 #vlevel{font-size:15px}
 #demo{opacity:.92}
-#tip{border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.6)}
+#tip{z-index:80;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.6)}
 
 /* v6 polish */
 #stage{background:radial-gradient(900px 420px at 50% -80px,rgba(164,61,255,.13),rgba(164,61,255,0) 70%),radial-gradient(700px 300px at 85% 110%,rgba(2,235,186,.05),rgba(0,0,0,0) 70%),var(--page)}
@@ -127,54 +129,7 @@ textarea{height:auto;width:100%;font:500 14px 'JetBrains Mono','DejaVu Sans Mono
 .btn.primary.done{background:linear-gradient(180deg,#9dfbe4 0%,#2fe0b6 50%,#02b08b 100%);border-color:#c9fff3;box-shadow:0 0 20px rgba(2,235,186,.5),inset 0 1px 0 rgba(255,255,255,.55)}
 .btn.primary.done:hover{box-shadow:0 0 28px rgba(2,235,186,.7),inset 0 1px 0 rgba(255,255,255,.6)}
 </style>
-<style>@font-face {
-  font-family: 'Barlow Condensed';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url(/try/fonts/9eab880d01.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-@font-face {
-  font-family: 'Barlow Condensed';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url(/try/fonts/07c3c732a9.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-@font-face {
-  font-family: 'Barlow Condensed';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url(/try/fonts/eb4f372776.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-@font-face {
-  font-family: 'JetBrains Mono';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url(/try/fonts/1cd702cd25.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-@font-face {
-  font-family: 'JetBrains Mono';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url(/try/fonts/1cd702cd25.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-@font-face {
-  font-family: 'JetBrains Mono';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url(/try/fonts/1cd702cd25.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}</style></head>
+<style></style></head>
 <body>
 <div id="page" data-skin="B">
 <div id="win">
@@ -829,7 +784,7 @@ $('#bAbout').addEventListener('click',function(){modal('About & Support',
  '<p>Free and open source (AGPL-3.0-or-later).</p>'+
  '<p>Presets live in your user data folder under Studio 87 / PhasePaw / presets. A Flatpak DAW keeps its own copy in its config folder.</p>'+
  '<p>Uninstall: use the uninstaller that comes with the installer. Your saved presets stay unless you choose to delete them.</p>'+
- '<p><button class="btn" disabled data-tip="The Ko-fi page name is not set yet.">Support on Ko-fi</button></p>',[{t:'Close',on:true}]);});
+ '<p><button class="btn" disabled data-tip="The Ko-fi page name is not set yet.">Support on Ko-fi</button> <button class="btn" onclick="location.href=\'studio87://open\'" data-tip="Opens Studio 87 Gear Updater to check this plugin for updates. If it is not installed, the GitHub page opens instead.">Open Studio 87 Gear Updater</button> <button class="btn" onclick="window.open(\'https://github.com/SpeakingColors/phasepaw\',\'_blank\',\'noopener\')" data-tip="Opens this plugin&#39;s home page on GitHub in your browser. Nothing is sent by the plugin.">Open on GitHub</button></p>',[{t:'Close',on:true}]);});
 
 /* ===== theme ===== */
 function setTheme(t){SET.theme=t;$('#page').setAttribute('data-skin',t);saveSettings();readCols();dirty=true;recompute(false);}
@@ -908,5 +863,4 @@ boot();
 })();
 
 </script>
-</body>
-</html>
+</body></html>
