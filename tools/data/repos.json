@@ -1,20 +1,5 @@
 [
  {
-  "name": "StarDriftTVLauncher",
-  "description": "Couldn't find a TV Launcher I like, so I made one.",
-  "topics": [
-   "android-tv",
-   "google-tv",
-   "launcher",
-   "no-ads",
-   "open-source"
-  ],
-  "license": "GNU General Public License v3.0",
-  "pushed": "2026-11-22T05:22:50Z",
-  "release": null,
-  "shot": "docs/screenshot.png"
- },
- {
   "name": "gearupdater",
   "description": "Launcher for Studio 87 software: browse, download, install and update every plugin and app in one place, no GitHub hunting.",
   "topics": [
@@ -27,12 +12,27 @@
    "updater"
   ],
   "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-22T01:23:46Z",
+  "pushed": "2026-11-22T11:33:20Z",
   "release": [
    "v0.1.2",
    "https://github.com/SpeakingColors/gearupdater/releases/tag/v0.1.2",
    "true"
   ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "StarDriftTVLauncher",
+  "description": "Couldn't find a TV Launcher I like, so I made one.",
+  "topics": [
+   "android-tv",
+   "google-tv",
+   "launcher",
+   "no-ads",
+   "open-source"
+  ],
+  "license": "GNU General Public License v3.0",
+  "pushed": "2026-11-22T05:22:50Z",
+  "release": null,
   "shot": "docs/screenshot.png"
  },
  {
