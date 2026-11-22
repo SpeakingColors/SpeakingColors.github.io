@@ -1,5 +1,20 @@
 [
  {
+  "name": "StarDriftTVLauncher",
+  "description": "Couldn't find a TV Launcher I like, so I made one.",
+  "topics": [
+   "android-tv",
+   "google-tv",
+   "launcher",
+   "no-ads",
+   "open-source"
+  ],
+  "license": "GNU General Public License v3.0",
+  "pushed": "2026-11-22T05:22:50Z",
+  "release": null,
+  "shot": "docs/screenshot.png"
+ },
+ {
   "name": "gearupdater",
   "description": "Launcher for Studio 87 software: browse, download, install and update every plugin and app in one place, no GitHub hunting.",
   "topics": [
@@ -168,21 +183,6 @@
    "https://github.com/SpeakingColors/Cobalt8M-Controller-VST/releases/tag/v0.2.0",
    "true"
   ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "StarDriftTVLauncher",
-  "description": "Couldn't find a TV Launcher I like, so I made one.",
-  "topics": [
-   "android-tv",
-   "google-tv",
-   "launcher",
-   "no-ads",
-   "open-source"
-  ],
-  "license": "GNU General Public License v3.0",
-  "pushed": "2026-11-20T04:59:07Z",
-  "release": null,
   "shot": "docs/screenshot.png"
  },
  {
