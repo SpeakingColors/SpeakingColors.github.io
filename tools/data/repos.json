@@ -12,12 +12,63 @@
    "updater"
   ],
   "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-23T01:48:13Z",
+  "pushed": "2026-11-23T12:57:45Z",
   "release": [
    "v0.1.2",
    "https://github.com/SpeakingColors/gearupdater/releases/tag/v0.1.2",
    "true"
   ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "Meowcorder",
+  "description": "Meowcorder: work in progress audio editor and recorder by Studio 87.",
+  "topics": [
+   "audio-editor",
+   "audio-recorder",
+   "linux-audio",
+   "music-production",
+   "open-source"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-23T05:41:16Z",
+  "release": [
+   "v0.2.1",
+   "https://github.com/SpeakingColors/Meowcorder/releases/tag/v0.2.1",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "mwave-fm1-linux-vst",
+  "description": "Controller plugin for the M-VAVE FM-1 on Linux. Early work in progress.",
+  "topics": [
+   "linux-audio",
+   "m-vave",
+   "midi-controller",
+   "open-source",
+   "vst3"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-23T05:25:18Z",
+  "release": null,
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "provsmini-vst",
+  "description": "Controller plugin for the Behringer PRO VS Mini vector synthesizer on Linux. Planning stage.",
+  "topics": [
+   "behringer",
+   "linux-audio",
+   "midi-controller",
+   "open-source",
+   "vst3",
+   "pro-vs-mini",
+   "vector-synth"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-23T05:22:33Z",
+  "release": null,
   "shot": "docs/screenshot.png"
  },
  {
@@ -81,25 +132,6 @@
   "release": [
    "v0.7.0",
    "https://github.com/SpeakingColors/PurrOne/releases/tag/v0.7.0",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "Meowcorder",
-  "description": "Meowcorder: work in progress audio editor and recorder by Studio 87.",
-  "topics": [
-   "audio-editor",
-   "audio-recorder",
-   "linux-audio",
-   "music-production",
-   "open-source"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-20T05:15:05Z",
-  "release": [
-   "v0.2.1",
-   "https://github.com/SpeakingColors/Meowcorder/releases/tag/v0.2.1",
    "true"
   ],
   "shot": "docs/screenshot.png"
@@ -1163,21 +1195,6 @@
   "shot": "docs/screenshot.png"
  },
  {
-  "name": "mwave-fm1-linux-vst",
-  "description": "Controller plugin for the M-VAVE FM-1 on Linux. Early work in progress.",
-  "topics": [
-   "linux-audio",
-   "m-vave",
-   "midi-controller",
-   "open-source",
-   "vst3"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T02:34:17Z",
-  "release": null,
-  "shot": "docs/screenshot.png"
- },
- {
   "name": "claude-skills",
   "description": "The Claude skills I made for building Studio 87 software, free to reuse.",
   "topics": [
@@ -1196,23 +1213,6 @@
    "true"
   ],
   "shot": ""
- },
- {
-  "name": "provsmini-vst",
-  "description": "Controller plugin for the Behringer PRO VS Mini vector synthesizer on Linux. Planning stage.",
-  "topics": [
-   "behringer",
-   "linux-audio",
-   "midi-controller",
-   "open-source",
-   "vst3",
-   "pro-vs-mini",
-   "vector-synth"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T02:32:48Z",
-  "release": null,
-  "shot": "docs/screenshot.png"
  },
  {
   "name": "MegaSaw-XD",
