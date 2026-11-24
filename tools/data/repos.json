@@ -1,5 +1,80 @@
 [
  {
+  "name": "shimmerstuff",
+  "description": "Shimmer reverb and shimmer delay plugin (VST3 and standalone) for Linux, Windows and macOS, with a routing view. Plate, hall, shimmer and velvet reverbs. By Studio 87.",
+  "topics": [
+   "audio-plugin",
+   "cpp",
+   "delay",
+   "effects",
+   "free-vst",
+   "fx",
+   "juce",
+   "linux-audio",
+   "music-production",
+   "open-source",
+   "reverb",
+   "shimmer-reverb",
+   "vst3"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-24T05:13:00Z",
+  "release": [
+   "v0.2.0",
+   "https://github.com/SpeakingColors/shimmerstuff/releases/tag/v0.2.0",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "purrrvoicechannel",
+  "description": "Free open source tube channel strip for voices (design mockup): tube preamp, compressor, de-esser, gate and 4 band EQ in one channel. VST3 planned, Linux first.",
+  "topics": [
+   "audio-plugin",
+   "channel-strip",
+   "compressor",
+   "de-esser",
+   "design-mockup",
+   "equalizer",
+   "free-vst",
+   "linux-audio",
+   "music-production",
+   "noise-gate",
+   "open-source",
+   "tube",
+   "vst3"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-24T05:06:01Z",
+  "release": [
+   "v0.1.0",
+   "https://github.com/SpeakingColors/purrrvoicechannel/releases/tag/v0.1.0",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "whiskermix",
+  "description": "TotalMix-style mixer and studio hub for Linux: RME Digiface USB control, MIDI hub, Pulse 16 support and built-in FX. Design phase.",
+  "topics": [
+   "audio-mixer",
+   "linux-audio",
+   "midi",
+   "music-production",
+   "open-source",
+   "rme",
+   "totalmix"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-24T04:34:05Z",
+  "release": [
+   "v0.5.5",
+   "https://github.com/SpeakingColors/whiskermix/releases/tag/v0.5.5",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
   "name": "gearupdater",
   "description": "Launcher for Studio 87 software: browse, download, install and update every plugin and app in one place, no GitHub hunting.",
   "topics": [
@@ -12,7 +87,7 @@
    "updater"
   ],
   "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-23T12:57:45Z",
+  "pushed": "2026-11-24T02:15:39Z",
   "release": [
    "v0.1.2",
    "https://github.com/SpeakingColors/gearupdater/releases/tag/v0.1.2",
@@ -83,29 +158,6 @@
   ],
   "license": "GNU General Public License v3.0",
   "pushed": "2026-11-22T05:22:50Z",
-  "release": null,
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "purrrvoicechannel",
-  "description": "Free open source tube channel strip for voices (design mockup): tube preamp, compressor, de-esser, gate and 4 band EQ in one channel. VST3 planned, Linux first.",
-  "topics": [
-   "audio-plugin",
-   "channel-strip",
-   "compressor",
-   "de-esser",
-   "design-mockup",
-   "equalizer",
-   "free-vst",
-   "linux-audio",
-   "music-production",
-   "noise-gate",
-   "open-source",
-   "tube",
-   "vst3"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-20T05:28:49Z",
   "release": null,
   "shot": "docs/screenshot.png"
  },
@@ -321,33 +373,6 @@
   "release": [
    "v0.3.0",
    "https://github.com/SpeakingColors/stretch-cat-vst/releases/tag/v0.3.0",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "shimmerstuff",
-  "description": "Shimmer reverb and shimmer delay plugin (VST3 and standalone) for Linux, Windows and macOS, with a routing view. Plate, hall, shimmer and velvet reverbs. By Studio 87.",
-  "topics": [
-   "audio-plugin",
-   "cpp",
-   "delay",
-   "effects",
-   "free-vst",
-   "fx",
-   "juce",
-   "linux-audio",
-   "music-production",
-   "open-source",
-   "reverb",
-   "shimmer-reverb",
-   "vst3"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T19:52:31Z",
-  "release": [
-   "v0.2.0",
-   "https://github.com/SpeakingColors/shimmerstuff/releases/tag/v0.2.0",
    "true"
   ],
   "shot": "docs/screenshot.png"
@@ -1053,27 +1078,6 @@
   "release": [
    "v0.2.4",
    "https://github.com/SpeakingColors/Meowximizer/releases/tag/v0.2.4",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "whiskermix",
-  "description": "TotalMix-style mixer and studio hub for Linux: RME Digiface USB control, MIDI hub, Pulse 16 support and built-in FX. Design phase.",
-  "topics": [
-   "audio-mixer",
-   "linux-audio",
-   "midi",
-   "music-production",
-   "open-source",
-   "rme",
-   "totalmix"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T03:47:53Z",
-  "release": [
-   "v0.5.5",
-   "https://github.com/SpeakingColors/whiskermix/releases/tag/v0.5.5",
    "true"
   ],
   "shot": "docs/screenshot.png"

@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>html,body{margin:0;padding:0}body{font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><style>@font-face{font-family:"Barlow Condensed";font-style:normal;font-weight:400;font-display:swap;src:url(/try/fonts/99e37748a2.woff2) format("woff2")}@font-face{font-family:"Barlow Condensed";font-style:normal;font-weight:500;font-display:swap;src:url(/try/fonts/dd10d969e4.woff2) format("woff2")}@font-face{font-family:"Barlow Condensed";font-style:normal;font-weight:600;font-display:swap;src:url(/try/fonts/2ffc2d1f7f.woff2) format("woff2")}@font-face{font-family:"Barlow Condensed";font-style:normal;font-weight:700;font-display:swap;src:url(/try/fonts/b6de91890d.woff2) format("woff2")}@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:400;font-display:swap;src:url(/try/fonts/16e571e4fc.woff2) format("woff2")}@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:500;font-display:swap;src:url(/try/fonts/d096111516.woff2) format("woff2")}@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:700;font-display:swap;src:url(/try/fonts/9eb39db42f.woff2) format("woff2")}</style></head><body>
-<title>shimmerstuff</title>
+<title>Purrrverb</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 
 
 <style>
-/* shimmerstuff (Shimmer Reverb and Shimmer Delay), Studio 87. Layout: wood cheek | dark panel | wood cheek. */
+/* Purrrverb (reverb and delay), Studio 87. Layout: wood cheek | dark panel | wood cheek. */
 /* Whisker Scope, Studio 87. Layout: wood cheek | dark panel | wood cheek. Same house style as PurrOne. */
 :root {
   --ground:#0b0b0d; --panel:#15161a; --panel-2:#1c1d22; --line:#2b2d34; --ink:#f4f5f7; --ink-dim:#a9adb8;
@@ -186,7 +186,7 @@ aside.meters { padding:8px; gap:6px; }
     <header class="top">
       <div class="brand">
         <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M4.5 5C10 7 17 11 21 14c3-.5 7-2 11-2s8 1.5 11 2C47 11 55 7 60 5.5L61 24C61 40 48 50 32 58 16 50 3 40 3.7 24z" fill="#f4f5f7"/><path d="M11.3 25.8C20 26 25 31 27 36.5 21 37.5 15 36 12.5 31zM52.7 25.8C44 26 39 31 37 36.5 43 37.5 49 36 51.5 31z" fill="#15161a"/></svg>
-        <div><b id="brandName">Shimmer Reverb</b><small>Studio 87</small></div>
+        <div><b id="brandName">Purrrverb</b><small>Studio 87</small></div>
       </div>
       <div class="presets">
         <button id="pPrev" aria-label="Previous preset" data-tip="Previous preset.">&lsaquo;</button>
@@ -203,8 +203,8 @@ aside.meters { padding:8px; gap:6px; }
       </div>
     </header>
     <nav class="modes" aria-label="Plugin">
-      <button data-mode="reverb" data-tl="Shimmer Reverb" data-tip="The reverb plugin: plate, hall, shimmer plate, shimmer hall and velvet.">Shimmer Reverb<small>VST3 and Standalone</small></button>
-      <button data-mode="delay" data-tl="Shimmer Delay" data-tip="The delay plugin: echoes that climb (or fall) in pitch with every repeat.">Shimmer Delay<small>VST3 and Standalone</small></button>
+      <button data-mode="reverb" data-tl="Purrrverb" data-tip="The reverb plugin: plate, hall, shimmer plate, shimmer hall and velvet.">Purrrverb<small>VST3 and Standalone</small></button>
+      <button data-mode="delay" data-tl="Purrrverb Delay" data-tip="The delay plugin: echoes that climb (or fall) in pitch with every repeat.">Purrrverb Delay<small>VST3 and Standalone</small></button>
       <button data-mode="mod" data-tl="Modulation" data-tip="Chorus, flanger, phaser, tremolo, pan, rotary speaker, vibrato and detune. It sits in the routing like the reverb and the delay.">Modulation<small>VST3 and Standalone</small></button>
       <button data-mode="fx" data-tl="FX and Routing" data-tip="Route the reverb and delay (one, the other, in series or in parallel) and add saturation, squash, duck and width.">FX &amp; Routing<small>input and wet processing</small></button>
       <div class="mainpre"><span class="lab">Main preset</span><select id="mpSel" aria-label="Main preset"></select><button id="mpSave">Save</button><button id="mpDel" hidden>Delete</button></div>
@@ -233,7 +233,7 @@ aside.meters { padding:8px; gap:6px; }
         <button id="bPkReset" data-tip="Clears the held peaks and the clip light. Shortcut: R.">Peak reset</button>
       </aside>
     </section>
-    <footer class="foot"><span><b>Studio 87</b> &middot; shimmerstuff v0.1 design mockup</span><span id="sizeT" data-tip="Window size. Drag any edge or corner of the plugin to resize it; the shape stays the same. Double-click here for 100 %.">Window 100 %</span></footer>
+    <footer class="foot"><span><b>Studio 87</b> &middot; Purrrverb v0.1 design mockup</span><span id="sizeT" data-tip="Window size. Drag any edge or corner of the plugin to resize it; the shape stays the same. Double-click here for 100 %.">Window 100 %</span></footer>
   </div>
   <div class="cheek r"></div>
 </div>
@@ -965,7 +965,7 @@ MLim.prototype.process = function (o, inDb, outDb, sr) {
   var soft = function (x) { var ax = Math.abs(x) / c; if (ax <= 0.95) return x; var y = (0.95 + 0.05 * Math.tanh((ax - 0.95) / 0.05)) * c; return x < 0 ? -y : y; };
   o[0] = soft(l); o[1] = soft(r);
 };
-/* ===== shimmerstuff mockup: Shimmer Reverb and Shimmer Delay. The sound comes from a JS port of the plugin DSP (shimmer-dsp.js). ===== */
+/* ===== shimmerstuff mockup: Purrrverb and Purrrverb Delay. The sound comes from a JS port of the plugin DSP (shimmer-dsp.js). ===== */
 var fmtPct = function (v) { return Math.round(v * 100) + " %"; };
 var fmtSt = function (v) { return (v > 0 ? "+" : "") + Math.round(v * 10) / 10 + " st"; };
 var fmtHz = function (v) { return v >= 1000 ? (v / 1000).toFixed(v >= 10000 ? 1 : 2).replace(/\.?0+$/, "") + " kHz" : Math.round(v) + " Hz"; };
@@ -1348,7 +1348,7 @@ function buildViews() {
 function setView(v) { var fxm = S.mode === "fx"; if (v !== "spec") v = fxm ? "route" : "tail"; S.view = v; $$("#vt button").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-view") === v)); }); }
 function setModeUI() {
   var rev = S.mode === "reverb"; $$(".modes button").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-mode") === S.mode)); });
-  var fxm = S.mode === "fx"; $("#brandName").textContent = rev ? "Shimmer Reverb" : fxm ? "FX and Routing" : S.mode === "mod" ? "Modulation" : "Shimmer Delay"; $("#fxR").hidden = !rev; $("#fxD").hidden = S.mode !== "delay"; $("#fxM").hidden = S.mode !== "mod"; $("#fxF").hidden = !fxm;
+  var fxm = S.mode === "fx"; $("#brandName").textContent = rev ? "Purrrverb" : fxm ? "FX and Routing" : S.mode === "mod" ? "Modulation" : "Purrrverb Delay"; $("#fxR").hidden = !rev; $("#fxD").hidden = S.mode !== "delay"; $("#fxM").hidden = S.mode !== "mod"; $("#fxF").hidden = !fxm;
   if (fxm ? S.view === "tail" : S.view === "route") S.view = fxm ? "route" : "tail"; routeNote();
   document.documentElement.style.setProperty("--cL", rev ? COL.rev : fxm ? COL.acc : S.mode === "mod" ? COL.pink : COL.del);
   buildViews();
@@ -1882,9 +1882,9 @@ var MAINU = "shimmerstuff.main.user.v1", mainUser = [], mainIdx = 0;
 
 /* ---------- cards ---------- */
 $("#bSet").addEventListener("click", settingsCard);
-$("#bAbout").addEventListener("click", function () { aboutCard("shimmerstuff", "<p>Two plugins in one repo: <b>Shimmer Reverb</b> (plate, hall, shimmer plate, shimmer hall, velvet) and <b>Shimmer Delay</b> (repeats that climb or fall in pitch). Both are VST3 and Standalone.</p>"); });
+$("#bAbout").addEventListener("click", function () { aboutCard("shimmerstuff", "<p>Two plugins in one repo: <b>Purrrverb</b> (plate, hall, shimmer plate, shimmer hall, velvet) and <b>Purrrverb Delay</b> (repeats that climb or fall in pitch). Both are VST3 and Standalone.</p>"); });
 $("#bHelp").addEventListener("click", function () {
-  openCard("<h2>Quick guide</h2><h3>Two plugins</h3><p>Use the two tabs under the header to switch between Shimmer Reverb and Shimmer Delay. Each has its own presets.</p>" +
+  openCard("<h2>Quick guide</h2><h3>Two plugins</h3><p>Use the two tabs under the header to switch between Purrrverb and Purrrverb Delay. Each has its own presets.</p>" +
     "<h3>FX and Routing</h3><p>The third tab is a free routing diagram with Input FX, Reverb, Delay and Wet FX. Drag a box between two columns to put it in series, or onto a column to run it side by side with what is there. The power icon bypasses a box, the arrow icon jumps to its controls, and you can change the numbers inside a box by holding them and dragging up or down. Wet FX has saturation, squash, duck (with an optional sidechain source, free or BPM synced shapes), width and boost, and only touches the effect signal.</p><h3>Main preset</h3><p>The Main preset menu next to the tabs sets the reverb, the delay and the routing together. The preset list at the top still holds the presets of the tab you are on.</p><h3>Views</h3><ul><li><b>Decay (reverb):</b> the tail measured from the real DSP with an impulse. Yellow dot: sideways is Decay, up or down is Size. Cyan: pre-delay. Blue: damping. Orange: shimmer. Pink slider: mix. The purple curve follows while you drag.</li><li><b>Echoes (delay):</b> every repeat with its level and pitch. Drag the first dot for Time, the second for Feedback.</li><li><b>Tone:</b> live spectrum. Drag the lines for damping and the wet filters.</li></ul>" +
     "<h3>Start here</h3><ul><li>Choose 'Single click' as the test signal and press Play to hear the tail alone.</li><li>Pick a preset, then move the knobs and watch the display follow.</li><li>Clear tail empties the reverb or delay at once.</li><li>Compare: bypass switches to the dry signal.</li></ul><div class='row'><button data-close>Close</button></div>");
 });
