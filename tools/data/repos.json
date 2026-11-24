@@ -1,5 +1,108 @@
 [
  {
+  "name": "JPurrr-8000",
+  "description": "Free open source JP-8000 style supersaw synth for trance (VST3 and standalone).",
+  "topics": [
+   "audio-plugin",
+   "cpp",
+   "free-vst",
+   "juce",
+   "linux-audio",
+   "music-production",
+   "open-source",
+   "supersaw",
+   "synthesizer",
+   "trance",
+   "vst3",
+   "jp-8000"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-24T20:10:23Z",
+  "release": [
+   "v0.3.3-rc1",
+   "https://github.com/SpeakingColors/JPurrr-8000/releases/tag/v0.3.3-rc1",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "PurrOne",
+  "description": "PurrOne: free open source mono synth plugin with a thick, smooth sound for bass and lead. VST3 and standalone, Linux first, Windows and macOS targeted.",
+  "topics": [
+   "audio-plugin",
+   "bass-synth",
+   "cpp",
+   "free-vst",
+   "juce",
+   "lead-synth",
+   "linux-audio",
+   "music-production",
+   "open-source",
+   "synthesizer",
+   "vst3",
+   "analog-style",
+   "mono-synth"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-24T20:08:01Z",
+  "release": [
+   "v0.7.0",
+   "https://github.com/SpeakingColors/PurrOne/releases/tag/v0.7.0",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "SupurrrSaw-VST",
+  "description": "SupurrSaw: free open source supersaw, hoover and acid synth. VST3 plugin and standalone for Linux, Windows and macOS. JP-8000 style supersaw, built-in FX, presets.",
+  "topics": [
+   "acid",
+   "audio-plugin",
+   "cpp",
+   "free-vst",
+   "hardstyle",
+   "hoover",
+   "juce",
+   "linux-audio",
+   "music-production",
+   "open-source",
+   "standalone",
+   "supersaw",
+   "synthesizer",
+   "trance",
+   "vst3"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-24T20:06:41Z",
+  "release": [
+   "v0.3.31",
+   "https://github.com/SpeakingColors/SupurrrSaw-VST/releases/tag/v0.3.31",
+   "false"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "gearupdater",
+  "description": "Launcher for Studio 87 software: browse, download, install and update every plugin and app in one place, no GitHub hunting.",
+  "topics": [
+   "cpp",
+   "juce",
+   "linux-audio",
+   "music-production",
+   "open-source",
+   "plugin-manager",
+   "updater"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-24T13:50:43Z",
+  "release": [
+   "v0.1.2",
+   "https://github.com/SpeakingColors/gearupdater/releases/tag/v0.1.2",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
   "name": "Purrrverb",
   "description": "Shimmer reverb and shimmer delay plugin (VST3 and standalone) for Linux, Windows and macOS, with a routing view. Plate, hall, shimmer and velvet reverbs. By Studio 87.",
   "topics": [
@@ -74,27 +177,6 @@
   "shot": "docs/screenshot.png"
  },
  {
-  "name": "gearupdater",
-  "description": "Launcher for Studio 87 software: browse, download, install and update every plugin and app in one place, no GitHub hunting.",
-  "topics": [
-   "cpp",
-   "juce",
-   "linux-audio",
-   "music-production",
-   "open-source",
-   "plugin-manager",
-   "updater"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-24T02:15:39Z",
-  "release": [
-   "v0.1.2",
-   "https://github.com/SpeakingColors/gearupdater/releases/tag/v0.1.2",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
   "name": "Meowcorder",
   "description": "Meowcorder: work in progress audio editor and recorder by Studio 87.",
   "topics": [
@@ -158,62 +240,6 @@
   "license": "GNU General Public License v3.0",
   "pushed": "2026-11-22T05:22:50Z",
   "release": null,
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "PurrOne",
-  "description": "PurrOne: free open source mono synth plugin with a thick, smooth sound for bass and lead. VST3 and standalone, Linux first, Windows and macOS targeted.",
-  "topics": [
-   "audio-plugin",
-   "bass-synth",
-   "cpp",
-   "free-vst",
-   "juce",
-   "lead-synth",
-   "linux-audio",
-   "music-production",
-   "open-source",
-   "synthesizer",
-   "vst3",
-   "analog-style",
-   "mono-synth"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-20T05:23:45Z",
-  "release": [
-   "v0.7.0",
-   "https://github.com/SpeakingColors/PurrOne/releases/tag/v0.7.0",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "SupurrrSaw-VST",
-  "description": "SupurrSaw: free open source supersaw, hoover and acid synth. VST3 plugin and standalone for Linux, Windows and macOS. JP-8000 style supersaw, built-in FX, presets.",
-  "topics": [
-   "acid",
-   "audio-plugin",
-   "cpp",
-   "free-vst",
-   "hardstyle",
-   "hoover",
-   "juce",
-   "linux-audio",
-   "music-production",
-   "open-source",
-   "standalone",
-   "supersaw",
-   "synthesizer",
-   "trance",
-   "vst3"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-20T05:11:46Z",
-  "release": [
-   "v0.3.31",
-   "https://github.com/SpeakingColors/SupurrrSaw-VST/releases/tag/v0.3.31",
-   "false"
-  ],
   "shot": "docs/screenshot.png"
  },
  {
@@ -666,32 +692,6 @@
   "release": [
    "v0.1.0",
    "https://github.com/SpeakingColors/Furchild/releases/tag/v0.1.0",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "JPurrr-8000",
-  "description": "Free open source JP-8000 style supersaw synth for trance (VST3 and standalone).",
-  "topics": [
-   "audio-plugin",
-   "cpp",
-   "free-vst",
-   "juce",
-   "linux-audio",
-   "music-production",
-   "open-source",
-   "supersaw",
-   "synthesizer",
-   "trance",
-   "vst3",
-   "jp-8000"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T19:31:08Z",
-  "release": [
-   "v0.3.3-rc1",
-   "https://github.com/SpeakingColors/JPurrr-8000/releases/tag/v0.3.3-rc1",
    "true"
   ],
   "shot": "docs/screenshot.png"
