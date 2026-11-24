@@ -85,7 +85,7 @@ COPY = {
  "about": "Meowximizer is a sonic enhancer: shape the bass contour, lift the mids and highs, add air, squeeze the sound OTT-style, and finish with light saturation and an output limiter.",
  "points": ["Three bands: low contour and bass, mid and high lift, air", "Optional OTT-style squeeze", "Light saturation", "Output limiter"]},
 # ---------------- Space, rhythm and special effects
-"shimmerstuff": {
+"Purrrverb": {
  "tagline": "Shimmering reverbs and delays that glow.",
  "about": "Purrrverb is a shimmer reverb and a shimmer delay in one plugin: nine reverb types (plate, hall, velvet, room, chamber, arena, spring, gated, reverse) that all take shimmer, a second reverb engine called Lexicat, modulation with a supersaw style detune, a master limiter, effects on the input and on the wet sound, and a routing view that shows how the sound flows.",
  "points": ["Nine reverb types, shimmer on every one", "Lexicat, a second reverb engine, and a gated snare chain tuned to the tempo", "Shimmer delay and eight modulation effects", "Level knob in every section and a master limiter", "Routing view"]},

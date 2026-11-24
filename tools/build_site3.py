@@ -439,6 +439,10 @@ open(OUT + "/index.html", "w").write(page("Studio 87: free open source music sof
 open(OUT + "/404.html", "w").write(page("Page not found | Studio 87", "Page not found.", "/404.html", '<div class="wrap" style="padding:80px 28px"><h1 class="hd" style="font-size:72px">Page not found.</h1><p><a class="btn p" href="/">Back to Studio 87</a></p></div>'))
 os.makedirs(OUT + "/cat-recipe-book", exist_ok=True)
 open(OUT + "/cat-recipe-book/index.html", "w").write('<!doctype html><meta charset="utf-8"><title>Synth Cook Book</title><link rel="canonical" href="' + BASE + '/synth-cook-book/"><meta http-equiv="refresh" content="0; url=/synth-cook-book/"><meta name="robots" content="noindex"><a href="/synth-cook-book/">Synth Cook Book</a>')
+# old addresses that moved (repo renames); keep them working
+for _old, _new, _name in (("shimmerstuff", "purrrverb", "Purrrverb"), ("play/shimmerstuff", "play/purrrverb", "Purrrverb")):
+    os.makedirs(OUT + "/" + _old, exist_ok=True)
+    open(OUT + "/" + _old + "/index.html", "w").write('<!doctype html><meta charset="utf-8"><title>' + _name + '</title><link rel="canonical" href="' + BASE + '/' + _new.replace("play/", "") + '/"><meta http-equiv="refresh" content="0; url=/' + _new + '/"><meta name="robots" content="noindex"><a href="/' + _new + '/">' + _name + '</a>')
 open(OUT + "/robots.txt", "w").write(f"User-agent: *\nAllow: /\nSitemap: {BASE}/sitemap.xml\n")
 open(OUT + "/sitemap.xml", "w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(f"<url><loc>{BASE}{u}</loc></url>\n" for u in urls) + "</urlset>\n")
 open(OUT + "/.nojekyll", "w").write("")

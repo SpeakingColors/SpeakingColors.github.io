@@ -7,7 +7,7 @@ M = {  # repo -> path of the single-file interactive mockup
  "PurrOne":"docs/mockup/purrone-mockup.html","multipawcompressor":"docs/mockup/MultiPaw.html","Apurrr2500":"docs/mockup/Apurrr2500.html",
  "LapCat2A":"docs/mockup/LapCat2A.html","Pawltec":"docs/mockup/Pawltec.html","FetlinePounce":"docs/mockup/FetlinePounce.html",
  "Furchild":"docs/mockup/Furchild.html","PunchPaw":"docs/mockup/PunchPaw.html","clawshaper":"docs/mockup/ClawShaper.html",
- "Clawpressor-vst":"docs/mockup/index.html","CatRack":"docs/mockup/CatRack.html","shimmerstuff":"docs/mockup/shimmerstuff.html",
+ "Clawpressor-vst":"docs/mockup/index.html","CatRack":"docs/mockup/CatRack.html","Purrrverb":"docs/mockup/shimmerstuff.html",
  "scratchcatfx-vst":"docs/mockup/scratchcatfx.html","scratchcatduo-vst":"docs/mockup/scratchcatduo.html","stretch-cat-vst":"docs/mockup/stretchcat.html",
  "copycat-vst":"docs/mockup/copycat.html","CATalog":"docs/mockup/catalog.html","purrfect-cut":"docs/mockup/purrfectcut.html",
  "whiskerscope":"docs/mockup/whisker-scope-mockup.html","Purrrstressor":"docs/mockups/Purrrstressor.html","Meowcorder":"docs/mockup/index.html",
