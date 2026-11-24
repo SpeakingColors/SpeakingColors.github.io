@@ -5,7 +5,7 @@ COPY = {
 "SupurrrSaw-VST": {
  "tagline": "A big supersaw, hoover and acid synth for trance, hard dance and house.",
  "about": "SupurrSaw lets you stack three layers of sound: the classic JP-8000-style supersaw, a pulse-width square, simple waves or real instrument samples. It's made for huge trance leads, rave hoovers, acid lines and house pianos, with a sub oscillator, built-in effects and a bank of presets ready to play.",
- "points": ["Three stackable layers: supersaw, super square, saw, pulse, triangle, sine or a sample", "Presets for hoovers, acid, trance leads and house chords", "Optional instrument pack: grand piano, electric piano, trumpet, violin and more", "Sub oscillator you can add to any sound", "Built-in effects; works as a plugin or on its own"]},
+ "points": ["Three stackable layers: supersaw, super square, saw, pulse, triangle, sine or a sample", "Presets for hoovers, acid, trance leads and house chords", "Built-in instruments: grand piano, electric piano, trumpet, violin and more", "Sub oscillator you can add to any sound", "Built-in effects; works as a plugin or on its own"]},
 "PurrOne": {
  "tagline": "A thick, smooth mono synth for fat basslines and singing leads.",
  "about": "PurrOne is a mono synth made for bass and lead. Two oscillators with hard sync and a warm sub give it weight, a filter that can self-oscillate gives it bite, and the built-in step sequencer and arpeggiator let you play acid lines straight away.",
