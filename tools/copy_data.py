@@ -53,8 +53,8 @@ COPY = {
  "points": ["Up to 4 bands, each with its own compressor and limiter", "A multiband sidechain page", "Rhythmic pattern compression", "Master limiter"]},
 "purrrvoicechannel": {
  "tagline": "A tube channel strip for voices: preamp, compressor, de-esser, gate and EQ in one.",
- "about": "Purrr Voice Channel is a one-window channel strip for vocals and voiceover, inspired by the ART Voice Channel. It chains a tube preamp with ten cat-named tube voicings, a gate, a compressor and limiter, a de-esser and a four-band EQ. Right now it is a design mockup you can play with here; the plugin is not built yet.",
- "points": ["Tube preamp with ten tube voicings and normal or high tube voltage", "Gate or expander, compressor or limiter, and a de-esser", "4-band EQ you can place before or after the dynamics", "Before and after comparison with level match", "Design mockup: try it in your browser"]},
+ "about": "Purrr Voice Channel is a one-window channel strip for vocals and voiceover, inspired by the ART Voice Channel. It chains a tube preamp with ten cat-named tube voicings, a gate or expander, a compressor or limiter, a de-esser and a four-band EQ. Version 0.1 is a first test build for Linux, Windows and macOS (VST3 and standalone), and you can try the interface in your browser here.",
+ "points": ["Tube preamp with ten tube voicings and normal or high tube voltage", "Gate or expander, compressor or limiter, and a de-esser", "4-band EQ you can place before or after the dynamics", "Before and after comparison with level match", "VST3 and standalone for Linux, Windows and macOS (first test build)", "Try the interface in your browser, no install"]},
 "clawshaper": {
  "tagline": "Shape the punch and the tail of your drums, band by band.",
  "about": "ClawShaper is a multiband transient shaper: bring out or soften the attack and the sustain of your sound in up to four bands. You can listen to just the transients or just the sustain, and a safety limiter keeps the result under control.",

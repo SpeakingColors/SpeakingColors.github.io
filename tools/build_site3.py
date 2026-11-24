@@ -8,7 +8,7 @@ for _k, _v in {"SynthCookBook": "A patch recipe book for synths without patch me
 exec(open(S + "/cats.py").read())   # defines CATS
 
 e = html.escape
-DESIGN = {"purrrvoicechannel"}
+DESIGN = set()
 FXSTUDIO = {"catspacer","catcrusher-vst","FatCat","meowbass","Meowximizer","scaredy-cat"}
 exec(open(S + "/art.py").read())
 exec(open(S + "/copy_data.py").read())   # defines COPY

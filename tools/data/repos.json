@@ -28,7 +28,7 @@
  },
  {
   "name": "purrrvoicechannel",
-  "description": "Free open source tube channel strip for voices (design mockup): tube preamp, compressor, de-esser, gate and 4 band EQ in one channel. VST3 planned, Linux first.",
+  "description": "Free open source tube channel strip for voices: tube preamp, compressor, de-esser, gate and 4 band EQ in one channel. VST3 and standalone, Linux first.",
   "topics": [
    "audio-plugin",
    "channel-strip",
@@ -51,7 +51,7 @@
    "https://github.com/SpeakingColors/purrrvoicechannel/releases/tag/v0.1.0",
    "true"
   ],
-  "shot": "docs/screenshot.png"
+  "shot": "docs/plugin-window.png"
  },
  {
   "name": "whiskermix",
