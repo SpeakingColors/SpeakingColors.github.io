@@ -18,10 +18,10 @@
    "vst3"
   ],
   "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-24T05:13:00Z",
+  "pushed": "2026-11-24T05:35:08Z",
   "release": [
    "v0.2.0",
-   "https://github.com/SpeakingColors/shimmerstuff/releases/tag/v0.2.0",
+   "https://github.com/SpeakingColors/Purrrverb/releases/tag/v0.2.0",
    "true"
   ],
   "shot": "docs/screenshot.png"
@@ -34,7 +34,6 @@
    "channel-strip",
    "compressor",
    "de-esser",
-   "design-mockup",
    "equalizer",
    "free-vst",
    "linux-audio",
@@ -45,7 +44,7 @@
    "vst3"
   ],
   "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-24T05:06:01Z",
+  "pushed": "2026-11-24T05:31:39Z",
   "release": [
    "v0.1.0",
    "https://github.com/SpeakingColors/purrrvoicechannel/releases/tag/v0.1.0",

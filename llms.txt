@@ -49,7 +49,7 @@ Warmth, grit, bass weight and loudness.
 
 Reverb, ducking, volume shaping, phase fixing and freeze effects.
 
-- [Purrrverb](https://speakingcolors.github.io/shimmerstuff/): Shimmering reverbs and delays that glow. (test build)
+- [Purrrverb](https://speakingcolors.github.io/purrrverb/): Shimmering reverbs and delays that glow. (test build)
 - [Cat Spacer](https://speakingcolors.github.io/catspacer/): Carve space for a lead or vocal by ducking only the frequencies that clash. (test build)
 - [Scaredy Cat](https://speakingcolors.github.io/scaredy-cat/): Draw volume curves for kick pumps, trance gates and chops. (test build)
 - [phasepaw](https://speakingcolors.github.io/phasepaw/): See whether your kick and bass fight each other, and fix it.
