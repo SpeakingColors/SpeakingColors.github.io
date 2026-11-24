@@ -9,7 +9,7 @@ CATS = [
  ("tone", "Saturation, distortion and tone", "tone and saturation plugin (VST3)", "Warmth, grit, bass weight and loudness.", [
    ("catcrusher-vst","Cat Crusher"),("FatCat","Fat Cat"),("meowbass","Meowbass"),("Meowximizer","Meowximizer")]),
  ("space", "Space, rhythm and special effects", "effect plugin (VST3)", "Reverb, ducking, volume shaping, phase fixing and freeze effects.", [
-   ("shimmerstuff","shimmerstuff"),("catspacer","Cat Spacer"),("scaredy-cat","Scaredy Cat"),("phasepaw","phasepaw"),("hairball","Hairball")]),
+   ("shimmerstuff","Purrrverb"),("catspacer","Cat Spacer"),("scaredy-cat","Scaredy Cat"),("phasepaw","phasepaw"),("hairball","Hairball")]),
  ("dj-and-creative", "DJ and creative tools", "creative audio plugin (VST3)", "Scratch, DJ decks, sample tools and generators.", [
    ("scratchcatfx-vst","Scratch Cat FX"),("scratchcatduo-vst","Scratch Cat Duo"),("stretch-cat-vst","Stretch Cat"),
    ("copycat-vst","Copycat"),("AI-Purrformer","AI Purrformer")]),
