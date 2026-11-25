@@ -1,5 +1,26 @@
 [
  {
+  "name": "gearupdater",
+  "description": "Launcher for Studio 87 software: browse, download, install and update every plugin and app in one place, no GitHub hunting.",
+  "topics": [
+   "cpp",
+   "juce",
+   "linux-audio",
+   "music-production",
+   "open-source",
+   "plugin-manager",
+   "updater"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-24T23:56:31Z",
+  "release": [
+   "v0.1.2",
+   "https://github.com/SpeakingColors/gearupdater/releases/tag/v0.1.2",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
   "name": "JPurrr-8000",
   "description": "Free open source JP-8000 style supersaw synth for trance (VST3 and standalone).",
   "topics": [
@@ -78,27 +99,6 @@
    "v0.3.31",
    "https://github.com/SpeakingColors/SupurrrSaw-VST/releases/tag/v0.3.31",
    "false"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "gearupdater",
-  "description": "Launcher for Studio 87 software: browse, download, install and update every plugin and app in one place, no GitHub hunting.",
-  "topics": [
-   "cpp",
-   "juce",
-   "linux-audio",
-   "music-production",
-   "open-source",
-   "plugin-manager",
-   "updater"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-24T13:50:43Z",
-  "release": [
-   "v0.1.2",
-   "https://github.com/SpeakingColors/gearupdater/releases/tag/v0.1.2",
-   "true"
   ],
   "shot": "docs/screenshot.png"
  },
