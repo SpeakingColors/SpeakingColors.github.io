@@ -1,10 +1,64 @@
 [
  {
-  "name": "SofterPaws",
+  "name": "scratchcatduo-vst",
+  "description": "Two DJ decks and a mixer in one plugin (VST3 and standalone). Free and open source, Linux first. Hot cues, loops, sampler, pad FX, EQ and kill switches.",
+  "topics": [
+   "audio-plugin",
+   "cpp",
+   "dj",
+   "dj-software",
+   "free-vst",
+   "juce",
+   "linux-audio",
+   "mixer",
+   "music-production",
+   "open-source",
+   "scratch",
+   "turntable",
+   "vst3"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-26T04:32:41Z",
+  "release": [
+   "v0.3.1",
+   "https://github.com/SpeakingColors/scratchcatduo-vst/releases/tag/v0.3.1",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "Whiskerwave-vst",
+  "description": "Free open source wavetable synth VST3 for Linux: morphing wavetable oscillators, layered voices, mod matrix, built-in FX, sample your own hardware into wavetables. CC0 waves.",
+  "topics": [
+   "audio-plugin",
+   "cc0",
+   "cpp",
+   "free-vst",
+   "juce",
+   "linux-audio",
+   "music-production",
+   "open-source",
+   "sound-design",
+   "synthesizer",
+   "vst3",
+   "wavetable",
+   "wavetable-synth"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-26T04:19:10Z",
+  "release": [
+   "v1.7.6-preview",
+   "https://github.com/SpeakingColors/Whiskerwave-vst/releases/tag/v1.7.6-preview",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "TailChaser",
   "description": "",
   "topics": [],
   "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-25T20:44:48Z",
+  "pushed": "2026-11-26T04:18:47Z",
   "release": null,
   "shot": "docs/screenshot.png"
  },
@@ -21,12 +75,30 @@
    "updater"
   ],
   "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-25T19:22:30Z",
+  "pushed": "2026-11-26T03:37:06Z",
   "release": [
    "v0.1.2",
    "https://github.com/SpeakingColors/gearupdater/releases/tag/v0.1.2",
    "true"
   ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "MeowFlipper",
+  "description": "",
+  "topics": [],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-26T00:15:50Z",
+  "release": null,
+  "shot": ""
+ },
+ {
+  "name": "SofterPaws",
+  "description": "",
+  "topics": [],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-26T00:04:38Z",
+  "release": null,
   "shot": "docs/screenshot.png"
  },
  {
@@ -459,33 +531,6 @@
   "release": [
    "v0.2.0",
    "https://github.com/SpeakingColors/scratchcatfx-vst/releases/tag/v0.2.0",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "scratchcatduo-vst",
-  "description": "Two DJ decks and a mixer in one plugin (VST3 and standalone). Free and open source, Linux first. Hot cues, loops, sampler, pad FX, EQ and kill switches.",
-  "topics": [
-   "audio-plugin",
-   "cpp",
-   "dj",
-   "dj-software",
-   "free-vst",
-   "juce",
-   "linux-audio",
-   "mixer",
-   "music-production",
-   "open-source",
-   "scratch",
-   "turntable",
-   "vst3"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T19:46:00Z",
-  "release": [
-   "v0.2.0",
-   "https://github.com/SpeakingColors/scratchcatduo-vst/releases/tag/v0.2.0",
    "true"
   ],
   "shot": "docs/screenshot.png"
@@ -1106,29 +1151,6 @@
   "pushed": "2026-11-16T03:20:31Z",
   "release": null,
   "shot": ""
- },
- {
-  "name": "Whiskerwave-vst",
-  "description": "Free open source wavetable synth VST3 for Linux: morphing wavetable oscillators, layered voices, mod matrix, built-in FX, sample your own hardware into wavetables. CC0 waves.",
-  "topics": [
-   "audio-plugin",
-   "cc0",
-   "cpp",
-   "free-vst",
-   "juce",
-   "linux-audio",
-   "music-production",
-   "open-source",
-   "sound-design",
-   "synthesizer",
-   "vst3",
-   "wavetable",
-   "wavetable-synth"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T03:16:40Z",
-  "release": null,
-  "shot": "docs/screenshot.png"
  },
  {
   "name": "minilogue-xd-controller",
