@@ -1,5 +1,14 @@
 [
  {
+  "name": "TailChaser",
+  "description": "",
+  "topics": [],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-26T05:18:04Z",
+  "release": null,
+  "shot": "docs/screenshot.png"
+ },
+ {
   "name": "scratchcatduo-vst",
   "description": "Two DJ decks and a mixer in one plugin (VST3 and standalone). Free and open source, Linux first. Hot cues, loops, sampler, pad FX, EQ and kill switches.",
   "topics": [
@@ -51,15 +60,6 @@
    "https://github.com/SpeakingColors/Whiskerwave-vst/releases/tag/v1.7.6-preview",
    "true"
   ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "TailChaser",
-  "description": "",
-  "topics": [],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-26T04:18:47Z",
-  "release": null,
   "shot": "docs/screenshot.png"
  },
  {
