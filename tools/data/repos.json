@@ -1,14 +1,5 @@
 [
  {
-  "name": "Pawphet-800",
-  "description": "",
-  "topics": [],
-  "license": "",
-  "pushed": "2026-11-27T23:29:46Z",
-  "release": null,
-  "shot": ""
- },
- {
   "name": "jt4000-vst",
   "description": "MIDI controller plugin (VST3 and standalone) for the Behringer JT-4000 (JT-4000 Micro): sends and receives its CC messages from your DAW. Early build.",
   "topics": [
@@ -169,24 +160,6 @@
    "https://github.com/SpeakingColors/gearupdater/releases/tag/v0.1.2",
    "true"
   ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "SofterPaws",
-  "description": "",
-  "topics": [],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-27T05:45:21Z",
-  "release": null,
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "TailChaser",
-  "description": "",
-  "topics": [],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-26T19:36:23Z",
-  "release": null,
   "shot": "docs/screenshot.png"
  },
  {
