@@ -51,6 +51,18 @@ COPY = {
  "tagline": "Multiband compression and multiband sidechain in one plugin.",
  "about": "MultiPaw Compressor combines a multiband compressor and limiter with a sidechain page that works band by band. Use it to squeeze each part of your sound separately, or to duck only the bands that need it. Two pages, one toggle.",
  "points": ["Up to 4 bands, each with its own compressor and limiter", "A multiband sidechain page", "Rhythmic pattern compression", "Master limiter"]},
+"SofterPaws": {
+ "tagline": "A dynamic resonance suppressor that softens harsh, ringing frequencies.",
+ "about": "Softer Paws finds harsh, ringing frequencies while the music plays and turns them down only while they ring, so the sound gets softer and smoother without losing its character. It has a de-esser, an external key input and a big live display. Right now it is a design mockup that runs the real sound engine in your browser; the plugin is not built yet.",
+ "points": ["Soft (adaptive) and Hard (fixed threshold) modes, from 20 Hz to 20 kHz", "Up to 8 sensitivity nodes to steer where it works", "Built-in de-esser for S, T and SH sounds", "Auto gain, Delta (hear only what is removed) and Mix", "External key input, stereo or Mid/Side, with spectrum, waterfall and heat map views"]},
+"TailChaser": {
+ "tagline": "Fades out the tails of reverbs, delays and room noise so your mix stays tight.",
+ "about": "Tail Chaser scans your audio, finds the tails that follow each hit (reverb, delay repeats, room noise) and fades them out, so there is more silence between the hits. Up to four bands are handled on their own, so a long bass note is not cut because of the reverb above it. A Mix knob blends back the original. Right now it is a design mockup with a tested detection core; the plugin is not built yet.",
+ "points": ["Auto listens to your audio and sets the main knobs, with Undo", "Up to four bands, each with its own tail handling", "Echo guard learns the delay time and removes only the repeats on that grid", "Sync to tempo, a Center control and a Floor for silence below a level", "Display shows the original, the cleaned sound and what was removed"]},
+"Pawphet-800": {
+ "tagline": "A cat-themed polyphonic analog-style synth in the spirit of the Pro-800 and Prophet-600.",
+ "about": "Pawphet-800 is a polyphonic synth with a vintage analog feel, in the spirit of the Pro-800 and Prophet-600. Two oscillators with hard sync and poly mod, a ladder filter with a little saturation, and per-voice drift keep it from sounding too perfect. Right now it is a design and sound prototype you can play here in your browser; the plugin itself is not built yet.",
+ "points": ["8 to 64 voices (32 by default) and 999 program slots", "Two oscillators with band-limited hard sync, poly mod and noise", "Voice modes: Poly, Mono, Legato, Unison, Stack and Chord", "Analog character: per-voice drift, soft oscillator edges and filter saturation", "55 factory presets and 53 built-in demos, plus arpeggiator, sequencer and a live scope"]},
 "purrrvoicechannel": {
  "tagline": "A tube channel strip for voices: preamp, compressor, de-esser, gate and EQ in one.",
  "about": "Purrr Voice Channel is a one-window channel strip for vocals and voiceover, inspired by the ART Voice Channel. It chains a tube preamp with ten cat-named tube voicings, a gate or expander, a compressor or limiter, a de-esser and a four-band EQ. Version 0.1 is a first test build for Linux, Windows and macOS (VST3 and standalone), and you can try the interface in your browser here.",

@@ -1419,5 +1419,32 @@
    "false"
   ],
   "shot": ""
+ },
+ {
+  "name": "Pawphet-800",
+  "description": "",
+  "topics": [],
+  "license": "",
+  "pushed": "2026-11-27T23:28:27Z",
+  "release": null,
+  "shot": "docs/design.png"
+ },
+ {
+  "name": "TailChaser",
+  "description": "",
+  "topics": [],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-26T19:36:23Z",
+  "release": null,
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "SofterPaws",
+  "description": "",
+  "topics": [],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-27T05:45:21Z",
+  "release": null,
+  "shot": "docs/screenshot.png"
  }
 ]

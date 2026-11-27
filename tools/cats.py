@@ -1,15 +1,15 @@
 # category -> (title, kind phrase for <title>, blurb, [(repo, display name)])
 CATS = [
  ("synths", "Synths", "synth plugin (VST3)", "Free open source synth plugins for bass, leads, supersaws and wavetables.", [
-   ("SupurrrSaw-VST","SupurrSaw"),("PurrOne","PurrOne"),("JPurrr-8000","JPurrr-8000"),("Whiskerwave-vst","Whiskerwave"),("KickKitten","Kick Kitten")]),
+   ("SupurrrSaw-VST","SupurrSaw"),("PurrOne","PurrOne"),("JPurrr-8000","JPurrr-8000"),("Whiskerwave-vst","Whiskerwave"),("KickKitten","Kick Kitten"),("Pawphet-800","Pawphet-800")]),
  ("dynamics", "Compressors, limiters and EQ", "dynamics plugin (VST3)", "Compressors, limiters, transient shaping and EQ in classic and new styles.", [
    ("Apurrr2500","Apurrr2500"),("FetlinePounce","FetlinePounce"),("LapCat2A","LapCat2A"),("Furchild","Furchild"),
    ("Purrrstressor","Purrrstressor"),("PunchPaw","PunchPaw"),("Clawpressor-vst","Clawpressor"),
-   ("multipawcompressor","MultiPaw Compressor"),("purrrvoicechannel","Purrr Voice Channel"),("clawshaper","ClawShaper"),("Pawltec","Pawltec"),("CatRack","CatRack")]),
+   ("multipawcompressor","MultiPaw Compressor"),("purrrvoicechannel","Purrr Voice Channel"),("clawshaper","ClawShaper"),("Pawltec","Pawltec"),("CatRack","CatRack"),("SofterPaws","Softer Paws")]),
  ("tone", "Saturation, distortion and tone", "tone and saturation plugin (VST3)", "Warmth, grit, bass weight and loudness.", [
    ("catcrusher-vst","Cat Crusher"),("FatCat","Fat Cat"),("meowbass","Meowbass"),("Meowximizer","Meowximizer")]),
  ("space", "Space, rhythm and special effects", "effect plugin (VST3)", "Reverb, ducking, volume shaping, phase fixing and freeze effects.", [
-   ("Purrrverb","Purrrverb"),("catspacer","Cat Spacer"),("scaredy-cat","Scaredy Cat"),("phasepaw","phasepaw"),("hairball","Hairball")]),
+   ("Purrrverb","Purrrverb"),("catspacer","Cat Spacer"),("scaredy-cat","Scaredy Cat"),("phasepaw","phasepaw"),("hairball","Hairball"),("TailChaser","Tail Chaser")]),
  ("dj-and-creative", "DJ and creative tools", "creative audio plugin (VST3)", "Scratch, DJ decks, sample tools and generators.", [
    ("scratchcatfx-vst","Scratch Cat FX"),("scratchcatduo-vst","Scratch Cat Duo"),("stretch-cat-vst","Stretch Cat"),
    ("copycat-vst","Copycat"),("AI-Purrformer","AI Purrformer")]),

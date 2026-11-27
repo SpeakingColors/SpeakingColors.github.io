@@ -8,7 +8,7 @@ for _k, _v in {"SynthCookBook": "A patch recipe book for synths without patch me
 exec(open(S + "/cats.py").read())   # defines CATS
 
 e = html.escape
-DESIGN = set()
+DESIGN = {"Pawphet-800", "TailChaser", "SofterPaws"}   # design mockups: the plugin is not built yet
 FXSTUDIO = {"catspacer","catcrusher-vst","FatCat","meowbass","Meowximizer","scaredy-cat"}
 exec(open(S + "/art.py").read())
 exec(open(S + "/copy_data.py").read())   # defines COPY
@@ -298,7 +298,7 @@ for cslug, ctitle, kind, blurb, items in CATS:
         if not r: continue
         d = COPY.get(rn, {}).get("tagline") or (r["description"] or "").strip(); cp = COPY.get(rn, {}); rel = r["release"]; test = is_test(rn)
         dl = rel[1] if rel else f"https://github.com/SpeakingColors/{rn}"
-        title = (f"{dn}: free open source tube channel strip (design mockup)" if rn in DESIGN else f"{dn}: free open source {kind}"); desc = short(d, 155)
+        title = (f"{dn}: free open source {kind.split(' (')[0]} (design mockup)" if rn in DESIGN else f"{dn}: free open source {kind}"); desc = short(d, 155)
         lab, col = LABEL[cslug]
         tags = "".join(f'<span class="tag">{e(t)}</span>' for t in r["topics"][:12])
         w, h = 1200, 750
@@ -321,7 +321,7 @@ for cslug, ctitle, kind, blurb, items in CATS:
         _rows = -(-len(_sl) // 8) if _sl else 1; _cols = -(-len(_sl) // _rows) if _sl else 1
         sib = "".join(f'<a class="mini" href="/{slug(n2)}/"><div class="im">{thumb(n2, d2, kind)}</div><b>{e(d2)}</b></a>' for n2, d2 in _sl)[:60000]
         meta = (f'<dt>Price</dt><dd>Free</dd><dt>License</dt><dd>{e(r["license"] if r["license"] not in ("", "Other") else "See the repository")}</dd>'
-                f'<dt>Type</dt><dd>{e("Tube channel strip (VST3 planned)" if rn in DESIGN else kind[0].upper() + kind[1:])}</dd>'
+                f'<dt>Type</dt><dd>{e((kind.split(" (")[0][0].upper() + kind.split(" (")[0][1:] + " (VST3 planned)") if rn in DESIGN else kind[0].upper() + kind[1:])}</dd>'
                 + f'<dt>Source</dt><dd><a href="https://github.com/SpeakingColors/{e(rn)}">{GHICON} github.com/SpeakingColors/{e(rn)}</a></dd>')
         hear = ""
         if rn in AUDIO and AUDIO[rn]:
