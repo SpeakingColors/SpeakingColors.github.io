@@ -1,5 +1,79 @@
 [
  {
+  "name": "Pawphet-800",
+  "description": "",
+  "topics": [],
+  "license": "",
+  "pushed": "2026-11-27T23:29:46Z",
+  "release": null,
+  "shot": ""
+ },
+ {
+  "name": "jt4000-vst",
+  "description": "MIDI controller plugin (VST3 and standalone) for the Behringer JT-4000 (JT-4000 Micro): sends and receives its CC messages from your DAW. Early build.",
+  "topics": [
+   "audio-plugin",
+   "behringer",
+   "cpp",
+   "free-vst",
+   "juce",
+   "linux-audio",
+   "midi",
+   "midi-controller",
+   "music-production",
+   "open-source",
+   "synth-editor",
+   "vst3",
+   "jt-4000"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-27T23:27:31Z",
+  "release": [
+   "v0.2.0",
+   "https://github.com/SpeakingColors/jt4000-vst/releases/tag/v0.2.0",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "mx400-vst-linux",
+  "description": "Controller plugin for the MX400 on Linux. Early work in progress.",
+  "topics": [
+   "juce",
+   "linux-audio",
+   "midi-controller",
+   "open-source",
+   "vst3"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-27T23:25:27Z",
+  "release": [
+   "v0.1.2",
+   "https://github.com/SpeakingColors/mx400-vst-linux/releases/tag/v0.1.2",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "Meowcorder",
+  "description": "Meowcorder: work in progress audio editor and recorder by Studio 87.",
+  "topics": [
+   "audio-editor",
+   "audio-recorder",
+   "linux-audio",
+   "music-production",
+   "open-source"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-27T23:24:07Z",
+  "release": [
+   "v0.2.1",
+   "https://github.com/SpeakingColors/Meowcorder/releases/tag/v0.2.1",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
   "name": "Whiskerwave-vst",
   "description": "Free open source wavetable synth VST3 for Linux: morphing wavetable oscillators, layered voices, mod matrix, built-in FX, sample your own hardware into wavetables. CC0 waves.",
   "topics": [
@@ -18,12 +92,47 @@
    "wavetable-synth"
   ],
   "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-27T18:02:24Z",
+  "pushed": "2026-11-27T23:23:51Z",
   "release": [
-   "v1.9.2-preview",
-   "https://github.com/SpeakingColors/Whiskerwave-vst/releases/tag/v1.9.2-preview",
+   "v1.9.7-preview",
+   "https://github.com/SpeakingColors/Whiskerwave-vst/releases/tag/v1.9.7-preview",
    "true"
   ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "JPurrr-8000",
+  "description": "Free open source JP-8000 style supersaw synth for trance (VST3 and standalone).",
+  "topics": [
+   "audio-plugin",
+   "cpp",
+   "free-vst",
+   "juce",
+   "linux-audio",
+   "music-production",
+   "open-source",
+   "supersaw",
+   "synthesizer",
+   "trance",
+   "vst3",
+   "jp-8000"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-27T23:19:55Z",
+  "release": [
+   "v0.3.3-rc1",
+   "https://github.com/SpeakingColors/JPurrr-8000/releases/tag/v0.3.3-rc1",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "NineLives",
+  "description": "",
+  "topics": [],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-27T23:09:20Z",
+  "release": null,
   "shot": "docs/screenshot.png"
  },
  {
@@ -115,32 +224,6 @@
   "pushed": "2026-11-26T00:15:50Z",
   "release": null,
   "shot": ""
- },
- {
-  "name": "JPurrr-8000",
-  "description": "Free open source JP-8000 style supersaw synth for trance (VST3 and standalone).",
-  "topics": [
-   "audio-plugin",
-   "cpp",
-   "free-vst",
-   "juce",
-   "linux-audio",
-   "music-production",
-   "open-source",
-   "supersaw",
-   "synthesizer",
-   "trance",
-   "vst3",
-   "jp-8000"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-24T20:10:23Z",
-  "release": [
-   "v0.3.3-rc1",
-   "https://github.com/SpeakingColors/JPurrr-8000/releases/tag/v0.3.3-rc1",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
  },
  {
   "name": "PurrOne",
@@ -268,25 +351,6 @@
   "release": [
    "v0.5.5",
    "https://github.com/SpeakingColors/whiskermix/releases/tag/v0.5.5",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "Meowcorder",
-  "description": "Meowcorder: work in progress audio editor and recorder by Studio 87.",
-  "topics": [
-   "audio-editor",
-   "audio-recorder",
-   "linux-audio",
-   "music-production",
-   "open-source"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-23T05:41:16Z",
-  "release": [
-   "v0.2.1",
-   "https://github.com/SpeakingColors/Meowcorder/releases/tag/v0.2.1",
    "true"
   ],
   "shot": "docs/screenshot.png"
@@ -769,25 +833,6 @@
   "license": "GNU Affero General Public License v3.0",
   "pushed": "2026-11-16T19:31:05Z",
   "release": null,
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "mx400-vst-linux",
-  "description": "Controller plugin for the MX400 on Linux. Early work in progress.",
-  "topics": [
-   "juce",
-   "linux-audio",
-   "midi-controller",
-   "open-source",
-   "vst3"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T19:31:03Z",
-  "release": [
-   "v0.1.2",
-   "https://github.com/SpeakingColors/mx400-vst-linux/releases/tag/v0.1.2",
-   "true"
-  ],
   "shot": "docs/screenshot.png"
  },
  {
@@ -1288,33 +1333,6 @@
   "release": [
    "v0.1.0",
    "https://github.com/SpeakingColors/SynthCookBook/releases/tag/v0.1.0",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "jt4000-vst",
-  "description": "MIDI controller plugin (VST3 and standalone) for the Behringer JT-4000 (JT-4000 Micro): sends and receives its CC messages from your DAW. Early build.",
-  "topics": [
-   "audio-plugin",
-   "behringer",
-   "cpp",
-   "free-vst",
-   "juce",
-   "linux-audio",
-   "midi",
-   "midi-controller",
-   "music-production",
-   "open-source",
-   "synth-editor",
-   "vst3",
-   "jt-4000"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-16T02:20:11Z",
-  "release": [
-   "v0.2.0",
-   "https://github.com/SpeakingColors/jt4000-vst/releases/tag/v0.2.0",
    "true"
   ],
   "shot": "docs/screenshot.png"
