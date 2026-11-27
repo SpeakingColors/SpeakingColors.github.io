@@ -18,6 +18,7 @@ Free open source synth plugins for bass, leads, supersaws and wavetables.
 - [JPurrr-8000](https://speakingcolors.github.io/jpurrr-8000/): A trance supersaw synth in the spirit of the Roland JP-8000. (test build)
 - [Whiskerwave](https://speakingcolors.github.io/whiskerwave-vst/): A wavetable synth with morphing waves and a tool to sample your own gear. (test build)
 - [Kick Kitten](https://speakingcolors.github.io/kickkitten/): Design your own trance kicks, from the thump to the punch. (test build)
+- [Pawphet-800](https://speakingcolors.github.io/pawphet-800/): A cat-themed polyphonic analog-style synth in the spirit of the Pro-800 and Prophet-600.
 
 ## Compressors, limiters and EQ
 
@@ -35,6 +36,7 @@ Compressors, limiters, transient shaping and EQ in classic and new styles.
 - [ClawShaper](https://speakingcolors.github.io/clawshaper/): Shape the punch and the tail of your drums, band by band. (test build)
 - [Pawltec](https://speakingcolors.github.io/pawltec/): A tube program EQ with big, smooth lows and highs, in the Pultec style. (test build)
 - [CatRack](https://speakingcolors.github.io/catrack/): A channel strip built from Studio 87's own effects: stack up to 12 in one window. (test build)
+- [Softer Paws](https://speakingcolors.github.io/softerpaws/): A dynamic resonance suppressor that softens harsh, ringing frequencies.
 
 ## Saturation, distortion and tone
 
@@ -54,6 +56,7 @@ Reverb, ducking, volume shaping, phase fixing and freeze effects.
 - [Scaredy Cat](https://speakingcolors.github.io/scaredy-cat/): Draw volume curves for kick pumps, trance gates and chops. (test build)
 - [phasepaw](https://speakingcolors.github.io/phasepaw/): See whether your kick and bass fight each other, and fix it.
 - [Hairball](https://speakingcolors.github.io/hairball/): Freeze a sound, shred it into grains and turn it into something new. (test build)
+- [Tail Chaser](https://speakingcolors.github.io/tailchaser/): Fades out the tails of reverbs, delays and room noise so your mix stays tight.
 
 ## DJ and creative tools
 

@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tail Chaser v1.8 design mockup</title>
+<style>
+@font-face{font-family:'Barlow Condensed';font-style:normal;font-weight:600;font-display:swap;src:url(/try/fonts/e7266381d7.woff2) format('woff2')}
+@font-face{font-family:'Barlow Condensed';font-style:normal;font-weight:700;font-display:swap;src:url(/try/fonts/4476f02229.woff2) format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url(/try/fonts/fc59414679.woff2) format('woff2')}
+:root{--w:1360px;--h:800px}
+*{box-sizing:border-box;user-select:none;-webkit-user-select:none}
+input,textarea{user-select:text;-webkit-user-select:text}
+html,body{margin:0;height:100%;overflow:hidden;background:#070708;font-family:'Barlow Condensed',sans-serif;color:var(--tx)}
+body[data-theme=b]{--bg:#0b0b0d;--pn:#15161a;--pn2:#1c1d22;--ln:#2b2d34;--dp:#06080a;--tx:#f4f5f7;--dim:#a9adb8;--ttl:#E1CBF4;--mint:#02EBBA;--pink:#FF1383;--pur:#A43DFF;--yel:#FFD100;--sky:#6CC9F5;--amb:#FFA600;--sel:#241238;--selb:#CD92FE;--grid:#1b2523}
+body[data-theme=a]{--bg:#161638;--pn:#1c1c4a;--pn2:#2C2C62;--ln:#33403f;--dp:#05060d;--tx:#e8e6e1;--dim:#b8b4d8;--ttl:#c7c9ff;--mint:#02EBBA;--pink:#FF1383;--pur:#A43DFF;--yel:#FFD100;--sky:#6CC9F5;--amb:#FFA600;--sel:#3a2a5a;--selb:#FFA600;--grid:#232a48}
+body[data-theme=c]{--bg:#121214;--pn:#202023;--pn2:#2a2a2e;--ln:#3a3a40;--dp:#0a0a0b;--tx:#ffffff;--dim:#c4c4cc;--ttl:#ffffff;--mint:#02EBBA;--pink:#FF1383;--pur:#A43DFF;--yel:#FFD100;--sky:#6CC9F5;--amb:#FFA600;--sel:#33333a;--selb:#ffffff;--grid:#26262b}
+#vp{position:fixed;inset:0;overflow:hidden}
+#stage{position:absolute;left:50%;top:50%;width:var(--w);height:var(--h);transform-origin:50% 50%;background:var(--bg);display:flex;box-shadow:0 0 40px #000}
+.cheek{width:44px;flex:none;position:relative;cursor:default}
+.cheek canvas{position:absolute;inset:0;width:100%;height:100%}
+#main{flex:1;display:flex;flex-direction:column;padding:8px 10px 6px;gap:8px;min-width:0}
+header{display:flex;align-items:center;gap:10px;height:42px}
+.logo{width:36px;height:34px;flex:none}
+.name{font-weight:700;font-size:26px;letter-spacing:.5px;color:var(--ttl)}
+.brand{font-size:15px;color:var(--sky);font-weight:600;margin-left:-4px;margin-top:6px}
+.sp{flex:1}
+button{white-space:nowrap}
+button,select{font:600 15px 'Barlow Condensed',sans-serif;color:var(--tx);background:var(--pn2);border:1px solid var(--ln);border-radius:6px;padding:4px 10px;cursor:pointer;height:28px}
+button:hover,select:hover{border-color:var(--selb)}
+button.on{background:var(--sel);border-color:var(--selb);color:var(--ttl)}
+button.mint{border-color:var(--mint);color:var(--mint)}
+button.dis{opacity:.4;pointer-events:none}
+.pre{display:flex;gap:4px;align-items:center}
+.pre select{min-width:170px}
+#body{flex:1;display:flex;gap:10px;min-height:0}
+#left{flex:1;display:flex;flex-direction:column;gap:8px;min-width:0}
+.card{background:var(--pn);border:1px solid var(--ln);border-radius:8px;padding:6px 8px}
+.card h3{margin:0 0 2px;font-size:15px;color:var(--ttl);font-weight:700;letter-spacing:.8px;text-transform:uppercase}
+#disp{position:relative;padding:4px}
+#cv{display:block;width:100%;height:440px;background:var(--dp);border-radius:5px;cursor:crosshair}
+#chips{display:flex;gap:8px;margin-top:4px;align-items:center}
+.chip{background:var(--dp);border:1px solid var(--ln);border-radius:5px;padding:1px 8px;font:500 13px 'JetBrains Mono',monospace;white-space:nowrap;color:var(--dim)}
+.chip b{color:var(--yel);font-weight:500}
+#ctl{display:flex;gap:8px}
+.grp{display:flex;flex-direction:column}
+.row{display:flex;gap:2px}
+.knob{width:54px;display:flex;flex-direction:column;align-items:center;cursor:ns-resize}
+.knob svg{width:46px;height:46px}
+.knob .l{font-size:14px;font-weight:600;color:var(--sky);line-height:14px;margin-top:-2px;text-align:center}
+.knob .v{font:500 12px 'JetBrains Mono',monospace;color:var(--yel);background:var(--dp);border:1px solid var(--ln);border-radius:4px;padding:0 4px;margin-top:2px;white-space:nowrap}
+.knob.off{opacity:.35}
+.knob.flash .v{background:var(--sel);border-color:var(--selb);transition:background .2s}
+.seg{display:flex;flex-direction:column;align-items:center;width:112px}
+.seg .l{font-size:14px;font-weight:600;color:var(--sky)}
+.seg .b{display:flex;margin-top:6px}
+.seg button{border-radius:0;padding:4px 9px;margin-left:-1px}
+.seg button:first-child{border-radius:6px 0 0 6px}.seg button:last-child{border-radius:0 6px 6px 0}
+#meters{width:150px;display:flex;flex-direction:column}
+#meters .mrow{flex:0 0 auto!important}
+#meters .mrow{display:flex;gap:6px;flex:1;justify-content:center}
+.mcol{display:flex;flex-direction:column;align-items:center}
+.mcol .t{font-size:14px;font-weight:700;color:var(--ttl)}
+.mcol canvas{background:var(--dp);border-radius:4px}
+.mcol .pk{font:500 11px 'JetBrains Mono',monospace;color:var(--yel);height:14px}
+#rig{display:flex;align-items:center;gap:8px;border:1px dashed var(--ln);border-radius:8px;padding:4px 8px;background:transparent}
+#rig .tag{font-size:13px;color:var(--amb);font-weight:600;letter-spacing:.5px;text-transform:uppercase}
+#foot{display:flex;justify-content:space-between;font:500 11px 'JetBrains Mono',monospace;color:var(--dim);height:14px}
+.h{position:absolute;z-index:5}
+#tip{position:fixed;z-index:50;max-width:300px;background:#000;border:1px solid var(--selb,#CD92FE);color:#f4f5f7;font:500 15px 'Barlow Condensed',sans-serif;padding:5px 9px;border-radius:6px;pointer-events:none;display:none}
+#modal{position:absolute;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:20}
+#dlg{background:var(--pn);border:1px solid var(--selb);border-radius:10px;padding:14px 16px;min-width:420px;max-width:760px;max-height:90%;overflow:auto;font-size:17px}
+#dlg h2{margin:0 0 8px;color:var(--ttl);font-size:24px}
+#dlg p,#dlg li{margin:4px 0;color:var(--tx);line-height:1.15}
+#dlg input[type=text],#dlg textarea{width:100%;background:var(--dp);color:var(--tx);border:1px solid var(--ln);border-radius:5px;padding:5px 8px;font:500 14px 'JetBrains Mono',monospace}
+#dlg textarea{height:160px}
+#dlg .btns{display:flex;gap:8px;justify-content:flex-end;margin-top:10px}
+#dlg label{display:flex;align-items:center;gap:8px;margin:6px 0}
+#dlg kbd{background:var(--dp);border:1px solid var(--ln);border-radius:4px;padding:0 6px;font:500 13px 'JetBrains Mono',monospace;color:var(--yel)}
+</style></head>
+<body data-theme="b">
+<div id="vp"><div id="stage">
+ <div class="cheek" id="chL"><canvas></canvas></div>
+ <div id="main">
+  <header>
+   <svg class="logo" viewBox="0 0 40 38"><path d="M4 4 L14 11 Q20 9 26 11 L36 4 L35 20 Q36 33 20 35 Q4 33 5 20 Z" fill="#FF7BB1" stroke="#FF1383" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 8 L13 12 L8 16Z M32 8 L27 12 L32 16Z" fill="#FBBDD0"/><ellipse cx="14" cy="21" rx="2.6" ry="3.4" fill="#1B0264"/><ellipse cx="26" cy="21" rx="2.6" ry="3.4" fill="#1B0264"/><path d="M18 26 L22 26 L20 28.5Z" fill="#FF1383"/><path d="M20 28.5 Q17 31 14.5 29.5 M20 28.5 Q23 31 25.5 29.5" fill="none" stroke="#1B0264" stroke-width="1.2" stroke-linecap="round"/></svg>
+   <span class="name">Tail Chaser</span><span class="brand">Studio 87</span>
+   <div class="pre">
+    <button id="pPrev" data-tip="Previous preset">&#9664;</button>
+    <select id="pSel" data-tip="Pick a preset. Factory presets are marked with a dot; your own saves come after them."></select>
+    <button id="pNext" data-tip="Next preset">&#9654;</button>
+    <button id="pSave" data-tip="Save the current settings. You can overwrite, save as new or cancel.">Save</button>
+    <button id="pRen" data-tip="Rename your preset. A factory preset becomes your own copy.">Rename</button>
+    <button id="pDel" data-tip="Delete your own preset. Factory presets cannot be deleted.">Delete</button>
+    <button id="pExp" data-tip="Copy this preset as text you can keep or share.">Export</button>
+    <button id="pImp" data-tip="Paste a preset text. It is checked before it is used.">Import</button>
+   </div>
+   <span class="sp"></span>
+   <button id="bGuide">Guide</button><button id="bSet">Settings</button><button id="bAbout">About &amp; Support</button>
+  </header>
+  <div id="body">
+   <div id="left">
+    <div class="card" id="disp">
+     <canvas id="cv"></canvas>
+     <div id="autoMsg" style="display:none;align-items:center;gap:8px;margin:4px 0 0;font:500 13px JetBrains Mono,monospace;color:var(--yel)"><span id="autoTxt"></span><button id="bUndo" style="height:22px;padding:0 8px">Undo</button></div>
+     <div id="chips">
+      <button id="bView" data-tip="Wave: the real waveform, like the clip in your DAW. Removed part in pink, cut region shaded. dB: the level in dB, which makes quiet tails look big.">View: Wave</button>
+      <button id="bBands" data-tip="Show one lane per frequency band (low, mid, high) instead of the single combined Cut lane. Technical: only needed to see which band is being cut.">Bands</button>
+      <button id="bScan" class="mint" data-tip="Listens to the audio and sets Tail start, Floor, Keep, Fade, Echo and Echo time to suit it. The changed knobs flash and a line says why. Undo puts your settings back. In the plugin it listens while the host plays the track once.">Auto</button>
+      <span class="chip">Tails <b id="cTails">0</b></span>
+      <span class="chip" data-tip="Echo delay time in use: found from the repeats (Auto) or set with Echo time. none = no repeat pattern found, so no sound is treated as an echo.">Echo <b id="cEcho">none</b></span>
+      <span class="chip" data-tip="How much of the clip has a cut of 3 dB or more in at least one band.">Tidied <b id="cRem">0</b> %</span>
+      <span class="chip">Deepest cut <b id="cMax">0.0</b> dB</span>
+      <span class="chip" data-tip="1 band: no delay. With several bands the plugin uses linear phase crossovers so a cut never bumps or dips the sound; those add a small delay that is reported to the host. The exact figure will be measured in the plugin build.">Latency <b id="cLat">0</b></span>
+      <span class="sp"></span>
+      <span class="chip"><span style="color:var(--pink)">pink removed</span> &middot; <span style="color:var(--yel)">&#9650; hit</span> &middot; <span style="color:var(--amb)">| cut starts</span></span>
+     </div>
+    </div>
+    <div id="ctl" class="card" style="padding:6px 6px 8px;justify-content:space-between">
+     <div class="grp"><h3>Bands</h3><div class="row"><div class="seg" id="segB" style="width:100px"><div class="l">Bands</div><div class="b"></div></div><div class="knob-slot" data-k="x1"></div><div class="knob-slot" data-k="x2"></div><div class="knob-slot" data-k="x3"></div></div></div>
+     <div class="grp"><h3>Find tails</h3><div class="row"><div class="knob-slot" data-k="tailStart"></div><div class="knob-slot" data-k="sens"></div><div class="knob-slot" data-k="guard"></div><div class="knob-slot" data-k="echo"></div><div class="knob-slot" data-k="echoTime"></div></div></div>
+     <div class="grp"><h3>Silence in</h3><div class="row"><div class="knob-slot" data-k="floor"></div><div class="knob-slot" data-k="protect"></div></div></div>
+     <div class="grp"><h3>Cut</h3><div class="row"><div class="knob-slot" data-k="keep"></div><div class="knob-slot" data-k="fade"></div><div class="knob-slot" data-k="depth"></div><div class="knob-slot" data-k="curve"></div><div class="knob-slot" data-k="open"></div><div class="knob-slot" data-k="smooth"></div></div></div>
+     
+    </div>
+    <div id="rig">
+     <span class="tag" data-tip="This row is a preview rig for the mockup. It is not part of the plugin. In the plugin the audio comes from your DAW track.">Preview rig, not part of the plugin</span>
+     <button id="bPlay" class="mint">&#9654; Play</button>
+     <label style="display:flex;align-items:center;gap:4px;font:600 14px Barlow Condensed;color:var(--sky)" data-tip="Song tempo. In the plugin this comes from your DAW. The demo sounds are 128 BPM.">BPM <input id="iBpm" type="text" value="128" style="width:46px;background:var(--dp);color:var(--yel);border:1px solid var(--ln);border-radius:4px;font:500 13px JetBrains Mono;padding:2px 4px"></label>
+     <select id="sSrc"><option value="drums">Drums + room reverb</option><option value="stab">Stab + ping-pong delay</option><option value="mix">Full mix</option><option value="file">My file...</option></select>
+     <input type="file" id="fFile" accept="audio/*" style="display:none">
+     <span class="sp"></span>
+     <div class="pre" id="ab"><button data-m="dry" data-tip="Hear the original, untouched.">1 Original</button><button data-m="proc" class="on" data-tip="Hear the cleaned sound.">2 Cleaned</button><button data-m="delta" data-tip="Hear only what was removed. If you hear notes in here, turn Depth or Tail start down.">3 Removed</button></div>
+     <button id="bPrint" data-tip="Print the result: export the cut curve or the cleaned audio, and see how the automation write works in the plugin.">Print...</button>
+    </div>
+   </div>
+   <div id="meters" class="card"><h3 style="text-align:center">Levels</h3><div class="mrow">
+    <div class="mcol"><div class="t">IN</div><canvas id="mIn" width="40" height="320" style="width:40px;height:320px"></canvas><div class="pk" id="pkIn">-inf</div></div>
+    <div class="mcol"><div class="t">CUT</div><canvas id="mGr" width="30" height="320" style="width:30px;height:320px"></canvas><div class="pk" id="pkGr">0.0</div></div>
+    <div class="mcol"><div class="t">OUT</div><canvas id="mOut" width="40" height="320" style="width:40px;height:320px"></canvas><div class="pk" id="pkOut">-inf</div></div>
+   </div>
+   <h3 style="text-align:center;margin-top:10px">Output</h3>
+   <div class="row" style="justify-content:center"><div class="knob-slot" data-k="center"></div><div class="knob-slot" data-k="mix"></div></div>
+   <div style="display:flex;justify-content:center;margin:8px 0 4px"><button id="bSync" style="width:130px" data-tip="Keep, Fade and Echo time in note values that follow the song tempo. In the plugin the tempo comes from your DAW.">Sync &middot; <span id="cBpm">128</span> BPM</button></div>
+   </div>
+  </div>
+  <div id="foot"><span>Studio 87 &middot; Tail Chaser v1.8 design mockup</span><span id="zoom">100%</span></div>
+ </div>
+ <div class="cheek" id="chR"><canvas></canvas></div>
+ <div id="modal"><div id="dlg"></div></div>
+</div></div>
+<div id="tip"></div>
+<script>
+/* Tail Chaser core: finds reverb and delay tails (and quiet leftovers) and
+   turns them down. Plain JS so the mockup and the tests run the same code;
+   the C++ port in the plugin must match it (parity test planned).
+   Design: split into bands, follow each band's level (10 ms window, 1 ms hop),
+   find hits, find where each hit's decay becomes a tail, fade it out, and open
+   again just before the next hit (the whole file is known in Scan mode, so
+   the gain can open early). All gains are written as one dB value per hop and
+   linearly interpolated per sample, so there are no jumps.
+   Bypass is exact: output = input + sum((gain_band - 1) * band), so unity
+   gain leaves the input untouched bit for bit. */
+(function (root) {
+  'use strict';
+  var HOP_MS = 1, WIN_MS = 10;
+
+  var DEFAULTS = {
+    bands: 3, xo: [250, 3000, 8000],
+    tailStart: 18,   // dB below a hit's peak where the body ends and the tail starts
+    keep: 60,        // ms of tail kept before the fade starts
+    fade: 150,       // ms fade length
+    depth: 60,       // dB maximum cut
+    curve: 0,        // -100..100 fade shape (+ = fast first)
+    guard: 50,       // % sustain guard (a level dip must be a real decay)
+    echo: 8,         // dB: a hit this far under the last hit is an echo (0 = off)
+    floor: -70,      // dB: quieter than this counts as silence (-90 = off)
+    protect: 12,     // ms after a hit where no tail may start
+    open: 4,         // ms to open before the next hit (3 ms minimum, 1 ms could click on bass)
+    smooth: 3,       // ms: rounds the corners of every cut (0 = off, max 6)
+    sens: 6,         // dB rise that counts as a hit
+    echoMatch: 6,    // dB: an echo must sound like the hit it follows (spectrum shape within this)
+    echoTime: 0,     // ms: delay time of the echoes; 0 = find it from the repeats (Auto)
+    center: 100,     // %: how much of the cut hits the middle of the stereo picture (100 = same as the sides)
+    mix: 100,        // % wet
+    amount: [100, 100, 100, 100] // % of depth per band
+  };
+
+  function clone(o) { return JSON.parse(JSON.stringify(o)); }
+  function withDefaults(p) {
+    var o = clone(DEFAULTS);
+    if (p) for (var k in p) if (p[k] !== undefined) o[k] = p[k];
+    return o;
+  }
+
+  /* ---------- filters (Butterworth 2nd order, two in series = LR4) ---------- */
+  function biquad(type, f, sr) {
+    var w = 2 * Math.PI * Math.min(f, sr * 0.45) / sr, cw = Math.cos(w), al = Math.sin(w) / (2 * Math.SQRT1_2);
+    var b0, b1, b2, a0 = 1 + al, a1 = -2 * cw, a2 = 1 - al;
+    if (type === 'lp') { b0 = (1 - cw) / 2; b1 = 1 - cw; b2 = b0; }
+    else { b0 = (1 + cw) / 2; b1 = -(1 + cw); b2 = b0; }
+    return { b0: b0 / a0, b1: b1 / a0, b2: b2 / a0, a1: a1 / a0, a2: a2 / a0 };
+  }
+  function run(c, x) {
+    var y = new Float32Array(x.length), x1 = 0, x2 = 0, y1 = 0, y2 = 0;
+    for (var i = 0; i < x.length; i++) {
+      var xi = x[i], yi = c.b0 * xi + c.b1 * x1 + c.b2 * x2 - c.a1 * y1 - c.a2 * y2;
+      if (!(yi === yi) || Math.abs(yi) > 1e6) { yi = 0; x1 = x2 = y1 = y2 = 0; } // NaN guard
+      y[i] = yi; x2 = x1; x1 = xi; y2 = y1; y1 = yi;
+    }
+    return y;
+  }
+  function lr4(type, f, sr, x) { var c = biquad(type, f, sr); return run(c, run(c, x)); }
+
+  /* Zero-phase 4th order low pass (same size as LR4: -6 dB at the corner):
+     a 2nd order Butterworth run forward, then backward. The offline core can
+     do this because the whole clip is known; the plugin needs a linear phase
+     FIR with reported latency to match it. */
+  function zp(type, f, sr, x) {
+    var c = biquad(type, f, sr), y = run(c, x), n = y.length, r = new Float32Array(n);
+    for (var i = 0; i < n; i++) r[i] = y[n - 1 - i];
+    var z = run(c, r), o = new Float32Array(n);
+    for (var j = 0; j < n; j++) o[j] = z[n - 1 - j];
+    return o;
+  }
+
+  /* Split one channel into n bands. Each band is a zero-phase low pass of what
+     is left; the top band is the remainder. Every band response is real and
+     between 0 and 1, and the bands add back to the input exactly, so any mix
+     of band gains lands between the smallest and the largest gain: no bump or
+     dip at the crossovers. */
+  function split(x, sr, n, xo) {
+    var out = [], rest = x;
+    for (var b = 0; b < n - 1; b++) {
+      var lo = zp('lp', xo[b], sr, rest), hi = new Float32Array(rest.length);
+      for (var i = 0; i < rest.length; i++) hi[i] = rest[i] - lo[i];
+      out.push(lo); rest = hi;
+    }
+    out.push(rest);
+    return out;
+  }
+
+  /* ---------- level follower ---------- */
+  function envelope(L, R, sr) {
+    var hop = Math.max(1, Math.round(sr * HOP_MS / 1000)), win = Math.round(sr * WIN_MS / 1000);
+    var n = L.length, S = new Float64Array(n + 1);
+    for (var i = 0; i < n; i++) {
+      var a = L[i] * L[i], b = R ? R[i] * R[i] : a;
+      S[i + 1] = S[i] + (a > b ? a : b);
+    }
+    var nh = Math.floor(n / hop) + 1, env = new Float32Array(nh);
+    for (var h = 0; h < nh; h++) {
+      var c = h * hop, lo = Math.max(0, c - (win >> 1)), hi = Math.min(n, c + (win >> 1));
+      var m = hi > lo ? (S[hi] - S[lo]) / (hi - lo) : 0;
+      env[h] = 10 * Math.log10(m + 1e-12);
+    }
+    return { env: env, hop: hop };
+  }
+
+  /* Analyse: bands and their levels. Slow part; only redo if the audio or
+     the crossovers change. */
+  function analyze(L, R, sr, bands, xo) {
+    var nb = Math.max(1, Math.min(4, bands | 0)), bl, br;
+    if (nb === 1) { bl = [L]; br = [R]; }
+    else { bl = split(L, sr, nb, xo); br = split(R, sr, nb, xo); }
+    var envs = [], hop = 0;
+    var sfr = [];
+    for (var b = 0; b < nb; b++) {
+      var e = envelope(bl[b], br[b], sr); envs.push(e.env); hop = e.hop;
+      // share of the band's power that is in the sides (L-R), per hop
+      var n0 = bl[b].length, M = new Float32Array(n0), S = new Float32Array(n0);
+      for (var i0 = 0; i0 < n0; i0++) { M[i0] = 0.5 * (bl[b][i0] + br[b][i0]); S[i0] = 0.5 * (bl[b][i0] - br[b][i0]); }
+      var em = envelope(M, null, sr).env, es = envelope(S, null, sr).env, f0 = new Float32Array(em.length);
+      for (var h0 = 0; h0 < em.length; h0++) { var pm = Math.pow(10, em[h0] / 10), ps = Math.pow(10, es[h0] / 10); f0[h0] = pm + ps > 1e-12 ? ps / (pm + ps) : 0; }
+      sfr.push(f0);
+    }
+    // Sound fingerprint: level in 8 octave bands (63 Hz to 8 kHz), used to
+    // tell an echo (a repeat of the same sound) from a new, different sound.
+    var fp = [], fc = [63, 125, 250, 500, 1000, 2000, 4000, 8000];
+    var mono = new Float32Array(L.length); for (var i = 0; i < L.length; i++) mono[i] = 0.5 * (L[i] + R[i]);
+    for (var f = 0; f < fc.length; f++) {
+      var x = zp('lp', fc[f] * 1.41, sr, zp('hp', fc[f] / 1.41, sr, mono));
+      fp.push(envelope(x, null, sr).env);
+    }
+    return { sr: sr, n: L.length, nb: nb, hop: hop, envs: envs, bandL: bl, bandR: br, xo: xo.slice(0, 3), fp: fp, sideFrac: sfr };
+  }
+
+  /* ---------- decide where the tails are ---------- */
+  function deriveBand(env, p, amountPct, fp, octs, cmp) {
+    var N = env.length, ms = function (v) { return Math.max(0, Math.round(v / HOP_MS)); };
+    var gain = new Float32Array(N), tails = [], hits = [];
+    // New sounds: a quick rise in the band level, OR a quick rise in one of the
+    // octave bands inside this band (a hi-hat over a louder kick tail barely
+    // moves the overall level, but jumps in the high octaves). An octave rise
+    // only counts if that octave is audible (above -60 dBFS and within 40 dB
+    // of the band level) and jumps 6 dB more than Hit sens; the low octaves
+    // wobble too much in 10 ms and are left out (below 500 Hz).
+    function rises(e, gate) {
+      var out = [], k = gate ? 12 : 20, last = -1e9;
+      for (var i = k; i < N; i++) {
+        if (e[i] < -85 || i - last < 40) continue;
+        if (gate && e[i] < Math.max(-60, env[i] - 40)) continue;
+        var mn = 1e9;
+        for (var j = i - k; j < i; j++) if (e[j] < mn) mn = e[j];
+        if (e[i] - mn >= p.sens + (gate ? 6 : 0) && e[i] >= e[i - 1]) {
+          var s = i; while (s > 1 && e[s - 1] < e[s] - 0.3 && i - s < k) s--;
+          out.push(s); last = i;
+        }
+      }
+      return out;
+    }
+    var all = rises(env, false);
+    if (fp && octs) for (var o = 0; o < octs.length; o++) all = all.concat(rises(fp[octs[o]], true));
+    all.sort(function (x, y) { return x - y; });
+    var cands = [];
+    for (var c0 = 0; c0 < all.length; c0++) if (!cands.length || all[c0] - cands[cands.length - 1] >= 40) cands.push(all[c0]);
+    // peak of each candidate, then echo guard
+    var peakWin = 120, lastPeak = -1e9, lastIdx = -1e9, echoWin = 2000, lastShape = null;
+    // Shape of what a sound ADDED (power at its peak minus power just before
+    // it started), per fingerprint band, normalised to its own loudest band.
+    function shape(a, ip) {
+      if (!fp) return null;
+      var v = [], mx = -1e9, pre = Math.max(0, a - 3), use = cmp || [0, 1, 2, 3, 4, 5, 6, 7];
+      for (var u0 = 0; u0 < use.length; u0++) { var f = use[u0];
+        var d = Math.pow(10, fp[f][ip] / 10) - Math.pow(10, fp[f][pre] / 10);
+        var db = 10 * Math.log10(Math.max(d, 1e-12)); v.push(db); if (db > mx) mx = db;
+      }
+      for (var g2 = 0; g2 < v.length; g2++) v[g2] = Math.max(v[g2] - mx, -40);
+      return v;
+    }
+    function sameSound(x, y) {
+      if (!x || !y) return true; // no fingerprint: old level-only rule
+      // median difference, so one octave spoiled by another sound (a kick
+      // landing under an echo) cannot break the match
+      var ds = [];
+      for (var f = 0; f < x.length; f++) if (x[f] > -30 || y[f] > -30) ds.push(Math.abs(x[f] - y[f]));
+      if (!ds.length) return false;
+      ds.sort(function (q, r) { return q - r; });
+      var med = ds.length % 2 ? ds[ds.length >> 1] : 0.5 * (ds[(ds.length >> 1) - 1] + ds[ds.length >> 1]);
+      return med <= (p.echoMatch === undefined ? 6 : p.echoMatch);
+    }
+    // Pass 1: every candidate with its peak and tone.
+    var C = [];
+    for (var c = 0; c < cands.length; c++) {
+      var a = cands[c], pk = -1e9, ip = a;
+      for (var q = a; q < Math.min(N, a + peakWin); q++) if (env[q] > pk) { pk = env[q]; ip = q; }
+      C.push({ a: a, peak: pk, ip: ip, sh: shape(a, ip) });
+    }
+    // Pass 2: echo guard with timing. A quieter sound with the same tone is an
+    // echo only if it sits on the echo grid: a multiple of the delay time after
+    // the hit. The delay time is set (echoTime) or found from a repeat pattern
+    // (a second repeat at twice the spacing). A single same-tone ghost note off
+    // the grid stays a hit.
+    var tol = 15, fixedD = p.echoTime > 0 ? p.echoTime / HOP_MS : 0, songD = fixedD, echoTimes = [];
+    function onGrid(d, D) { if (!D) return false; var k = Math.round(d / D); return k >= 1 && k <= 16 && Math.abs(d - k * D) <= tol; }
+    // An echo is matched to the most recent LOUDER sound with the SAME tone
+    // (other sounds may play in between, like drums under a delayed stab).
+    function sourceOf(x, list) {
+      for (var r = list.length - 1; r >= 0; r--) {
+        var h = list[r];
+        if (x.a - h.a > echoWin) break;
+        if (x.peak < h.peak - p.echo && sameSound(x.sh, h.sh)) return h;
+      }
+      return null;
+    }
+    // Song-wide pattern: the same spacing from a sound to a quieter copy of
+    // it, at the same level drop, seen 4 or more times = the delay time, even
+    // when the second repeat is hidden under the next note.
+    if (!fixedD && p.echo > 0) {
+      var pairs = [], seen = [];
+      for (var c1 = 0; c1 < C.length; c1++) {
+        var z = C[c1], h0 = sourceOf(z, seen);
+        if (h0) pairs.push({ d: z.a - h0.a, drop: h0.peak - z.peak }); else seen.push(z);
+      }
+      var best = 0, bestN = 0;
+      for (var i1 = 0; i1 < pairs.length; i1++) {
+        var cnt = 0, sum = 0;
+        for (var i2 = 0; i2 < pairs.length; i2++)
+          if (Math.abs(pairs[i2].d - pairs[i1].d) <= tol && Math.abs(pairs[i2].drop - pairs[i1].drop) <= 3) { cnt++; sum += pairs[i2].d; }
+        if (cnt > bestN) { bestN = cnt; best = sum / cnt; }
+      }
+      if (bestN >= 4) songD = best;
+    }
+    var real = [];
+    for (var c2 = 0; c2 < C.length; c2++) {
+      var x = C[c2], isEcho = false, src = p.echo > 0 ? sourceOf(x, real) : null;
+      if (src) {
+        var d = x.a - src.a;
+        if (onGrid(d, src.D || songD)) isEcho = true;
+        else if (!fixedD) {
+          for (var m = c2 + 1; m < C.length && C[m].a - src.a <= 2 * d + tol; m++) {
+            var y = C[m];
+            if (Math.abs((y.a - src.a) - 2 * d) <= tol && y.peak <= x.peak + 1.5 && sameSound(y.sh, src.sh)) {
+              isEcho = true; src.D = d; if (!songD) songD = d; break;
+            }
+          }
+        }
+      }
+      if (isEcho) continue;
+      hits.push({ a: x.a, peak: x.peak, ip: x.ip }); real.push({ a: x.a, peak: x.peak, sh: x.sh, D: 0 });
+    }
+    var depth = p.depth * (amountPct / 100), echoMs = songD ? songD * HOP_MS : 0;
+    if (depth <= 0.001) return { gain: gain, tails: tails, hits: hits, echoMs: echoMs };
+    var keepH = ms(p.keep), fadeH = Math.max(1, ms(p.fade)), openH = Math.max(3, ms(p.open)), leadH = 8;
+    var slopeMin = 30 * (p.guard / 100); // dB per second
+    var kk = Math.pow(2, (p.curve / 100) * 2);
+    for (var h = 0; h < hits.length; h++) {
+      var hit = hits[h], b = h + 1 < hits.length ? hits[h + 1].a : N;
+      var P = hit.peak, t0 = -1, fromFloor = false;
+      var from = Math.max(hit.ip, hit.a + ms(p.protect));
+      for (var t = from; t < b; t++) { if (env[t] <= P - p.tailStart) { t0 = t; break; } }
+      if (p.floor > -89) {
+        for (var u = from; u < b; u++) { if (env[u] <= p.floor) { if (t0 < 0 || u < t0) { t0 = u; fromFloor = true; } break; } }
+      }
+      if (t0 < 0) continue;
+      if (!fromFloor && slopeMin > 0) {     // sustain guard: must KEEP decaying
+        // A tail falls (steadily, or in echo steps) or into silence. A
+        // level that drops and then holds (a kick decaying onto a held bass
+        // note) is not a tail: slide forward and look again, so the cut only
+        // starts once the held sound itself dies away.
+        var ok0 = false;
+        for (var tt = t0; tt < b - 20; tt += 10) {
+          var wd = Math.min(250, b - tt), hf = wd >> 1;
+          if (wd < 20) break;
+          var e1 = avgDb(env, tt, tt + 10), e2 = avgDb(env, tt + hf - 5, tt + hf + 5), e3 = avgDb(env, tt + wd - 10, tt + wd);
+          var need = slopeMin * wd / 1000, mn2 = 1e9, mx2 = -1e9, mnAll = 1e9;
+          for (var w = tt; w < tt + wd; w++) { if (env[w] < mnAll) mnAll = env[w]; }
+          for (var w2 = tt + hf; w2 + 20 <= tt + wd; w2 += 5) { var av = avgDb(env, w2, w2 + 20); if (av < mn2) mn2 = av; if (av > mx2) mx2 = av; }
+          if (mx2 < -1e8) { mn2 = mx2 = e3; }
+          var hold = e3 > -85 && mx2 - mn2 <= 5 && e2 - e3 < need * 0.25;  // level sits still: a held note
+          if (!hold && e1 - mnAll >= need) { t0 = tt; ok0 = true; break; }
+        }
+        if (!ok0) continue;
+      }
+      var iF = t0 + keepH, iE = iF + fadeH;
+      var rs = (b >= N) ? N + 1e6 : b - leadH - openH;       // ramp start
+      if (rs <= iF) continue;                                 // next hit too soon: nothing to cut
+      var endFade = Math.min(iE, rs), gAt = 0;
+      for (var m = iF; m <= Math.min(N - 1, rs) && m < N; m++) {
+        var u2 = Math.min(1, (m - iF) / fadeH);
+        var shape = 1 - Math.pow(1 - u2, kk);
+        var g = -depth * shape;
+        if (m > endFade) g = gAt; else gAt = g;
+        gain[m] = g;
+      }
+      if (b < N) {
+        var a0 = Math.pow(10, gAt / 20);
+        for (var r = 1; r <= openH && rs + r < N; r++) {
+          var uu = r / openH, aa = a0 + (1 - a0) * (0.5 - 0.5 * Math.cos(Math.PI * uu));
+          gain[rs + r] = 20 * Math.log10(aa);
+        }
+      }
+      tails.push({ t0: t0, from: iF, to: b >= N ? N - 1 : rs, peak: P });
+    }
+    return { gain: smoothDb(gain, p.smooth), tails: tails, hits: hits, echoMs: echoMs };
+  }
+
+  function avgDb(e, a, b) { var s = 0, n = 0; for (var i = Math.max(0, a); i < Math.min(e.length, b); i++) { s += e[i]; n++; } return n ? s / n : -120; }
+
+  /* Round the corners of a dB gain curve with a triangular kernel. Zero stays
+     exactly zero wherever all neighbours are zero, so bypass stays bit exact.
+     Max 6 hops each side: the open ramp ends 8 ms before a hit, so a hit is
+     never touched. */
+  function smoothDb(g, s) {
+    var h = Math.max(0, Math.min(6, Math.round(s || 0)));
+    if (!h) return g;
+    var N = g.length, o = new Float32Array(N), tot = (h + 1) * (h + 1);
+    for (var i = 0; i < N; i++) {
+      if (g[i] === 0) { var z = true; for (var k = -h; k <= h; k++) { var j = i + k; if (j >= 0 && j < N && g[j] !== 0) { z = false; break; } } if (z) continue; }
+      var a = 0;
+      for (var k2 = -h; k2 <= h; k2++) { var j2 = i + k2; if (j2 < 0) j2 = 0; if (j2 >= N) j2 = N - 1; a += g[j2] * (h + 1 - Math.abs(k2)); }
+      o[i] = a / tot;
+    }
+    return o;
+  }
+
+  /* Derive the gain curves for all bands from the analysis. Fast: call it on
+     every knob change. */
+  function derive(an, params) {
+    var p = withDefaults(params), res = [];
+    for (var b = 0; b < an.nb; b++) {
+      var lo = b === 0 ? 0 : an.xo[b - 1], hi = b === an.nb - 1 ? 1e9 : an.xo[b], octs = [], fc = [63, 125, 250, 500, 1000, 2000, 4000, 8000];
+      var cmp = [];
+      for (var o = 0; o < fc.length; o++) {
+        if (fc[o] >= 500 && fc[o] >= lo && fc[o] < hi) octs.push(o);
+        if (fc[o] * 2 >= lo && fc[o] / 2 < hi) cmp.push(o);   // tone compare: the band plus one octave each side
+      }
+      res.push(deriveBand(an.envs[b], p, p.amount[b] === undefined ? 100 : p.amount[b], an.fp, octs, cmp));
+    }
+    return { bands: res, params: p };
+  }
+
+  /* ---------- apply ---------- */
+  function perSample(gainHop, hop, n) {
+    var g = new Float32Array(n), N = gainHop.length;
+    for (var i = 0; i < n; i++) {
+      var x = i / hop, i0 = Math.floor(x), f = x - i0, i1 = i0 + 1 < N ? i0 + 1 : i0;
+      var db = gainHop[i0] + (gainHop[i1] - gainHop[i0]) * f;
+      g[i] = db === 0 ? 1 : Math.pow(10, db / 20);
+    }
+    return g;
+  }
+
+  /* Apply. With Center 100 the middle and the sides get the same cut (plain
+     gain per band). Lower Center cuts the middle less: the dry centre stays
+     natural while the wide reverb tail is still cleared. Unity gain or Mix 0
+     leaves the input bit exact. */
+  function render(an, der, L, R) {
+    var n = an.n, p = der.params, mix = p.mix / 100, cen = Math.max(0, Math.min(100, p.center === undefined ? 100 : p.center)) / 100;
+    var oL = new Float32Array(L), oR = new Float32Array(R);
+    for (var b = 0; b < an.nb; b++) {
+      var gh = der.bands[b].gain, any = false;
+      for (var i = 0; i < gh.length; i++) if (gh[i] !== 0) { any = true; break; }
+      if (!any) continue;
+      var gS = perSample(gh, an.hop, n), bl = an.bandL[b], br = an.bandR[b];
+      if (cen >= 1) {
+        for (var s = 0; s < n; s++) { var d = (gS[s] - 1) * mix; oL[s] += d * bl[s]; oR[s] += d * br[s]; }
+      } else {
+        var gmh = new Float32Array(gh.length); for (var k = 0; k < gh.length; k++) gmh[k] = gh[k] * cen;
+        var gM = perSample(gmh, an.hop, n);
+        for (var s2 = 0; s2 < n; s2++) {
+          var dm = (gM[s2] - 1) * mix * 0.5 * (bl[s2] + br[s2]), ds = (gS[s2] - 1) * mix * 0.5 * (bl[s2] - br[s2]);
+          oL[s2] += dm + ds; oR[s2] += dm - ds;
+        }
+      }
+    }
+    return { L: oL, R: oR };
+  }
+
+  /* Numbers for the read-outs. */
+  function stats(an, der, L, R, O) {
+    var tails = 0, eIn = 0, eOut = 0, maxCut = 0;
+    der.bands.forEach(function (b) { tails += b.tails.length; for (var i = 0; i < b.gain.length; i++) if (b.gain[i] < maxCut) maxCut = b.gain[i]; });
+    for (var i = 0; i < L.length; i++) { eIn += L[i] * L[i] + R[i] * R[i]; eOut += O.L[i] * O.L[i] + O.R[i] * O.R[i]; }
+    return { tails: tails, removedDb: 10 * Math.log10((eOut + 1e-20) / (eIn + 1e-20)), maxCut: maxCut };
+  }
+
+  /* Auto: listen to the clip and suggest settings for it.
+     - Floor: 6 dB above the noise floor (10th percentile of the level where
+       there is sound), so steady hiss and bleed between hits go.
+     - Tail start: for each hit, where the fast drop of the hit turns into
+       the slow fall of the tail (the decay slope falls below a quarter of
+       its steepest value); median over the hits.
+     - Keep and Fade: from the typical spacing between hits (12 % and 30 %).
+     - Echo time: the delay time found from the repeats, if there is one.
+     Returns { params, why } so the page can show what changed and why. */
+  function suggest(an, cur) {
+    var p = withDefaults(cur || {}), nb = an.nb, n = an.envs[0].length, env = new Float32Array(n);
+    for (var i = 0; i < n; i++) { var s = 0; for (var b = 0; b < nb; b++) s += Math.pow(10, an.envs[b][i] / 10); env[i] = 10 * Math.log10(s + 1e-12); }
+    var why = [], out = {};
+    // noise floor
+    var lv = []; for (var i1 = 0; i1 < n; i1 += 2) if (env[i1] > -100) lv.push(env[i1]);
+    lv.sort(function (x, y) { return x - y; });
+    var p10 = lv.length ? lv[Math.floor(lv.length * 0.1)] : -120;
+    // hits on the whole sound (1 band, plain level rule)
+    // (echo guard on, so delay repeats are not counted as hits)
+    var one = deriveBand(env, withDefaults({ echo: 8, depth: 60 }), 100, an.fp, [3, 4, 5, 6, 7], [0, 1, 2, 3, 4, 5, 6, 7]), hits = one.hits;
+    var pkAll = hits.map(function (x) { return x.peak; }).sort(function (x, y) { return x - y; });
+    var loud = pkAll.length ? pkAll[Math.floor(pkAll.length * 0.75)] : 0;
+    // Floor only for real noise: the quiet part must sit 45 dB or more under
+    // the hits (otherwise it is music: held bass, pads) and never above -55.
+    if (p10 <= -88) { out.floor = -90; why.push('clean silence between sounds, Floor off'); }
+    else if (loud - p10 >= 45) { out.floor = Math.max(-90, Math.min(-55, Math.round(p10 + 6))); why.push('noise floor ' + Math.round(p10) + ' dB'); }
+    else why.push('quiet parts are music, not noise: Floor left as it was');
+    if (hits.length < 2) { why.push('fewer than 2 hits found, timing left as it was'); return { params: out, why: why, hits: hits.length }; }
+    var gaps = [], knees = [];
+    for (var m0 = 0; m0 + 1 < hits.length; m0++) gaps.push(hits[m0 + 1].a - hits[m0].a);
+    if (!gaps.length) gaps.push(n);
+    for (var h = 0; h < hits.length; h++) {
+      var a = hits[h].ip, end = h + 1 < hits.length ? hits[h + 1].a : n;
+      if (end - a < 120) continue;
+      var sl = [], mx = 0;
+      for (var t = a; t + 10 < Math.min(end, a + 1500); t += 5) { var d = (env[t] - env[t + 10]) / 10; sl.push([t, d]); if (t < a + 60 && d > mx) mx = d; }
+      if (mx <= 0.02) continue;
+      // how fast the tail itself falls: median slope over the later part
+      var late = sl.slice(Math.floor(sl.length * 0.4)).map(function (q) { return q[1]; }).sort(function (x, y) { return x - y; });
+      var ls = late.length ? Math.max(0, late[Math.floor(late.length / 2)]) : 0, thr = Math.max(0.25 * mx, 1.6 * ls);
+      if (thr >= 0.8 * mx) continue;   // no clear turn: the hit fades like its tail
+      for (var k = 2; k < sl.length; k++) {
+        if (sl[k][1] < thr && sl[k - 1][1] < thr) { var drop = hits[h].peak - env[sl[k][0]]; if (drop > 3) knees.push(drop); break; }
+      }
+    }
+    function med(v) { v = v.slice().sort(function (x, y) { return x - y; }); return v[Math.floor(v.length / 2)]; }
+    if (knees.length) { out.tailStart = Math.max(8, Math.min(36, Math.round(med(knees)))); why.push('hits turn into tails about ' + out.tailStart + ' dB under their peak'); }
+    var g = med(gaps) * HOP_MS;
+    out.keep = Math.max(10, Math.min(400, Math.round(g * 0.12)));
+    out.fade = Math.max(20, Math.min(1200, Math.round(g * 0.3)));
+    why.push('hits about ' + Math.round(g) + ' ms apart');
+    // delay time with the suggested settings
+    var tryP = withDefaults(Object.assign({}, cur, out, { echoTime: 0, echo: cur && cur.echo > 0 ? cur.echo : 8 }));
+    var dv = derive(an, tryP), em = 0;
+    dv.bands.forEach(function (bd) { if (bd.echoMs > em) em = bd.echoMs; });
+    if (em) { out.echo = tryP.echo; out.echoTime = Math.round(em); why.push('delay repeats every ' + Math.round(em) + ' ms'); }
+    else { out.echoTime = 0; why.push('no delay pattern found'); }
+    return { params: out, why: why, hits: hits.length };
+  }
+
+  var API = { envelope: envelope, DEFAULTS: DEFAULTS, HOP_MS: HOP_MS, WIN_MS: WIN_MS, withDefaults: withDefaults,
+    analyze: analyze, derive: derive, render: render, stats: stats, perSample: perSample, suggest: suggest };
+  if (typeof module !== 'undefined' && module.exports) module.exports = API; else root.TC = API;
+})(typeof self !== 'undefined' ? self : this);
+
+</script>
+<script>
+(function(){
+'use strict';
+var $=function(s,r){return (r||document).querySelector(s)};
+var SR=44100, ctx=null;
+try{ctx=new (window.AudioContext||window.webkitAudioContext)();SR=ctx.sampleRate}catch(e){}
+var DUR=8;
+
+/* ---------- preview sounds (made here, not samples) ---------- */
+var seed=1;function rnd(){seed=(seed*1664525+1013904223)>>>0;return seed/4294967296*2-1}
+function mk(n){return{L:new Float32Array(n),R:new Float32Array(n)}}
+function addTail(s,t,lvl,rt60,damp){var i0=Math.round(t*SR),n=Math.min(Math.round(rt60*1.2*SR),s.L.length-i0),k=6.9078/(rt60*SR),a=0,b=0,d=damp||0.5;
+ for(var i=0;i<n;i++){var e=lvl*Math.exp(-i*k);a+=(rnd()-a)*d;b+=(rnd()-b)*d;s.L[i0+i]+=e*a;s.R[i0+i]+=e*b}}
+function kick(s,t,l){var i0=Math.round(t*SR),n=Math.round(.35*SR),ph=0;for(var i=0;i<n&&i0+i<s.L.length;i++){var f=48+110*Math.exp(-i/(.025*SR));ph+=2*Math.PI*f/SR;var v=l*Math.exp(-i/(.11*SR))*Math.sin(ph);s.L[i0+i]+=v;s.R[i0+i]+=v}}
+function snare(s,t,l){var i0=Math.round(t*SR),n=Math.round(.22*SR),lp=0;for(var i=0;i<n&&i0+i<s.L.length;i++){var e=Math.exp(-i/(.06*SR));lp+=(rnd()-lp)*.7;var v=l*e*(lp*.8+.5*Math.sin(2*Math.PI*190*i/SR));s.L[i0+i]+=v;s.R[i0+i]+=v}}
+function hat(s,t,l){var i0=Math.round(t*SR),n=Math.round(.05*SR),h=0;for(var i=0;i<n&&i0+i<s.L.length;i++){var x=rnd();var y=x-h;h=x;var v=l*Math.exp(-i/(.012*SR))*y*.6;s.L[i0+i]+=v;s.R[i0+i]+=v*.9}}
+function chord(s,t,l,len){var i0=Math.round(t*SR),n=Math.round(len*SR),fs=[220,277.2,329.6,440];for(var i=0;i<n&&i0+i<s.L.length;i++){var e=Math.exp(-i/(.12*SR));if(i<200)e*=i/200;var v=0;for(var q=0;q<4;q++){var ph=(fs[q]*i/SR)%1;v+=(ph*2-1)*.25+((fs[q]*1.004*i/SR)%1*2-1)*.25}v*=l*e;s.L[i0+i]+=v;s.R[i0+i]+=v}}
+function pingpong(src,delay,fb,mix){var n=src.L.length,d=Math.round(delay*SR),out=mk(n),tL=new Float32Array(n),tR=new Float32Array(n);
+ for(var i=0;i<n;i++){var fL=i>=d?tR[i-d]:0,fR=i>=d?tL[i-d]:0;tL[i]=src.L[i]*.7+fL*fb;tR[i]=src.R[i]*.7+fR*fb;
+  out.L[i]=src.L[i]+(i>=d?tR[i-d]*mix:0);out.R[i]=src.R[i]+(i>=d?tL[i-d]*mix:0)}return out}
+function genDrums(){seed=11;var n=DUR*SR,s=mk(n),B=.46875;for(var b=0;b<16;b++){var t=.02+b*B;if(b%2===0)kick(s,t,.8);if(b%4===2){snare(s,t,.55);addTail(s,t,.12,1.8,.45)}if(b%8===6)snare(s,t+B*.625,.09);hat(s,t+B/2,.22);if(b%4===3)hat(s,t+B/4,.18)}return s}
+function genStab(){seed=22;var n=DUR*SR,d=mk(n),B=.46875;[0,1.5,3,4.5,6,7.5,9,10.5].forEach(function(b){chord(d,.02+b*B,.22,.4)});
+ var o=pingpong(d,.3516,.45,.5);var g=mk(n);for(var i=0;i<n;i++){g.L[i]=o.L[i];g.R[i]=o.R[i]}[0,3,6,9].forEach(function(b){addTail(g,.02+b*B,.02,1.2,.3)});return g}
+function genMix(){var a=genDrums(),b=genStab(),n=a.L.length,s=mk(n);seed=33;var B=.46875;
+ for(var i=0;i<n;i++){s.L[i]=a.L[i]*.8+b.L[i]*.8;s.R[i]=a.R[i]*.8+b.R[i]*.8}
+ for(var q=0;q<4;q++){var t0=.02+q*4*B*1,len=Math.round(1.7*SR),i0=Math.round(t0*SR),f=q%2?49:55;for(var i=0;i<len&&i0+i<n;i++){var e=Math.min(1,i/400)*Math.min(1,(len-i)/2000);var v=.28*e*Math.sin(2*Math.PI*f*i/SR);s.L[i0+i]+=v;s.R[i0+i]+=v}}
+ return s}
+var sources={drums:genDrums,stab:genStab,mix:genMix};
+
+/* ---------- parameters ---------- */
+var K=[
+ {id:'x1',l:'X1',min:60,max:1000,def:250,u:' Hz',log:1,tip:'Where the lowest band ends. Each band follows its own tails, so a long bass note is not cut just because the reverb above it is.'},
+ {id:'x2',l:'X2',min:600,max:6000,def:3000,u:' Hz',log:1,tip:'Border between the middle bands.'},
+ {id:'x3',l:'X3',min:3000,max:14000,def:8000,u:' Hz',log:1,tip:'Border between the upper bands.'},
+ {id:'tailStart',l:'Tail start',min:6,max:40,def:18,u:' dB',tip:'How far below a hit\'s peak the body ends and the tail starts. Lower = the tail starts earlier and more is cut. Higher = only the quiet end is touched.'},
+ {id:'sens',l:'Hit sens',min:3,max:15,def:6,u:' dB',tip:'How much louder a sound must jump to count as a new hit. Lower finds soft hits; higher ignores small bumps.'},
+ {id:'guard',l:'Guard',min:0,max:100,def:50,u:' %',tip:'Protects held sounds. A quiet part is only a tail if the level really keeps falling. Raise it if pads or long notes get cut; lower it to cut slow tails.'},
+ {id:'echo',l:'Echo',min:0,max:24,def:8,u:' dB',off0:1,tip:'Removes delay repeats. A new sound counts as an echo only if it is this many dB under the last hit AND sounds like it (same tone). A different sound, like a hi-hat after a snare, is always kept. 0 = off, then repeats count as hits.'},
+ {id:'floor',l:'Floor',min:-90,max:-30,def:-70,u:' dB',offm:-90,tip:'Silence in: anything quieter than this is cut too, tail or not (noise, bleed, room). -90 = off. You can also drag the dashed line in the display.'},
+ {id:'protect',l:'Protect',min:0,max:50,def:12,u:' ms',tip:'After a hit, no tail may start for this long. Keeps the body of the hit safe.'},
+ {id:'keep',l:'Keep',min:0,max:1500,def:60,u:' ms',sync:3,tip:'How long the tail stays untouched after it starts, before the fade begins. More Keep = a natural, longer ring.'},
+ {id:'fade',l:'Fade',min:5,max:2000,def:150,u:' ms',log:1,sync:6,tip:'How long the fade down takes. Short = gated, tight. Long = smooth and natural.'},
+ {id:'depth',l:'Depth',min:0,max:96,def:60,u:' dB',tip:'The most a tail can be turned down. 60 dB is almost silence; 12 dB only tucks the tail back. 0 = untouched.'},
+ {id:'curve',l:'Curve',min:-100,max:100,def:0,u:' %',tip:'Shape of the fade. Plus = most of the drop happens early. Minus = the tail holds on, then drops.'},
+ {id:'open',l:'Open',min:3,max:30,def:4,u:' ms',tip:'How fast the sound opens again before the next hit. The plugin knows the next hit is coming, so the hit itself is never cut. 3 ms is the shortest, faster could click on bass.'},
+ {id:'smooth',l:'Smooth',min:0,max:6,def:3,u:' ms',tip:'Rounds the corners of every cut so fast cuts do not click. 0 = off. More = softer edges, a little less punch on very fast fades. Measured: 3 ms lowers click energy by about 14 to 20 dB.'},
+ {id:'echoTime',l:'Echo time',min:0,max:1500,def:0,u:' ms',sync:0,auto:1,tip:'Delay time of the echoes. Auto finds it from the repeats (a second repeat at twice the spacing), then also removes single repeats on that grid. A quiet note of the same drum that is not on the grid is kept. Set it to your delay time (or a note value with Sync on) to be sure.'},
+ {id:'center',l:'Center',min:0,max:100,def:100,u:' %',tip:'How much of the cut hits the middle of the stereo picture. Reverb lives mostly at the sides: lower Center keeps the dry middle natural while the wide tail is still cleared. 100 % = middle and sides cut the same. 0 % = only the sides are cut.'},
+ {id:'mix',l:'Mix',min:0,max:100,def:100,u:' %',tip:'Blend of cleaned and original sound. 0 = exactly the original. Use less than 100 to keep some room.'}
+];
+var NOTES=[['1/64',1/16],['1/32',1/8],['1/16T',1/6],['1/16',1/4],['1/8T',1/3],['1/16D',3/8],['1/8',1/2],['1/4T',2/3],['1/8D',3/4],['1/4',1],['1/2',2],['1 bar',4]];
+function noteList(k){return k.auto?[['Auto',0]].concat(NOTES):NOTES}
+function noteMs(beats){return beats*60000/P.bpm}
+var KM={};K.forEach(function(k){KM[k.id]=k});
+var P={sync:0,bpm:128,bands:3,x1:250,x2:3000,x3:8000,amount:[100,100,100,100]};
+K.forEach(function(k){if(P[k.id]===undefined)P[k.id]=k.def;if(k.sync!==undefined)P[k.id+'N']=k.sync});
+var FACT=[
+ {n:'Default Tidy',p:{}},
+ {n:'Tight Drums',p:{bands:1,tailStart:14,keep:30,fade:90,depth:70,echo:0,floor:-60}},
+ {n:'Reverb Trim',p:{bands:3,tailStart:22,keep:150,fade:400,depth:24,curve:30,center:60}},
+ {n:'Delay Clean',p:{bands:3,echo:8,keep:40,fade:120,depth:60}},
+ {n:'Silence In',p:{bands:2,floor:-55,tailStart:30,keep:40,fade:80,depth:80}},
+ {n:'Mix Bus Gentle',p:{bands:4,depth:12,keep:120,fade:300}},
+ {n:'Gated 80s',p:{bands:1,tailStart:10,keep:250,fade:12,depth:80,curve:60,echo:0}}
+];
+var user=[];try{user=JSON.parse(localStorage.getItem('tc_user')||'[]')}catch(e){}
+function saveUser(){try{localStorage.setItem('tc_user',JSON.stringify(user))}catch(e){}}
+var settings={bubbles:true,power:false,theme:'b'};try{Object.assign(settings,JSON.parse(localStorage.getItem('tc_set')||'{}'))}catch(e){}
+function saveSet(){try{localStorage.setItem('tc_set',JSON.stringify(settings))}catch(e){}}
+
+/* ---------- state ---------- */
+var sig=null,an=null,der=null,out=null,envIn=null,envOut=null,st=null,delta=null;
+var mode='proc',playing=false,srcNode=null,t0c=0,posS=0,gainNode=null,bufs={},scan=1,hover=-1;
+var curName='Default Tidy';
+
+function coreParams(){return{bands:P.bands,xo:[P.x1,P.x2,P.x3],tailStart:P.tailStart,keep:P.keep,fade:P.fade,depth:P.depth,curve:P.curve,guard:P.guard,echo:P.echo,floor:P.floor,protect:P.protect,open:P.open,sens:P.sens,smooth:P.smooth,echoTime:P.echoTime,center:P.center,mix:P.mix,amount:P.amount}}
+function loadSource(name){
+ if(name==='file')return;
+ sig=sources[name]();analyseNow()}
+function analyseNow(){var c=coreParams();an=TC.analyze(sig.L,sig.R,SR,c.bands,c.xo);deriveNow()}
+function deriveNow(){var c=coreParams();der=TC.derive(an,c);out=TC.render(an,der,sig.L,sig.R);
+ envIn=envIn&&envIn.src===sig?envIn:{src:sig,e:TC.envelope(sig.L,sig.R,SR).env};
+ envOut=effOut();st=TC.stats(an,der,sig.L,sig.R,out);delta=null;bufs.proc=null;bufs.delta=null;
+ $('#cTails').textContent=st.tails;var em=0;der.bands.forEach(function(b){if(b.echoMs>em)em=b.echoMs});$('#cEcho').textContent=P.echo<=0?'off':(P.echoTime>0?Math.round(P.echoTime)+' ms':(em?'Auto '+Math.round(em)+' ms':'none'));$('#cLat').textContent=P.bands===1?'0 ms':'tbd';var nt=der.bands[0].gain.length,cnt=0;for(var q=0;q<nt;q++){for(var bb=0;bb<der.bands.length;bb++){if(der.bands[bb].gain[q]<=-3){cnt++;break}}}$('#cRem').textContent=Math.round(100*cnt/nt);$('#cMax').textContent=st.maxCut.toFixed(1);
+ if(playing)restartAudio(pos());draw()}
+function effOut(){var ei=envIn.e,nh=ei.length,mx=P.mix/100,o=new Float32Array(nh),nb=an.nb;
+ for(var i=0;i<nh;i++){var num=0,den=0;for(var b=0;b<nb;b++){var pw=Math.pow(10,an.envs[b][i]/10),gd=der.bands[b].gain[i],gl=Math.pow(10,gd/20),gs=1+mx*(gl-1),gm=1+mx*(Math.pow(10,gd*P.center/100/20)-1),sf=an.sideFrac?an.sideFrac[b][i]:0;num+=pw*((1-sf)*gm*gm+sf*gs*gs);den+=pw}
+  o[i]=ei[i]+(den>1e-12?10*Math.log10((num+1e-20)/den):0)}return o}
+var tmr=0,tmr2=0;
+var lastD=0;function soon(){clearTimeout(tmr);var w=performance.now()-lastD;if(w>=60){lastD=performance.now();deriveNow()}else tmr=setTimeout(function(){lastD=performance.now();deriveNow()},60-w)}
+function soonAn(){clearTimeout(tmr2);tmr2=setTimeout(analyseNow,140)}
+
+/* ---------- knobs ---------- */
+function fmt(k,v){if(k.sync!==undefined&&P.sync)return noteList(k)[P[k.id+'N']][0];if(k.auto&&v<=0)return'Auto';if(k.id==='echo'&&v<=0)return'off';if(k.id==='floor'&&v<=-89)return'off';var r=(k.max-k.min)>200?0:(k.max-k.min)>30?0:1;return(k.log||Math.abs(v)>=100?Math.round(v):(+v.toFixed(r)))+k.u}
+var knobEls={};
+function mkKnob(k,slot){
+ var d=document.createElement('div');d.className='knob';d.dataset.tip=k.tip;
+ d.innerHTML='<svg viewBox="0 0 46 46"><path class="tr" d="" fill="none" stroke="#3a3d48" stroke-width="4" stroke-linecap="round"/><path class="ar" d="" fill="none" stroke="#02EBBA" stroke-width="4" stroke-linecap="round"/><line class="pt" x1="23" y1="23" x2="23" y2="9" stroke="#f4f5f7" stroke-width="2.5" stroke-linecap="round"/></svg><div class="l">'+k.l+'</div><div class="v"></div>';
+ slot.appendChild(d);knobEls[k.id]=d;
+ var drag=null;
+function S(){return k.sync!==undefined&&P.sync}
+ function NL(){return noteList(k).length}
+ function norm(v){if(S())return P[k.id+'N']/(NL()-1);return k.log?Math.log(v/k.min)/Math.log(k.max/k.min):(v-k.min)/(k.max-k.min)}
+ function den(n){n=Math.max(0,Math.min(1,n));if(S())return Math.round(n*(NL()-1));return k.log?k.min*Math.pow(k.max/k.min,n):k.min+n*(k.max-k.min)}
+ function arc(a0,a1){var r=19,c=23,p=function(a){var t=(a-90)*Math.PI/180;return[c+r*Math.cos(t),c+r*Math.sin(t)]},s=p(a0),e=p(a1);return'M'+s[0]+' '+s[1]+'A'+r+' '+r+' 0 '+((a1-a0)>180?1:0)+' 1 '+e[0]+' '+e[1]}
+ d.upd=function(){var v=P[k.id],n=norm(v),a=-135+270*n;$('.tr',d).setAttribute('d',arc(-135,135));$('.ar',d).setAttribute('d',n>0.002?arc(-135,a):'');$('.pt',d).setAttribute('transform','rotate('+a+' 23 23)');$('.v',d).textContent=fmt(k,v)};
+ function set(v){if(S()){var li=noteList(k),ix=Math.max(0,Math.min(li.length-1,Math.round(v)));P[k.id+'N']=ix;P[k.id]=Math.round(noteMs(li[ix][1]));d.upd();soon();draw();return}v=Math.max(k.min,Math.min(k.max,v));if(!k.log||k.id==='fade')v=Math.round(v);else v=Math.round(v);P[k.id]=v;d.upd();if(k.id==='x1'||k.id==='x2'||k.id==='x3')soonAn();else soon();draw()}
+ d.set=set;
+ d.addEventListener('pointerdown',function(e){if(d.classList.contains('off'))return;d.setPointerCapture(e.pointerId);drag={y:e.clientY,n:norm(P[k.id])};tipHide()});
+ d.addEventListener('pointermove',function(e){if(!drag)return;var s=sc();set(den(drag.n+(drag.y-e.clientY)/s/(e.shiftKey?900:200)))});
+ d.addEventListener('pointerup',function(){drag=null});
+ d.addEventListener('dblclick',function(){set(S()?k.sync:k.def)});
+ d.addEventListener('wheel',function(e){e.preventDefault();set(den(norm(P[k.id])+(e.deltaY<0?1:-1)*(e.shiftKey?.005:.02)))},{passive:false});
+ d.upd()}
+document.querySelectorAll('.knob-slot').forEach(function(s){mkKnob(KM[s.dataset.k],s)});
+function refreshKnobs(){for(var id in knobEls)knobEls[id].upd();
+ var n=P.bands;knobEls.x1.classList.toggle('off',n<2);knobEls.x2.classList.toggle('off',n<3);knobEls.x3.classList.toggle('off',n<4);
+ document.querySelectorAll('#segB button').forEach(function(b){b.classList.toggle('on',+b.dataset.n===P.bands)})}
+(function(){var b=$('#segB .b');for(var i=1;i<=4;i++){var x=document.createElement('button');x.textContent=i;x.dataset.n=i;x.dataset.tip='Number of bands. Each band finds and cuts its own tails. Bass can ring while the highs are tidied.';x.onclick=function(){P.bands=+this.dataset.n;refreshKnobs();analyseNow()};b.appendChild(x)}})();
+
+/* ---------- drawing ---------- */
+var cv=$('#cv'),g=cv.getContext('2d'),W=0,H=440,dpr=1;
+var BC=['#6CC9F5','#02EBBA','#FFD100','#FF7BB1'];
+function css(n){return getComputedStyle(document.body).getPropertyValue(n).trim()}
+var ML=62,MR=8,TOP=6,LV=232,LANE=40,AX=18,showBands=false;
+function calcLV(){var nl=showBands&&an?an.nb:1;LV=440-TOP-8-nl*(LANE+2)-24}
+function sizeCv(){var r=cv.getBoundingClientRect(),s=sc();W=Math.round(r.width/s);dpr=Math.min(2,(window.devicePixelRatio||1)*s);cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr)}
+function tx(t){return ML+(t/DUR)*(W-ML-MR)}
+function dbY(d){return TOP+(Math.max(-90,Math.min(0,d))/-90)*LV}
+function draw(){
+ if(!sig||!W)return;calcLV();g.setTransform(dpr,0,0,dpr,0,0);g.clearRect(0,0,W,H);
+ var dp=css('--dp'),gridc=css('--grid'),tx_=css('--tx'),sky=css('--sky'),mint=css('--mint'),pink=css('--pink'),yel=css('--yel'),amb=css('--amb'),dim=css('--dim');
+ g.fillStyle=dp;g.fillRect(0,0,W,H);
+ var x0=ML,x1=W-MR,n=envIn.e.length,dt=DUR/(n-1);
+ if(view==='wave'){drawWave(x0,x1,n,dt,gridc,sky,mint,pink,amb);}else{
+ // grid and dB labels
+ g.font='500 11px JetBrains Mono,monospace';g.textAlign='right';g.textBaseline='middle';
+ for(var d=0;d>=-90;d-=15){var y=dbY(d);g.strokeStyle=gridc;g.lineWidth=1;g.beginPath();g.moveTo(x0,y);g.lineTo(x1,y);g.stroke();g.fillStyle=sky;g.fillText(d+' dB',x0-6,y)}
+ for(var s=0;s<=DUR;s++){g.strokeStyle=gridc;g.beginPath();g.moveTo(tx(s),TOP);g.lineTo(tx(s),TOP+LV);g.stroke()}
+ // original level (area + line)
+ g.fillStyle='rgba(205,146,254,.22)';g.beginPath();g.moveTo(x0,dbY(-90));
+ for(var i=0;i<n;i+=2)g.lineTo(tx(i*dt),dbY(envIn.e[i]));g.lineTo(x1,dbY(-90));g.fill();
+ g.strokeStyle='#CD92FE';g.lineWidth=1.2;g.beginPath();for(var i2=0;i2<n;i2+=2){var X=tx(i2*dt),Y=dbY(envIn.e[i2]);i2?g.lineTo(X,Y):g.moveTo(X,Y)}g.stroke();
+ var lim=scan>=1?x1:x0+(x1-x0)*scan;
+ g.save();g.beginPath();g.rect(0,0,lim,H);g.clip();
+ // removed (pink) between in and out
+ g.fillStyle='rgba(255,19,131,.6)';
+ (function(){var i=0;while(i<n){if(Math.max(-90,envOut[i])<Math.max(-90,envIn.e[i])-0.5){var j=i;while(j<n&&Math.max(-90,envOut[j])<Math.max(-90,envIn.e[j])-0.5)j++;
+  g.beginPath();g.moveTo(tx(i*dt),dbY(envIn.e[i]));for(var k=i+1;k<j;k++)g.lineTo(tx(k*dt),dbY(envIn.e[k]));for(var k2=j-1;k2>=i;k2--)g.lineTo(tx(k2*dt),dbY(envOut[k2]));g.closePath();g.fill();i=j}else i++}})();
+ g.strokeStyle=mint;g.lineWidth=1.6;g.beginPath();for(var i3=0;i3<n;i3+=2){var X3=tx(i3*dt),Y3=dbY(envOut[i3]);i3?g.lineTo(X3,Y3):g.moveTo(X3,Y3)}g.stroke();
+ g.restore();
+ // floor line
+ if(P.floor>-89){var fy=dbY(P.floor);g.strokeStyle=amb;g.lineWidth=1.5;g.setLineDash([6,4]);g.beginPath();g.moveTo(x0,fy);g.lineTo(x1,fy);g.stroke();g.setLineDash([]);g.fillStyle=amb;g.fillRect(x1-14,fy-5,12,10);g.font='600 11px JetBrains Mono';g.textAlign='left';g.fillText('Floor '+P.floor,x0+6,fy-8)}
+ }
+ // lanes
+ var ly=TOP+LV+8,xo=[P.x1,P.x2,P.x3],lanes=[];
+ if(showBands){for(var b2=0;b2<an.nb;b2++){var lo=b2===0?'20':fh(xo[b2-1]),hi=b2===an.nb-1?'20k':fh(xo[b2]);lanes.push({g:der.bands[b2],l:'B'+(b2+1),s:lo+'-'+hi,c:BC[b2]})}}
+ else{var cg=new Float32Array(envIn.e.length),ct=[],ch=[];for(var q=0;q<cg.length;q++){var dd=Math.max(-90,envOut[q])-Math.max(-90,envIn.e[q]);cg[q]=dd<-0.05?dd:0}
+  for(var q3=1;q3<cg.length;q3++){if(cg[q3]<-1&&cg[q3-1]>=-1)ct.push({t0:q3,from:q3})}der.bands.forEach(function(bb){ch=ch.concat(bb.hits)});lanes.push({g:{gain:cg,tails:ct,hits:ch},l:'CUT',s:'',c:pink})}
+ var dmax=Math.max(12,P.depth);
+ for(var b3=0;b3<lanes.length;b3++){
+  var ln=lanes[b3],top=ly+b3*(LANE+2);g.fillStyle='rgba(255,255,255,.04)';g.fillRect(x0,top,x1-x0,LANE);
+  g.fillStyle=ln.c;g.font='700 12px Barlow Condensed';g.textAlign='right';g.textBaseline='middle';g.fillText(ln.l,x0-30,top+9);g.font='500 10px JetBrains Mono';g.fillText(ln.s,x0-6,top+24);
+  g.fillStyle=ln.c;g.fillRect(x0-26,top+3,3,LANE-6);
+  var gb=ln.g;g.save();g.beginPath();g.rect(x0,top,lim-x0,LANE);g.clip();
+  g.fillStyle=pink;g.beginPath();g.moveTo(x0,top);for(var i4=0;i4<gb.gain.length;i4+=2){g.lineTo(tx(i4*dt),top+Math.min(1,-gb.gain[i4]/dmax)*(LANE-2))}g.lineTo(x1,top);g.fill();
+  gb.tails.forEach(function(t){var Xa=tx(t.t0*dt),Xb=tx(t.from*dt);if(showBands){g.fillStyle='rgba(255,166,0,.22)';g.fillRect(Xa,top,Math.max(1,Xb-Xa),LANE)}g.strokeStyle=showBands?amb:'rgba(255,166,0,.45)';g.lineWidth=showBands?1.5:1;g.beginPath();g.moveTo(Xb,top);g.lineTo(Xb,top+LANE);g.stroke()});
+  g.fillStyle=yel;gb.hits.forEach(function(h){var X=tx(h.a*dt);g.beginPath();g.moveTo(X,top+LANE-1);g.lineTo(X-3,top+LANE-7);g.lineTo(X+3,top+LANE-7);g.fill()});
+  g.restore();
+  g.strokeStyle=css('--ln');g.strokeRect(x0+.5,top+.5,x1-x0-1,LANE-1)}
+ // axis
+ var ay=ly+lanes.length*(LANE+2)+2;g.fillStyle=sky;g.font='500 11px JetBrains Mono';g.textAlign='center';g.textBaseline='top';
+ for(var s2=0;s2<=DUR;s2++)g.fillText(s2+'s',tx(s2),ay);
+ // scan line
+ if(scan<1){g.strokeStyle=mint;g.lineWidth=2;g.beginPath();g.moveTo(lim,TOP);g.lineTo(lim,ay);g.stroke()}
+ // playhead and hover
+ var ph=pos();g.strokeStyle='#fff';g.lineWidth=1.5;g.beginPath();g.moveTo(tx(ph),TOP);g.lineTo(tx(ph),ay);g.stroke();
+ if(hover>=0){var hh=Math.max(0,Math.min(DUR,hover)),hi2=Math.min(n-1,Math.round(hh/dt));g.strokeStyle='#ffffff66';g.beginPath();g.moveTo(tx(hh),TOP);g.lineTo(tx(hh),ay);g.stroke();
+  var gmin=0;der.bands.forEach(function(b){if(b.gain[hi2]<gmin)gmin=b.gain[hi2]});
+  var txt='t '+hh.toFixed(2)+' s   in '+envIn.e[hi2].toFixed(1)+'   out '+envOut[hi2].toFixed(1)+'   cut '+gmin.toFixed(1)+' dB';
+  g.font='500 12px JetBrains Mono';g.textAlign='left';var w=g.measureText(txt).width+12,bx=Math.min(W-w-4,Math.max(ML+4,tx(hh)+8));g.fillStyle='#000c';g.fillRect(bx,TOP+2,w,18);g.fillStyle=yel;g.textBaseline='middle';g.fillText(txt,bx+6,TOP+11)}
+}
+
+/* Waveform view (default): the real waveform like a DAW clip, left channel on
+   top, right below, scaled to the clip's peak. Original in lavender, cleaned
+   on top in mint, so what is removed shows pink. The pink band behind is the
+   cut region (whole sound turned down 3 dB or more), like a DAW selection. */
+var view='wave',wcache=null;
+function waveCols(arr,cols){var n=arr.length,mn=new Float32Array(cols),mx=new Float32Array(cols);for(var c=0;c<cols;c++){var a=Math.floor(c*n/cols),b=Math.max(a+1,Math.floor((c+1)*n/cols)),lo=0,hi=0;for(var i=a;i<b;i++){var v=arr[i];if(v<lo)lo=v;if(v>hi)hi=v}mn[c]=lo;mx[c]=hi}return{mn:mn,mx:mx}}
+function tailRegions(n){var nb=an.nb,out=[],cur=null;
+ for(var q=0;q<n;q++){var tot=0,tp=0;
+  for(var b=0;b<nb;b++){var pw=Math.pow(10,an.envs[b][q]/10);tot+=pw;var ts=der.bands[b].tails;for(var k=0;k<ts.length;k++){if(q>=ts[k].t0&&q<ts[k].to){tp+=pw;break}}}
+  var on=envIn.e[q]>-90&&tot>0&&tp>=0.5*tot,cutting=Math.max(-90,envOut[q])<Math.max(-90,envIn.e[q])-1;
+  if(on){if(!cur)cur={a:q,c:-1};if(cutting&&cur.c<0)cur.c=q}
+  else if(cur){cur.b=q;if(cur.c<0)cur.c=q;if(cur.b-cur.a>=15)out.push(cur);cur=null}}
+ if(cur){cur.b=n;if(cur.c<0)cur.c=n;if(cur.b-cur.a>=15)out.push(cur)}
+ return out}
+function drawWave(x0,x1,n,dt,gridc,sky,mint,pink,amb){
+ var cols=Math.max(10,Math.round(x1-x0)),key=cols+'|'+(out&&out.L.length)+'|'+(der&&der.bands[0].gain.length);
+ if(!wcache||wcache.k!==key||wcache.o!==out||wcache.s!==sig){var pk=1e-9;for(var i=0;i<sig.L.length;i++){var v=Math.abs(sig.L[i]),w=Math.abs(sig.R[i]);if(v>pk)pk=v;if(w>pk)pk=w}
+  wcache={k:key,o:out,s:sig,pk:pk,iL:waveCols(sig.L,cols),iR:waveCols(sig.R,cols),oL:waveCols(out.L,cols),oR:waveCols(out.R,cols)}}
+ var h=LV/4-3,lanes=[[TOP+3,wcache.iL,wcache.oL,'L'],[TOP+3+LV/2,wcache.iR,wcache.oR,'R']],sc=1/wcache.pk;
+ // Detected tails, like a DAW selection: a stretch counts as tail when most
+ // of the sound there (by power) belongs to a band that is in a detected
+ // tail. Faint = found but kept (Keep time), stronger = being cut.
+ var lim=scan>=1?x1:x0+(x1-x0)*scan,reg=tailRegions(n);
+ reg.forEach(function(r){var xa=tx(r.a*dt),xc=Math.min(lim,tx(r.c*dt)),xb=Math.min(lim,tx(r.b*dt));if(xa>=lim)return;
+  g.fillStyle='rgba(255,19,131,.09)';g.fillRect(xa,TOP,Math.max(0,xc-xa),LV);
+  g.fillStyle='rgba(255,19,131,.24)';if(xb>xc)g.fillRect(xc,TOP,xb-xc,LV);
+  g.fillStyle=amb;g.fillRect(xa,TOP,1.5,LV)});
+ g.font='500 11px JetBrains Mono,monospace';g.textAlign='right';g.textBaseline='middle';
+ lanes.forEach(function(L){var top=L[0],mid=top+h,c=L[1],o=L[2];
+  [[1,'0'],[.5,'-6'],[.25,'-12']].forEach(function(m){[mid-m[0]*h,mid+m[0]*h].forEach(function(y,ii){g.strokeStyle=gridc;g.lineWidth=1;g.beginPath();g.moveTo(x0,y);g.lineTo(x1,y);g.stroke();if(ii===0){g.fillStyle=sky;g.fillText(m[1]+' dB',x0-6,y)}})});
+  g.strokeStyle=gridc;g.beginPath();g.moveTo(x0,mid);g.lineTo(x1,mid);g.stroke();
+  g.fillStyle=sky;g.textAlign='left';g.fillText(L[3],x0+4,top+8);g.textAlign='right';
+  for(var col=0;col<c.mn.length;col++){var X=x0+col;g.fillStyle='rgba(205,146,254,.55)';var ya=mid-c.mx[col]*sc*h,yb=mid-c.mn[col]*sc*h;g.fillRect(X,ya,1,Math.max(1,yb-ya));
+   if(X<=lim){g.fillStyle=pink;g.fillRect(X,ya,1,Math.max(1,yb-ya));g.fillStyle=mint;var oa=mid-o.mx[col]*sc*h,ob=mid-o.mn[col]*sc*h;g.fillRect(X,oa,1,Math.max(1,ob-oa))}}
+ });
+ for(var s2=0;s2<=DUR;s2++){g.strokeStyle='rgba(255,255,255,.06)';g.beginPath();g.moveTo(tx(s2),TOP);g.lineTo(tx(s2),TOP+LV);g.stroke()}
+}
+function fh(f){return f>=1000?(f/1000).toFixed(f%1000?1:0)+'k':String(Math.round(f))}
+function pos(){if(playing&&ctx)return((ctx.currentTime-t0c)%DUR+DUR)%DUR;return posS}
+cv.addEventListener('pointermove',function(e){var r=cv.getBoundingClientRect(),s=sc(),x=(e.clientX-r.left)/s,y=(e.clientY-r.top)/s;hover=(x-ML)/(W-ML-MR)*DUR;
+ if(dragFloor){setFloorFromY(y)}else{var onF=view==='db'&&P.floor>-89&&Math.abs(y-dbY(P.floor))<6&&x>ML;cv.style.cursor=onF?'ns-resize':'crosshair'}draw()});
+cv.addEventListener('pointerleave',function(){hover=-1;draw()});
+var dragFloor=false;
+function setFloorFromY(y){var d=-((y-TOP)/LV)*90;d=Math.max(-90,Math.min(-30,Math.round(d)));P.floor=d;knobEls.floor.upd();soon()}
+cv.addEventListener('pointerdown',function(e){var r=cv.getBoundingClientRect(),s=sc(),x=(e.clientX-r.left)/s,y=(e.clientY-r.top)/s;
+ if(x<ML)return;
+ if(view==='db'&&Math.abs(y-dbY(Math.max(-90,P.floor)))<8&&y<TOP+LV+4){if(P.floor<=-89){P.floor=-80;knobEls.floor.upd()}dragFloor=true;cv.setPointerCapture(e.pointerId);return}
+ seek((x-ML)/(W-ML-MR)*DUR)});
+cv.addEventListener('pointerup',function(){dragFloor=false});
+function seek(t){t=Math.max(0,Math.min(DUR-.01,t));posS=t;if(playing)startAudio(t);draw()}
+
+/* ---------- meters ---------- */
+function meter(c,v,pk,gr){var m=c.getContext('2d'),w=c.width,h=c.height;m.clearRect(0,0,w,h);m.fillStyle='#000';m.fillRect(0,0,w,h);
+ var top=8,bot=h-8,len=bot-top,lo=-60;
+ function yv(d){return top+(Math.min(0,Math.max(lo,d))/lo)*len}
+ // fixed-position zones
+ var bar=gr?24:14,xb=gr?3:2,cols=gr?1:2;
+ for(var ch=0;ch<cols;ch++){var val=gr?v[0]:v[ch],x=gr?xb:xb+ch*(bar+2),yy=gr?yv(0):yv(val);
+  var zones=gr?[[0,-60,'#FF1383']]:[[-12,-60,'#6CC9F5'],[-1,-12,'#A43DFF'],[0,-1,'#FF1383']];
+  m.save();m.beginPath();
+  if(gr){m.rect(x,top,bar,Math.max(0,yv(val)-top))}else{m.rect(x,yy,bar,bot-yy)}m.clip();
+  zones.forEach(function(z){var ya=yv(Math.min(0,z[0])),yb=yv(z[1]);m.fillStyle=z[2];m.fillRect(x,Math.min(ya,yb),bar,Math.abs(yb-ya))});m.restore()}
+ m.font='500 9px JetBrains Mono';m.textAlign='right';m.fillStyle='#6CC9F5';
+ for(var d=0;d>=-60;d-=12){var y=yv(d);m.fillStyle='#ffffff30';m.fillRect(0,y,w,1);m.fillStyle='#6CC9F5';if(!gr)m.fillText(String(d),w-1,y-2);else m.fillText(String(d),w-1,y-2)}}
+var mv={inL:-90,inR:-90,outL:-90,outR:-90,gr:0},pkI=-90,pkO=-90;
+function levelAt(a,t){var i=Math.round(t*SR),w=Math.round(.02*SR),m=0;for(var k=Math.max(0,i-w);k<Math.min(a.length,i);k++){var v=Math.abs(a[k]);if(v>m)m=v}return 20*Math.log10(m+1e-6)}
+function frame(){
+ if(playing&&sig&&!document.hidden){var t=pos(),f=function(cur,nw){return nw>cur?nw:cur-0.9};
+  var o=bufs.proc?out:out;var m=mode==='dry'?sig:mode==='delta'?delta||out:out;
+  mv.inL=f(mv.inL,levelAt(sig.L,t));mv.inR=f(mv.inR,levelAt(sig.R,t));mv.outL=f(mv.outL,levelAt(m.L,t));mv.outR=f(mv.outR,levelAt(m.R,t));
+  var gi=Math.round(t/ (DUR/(envIn.e.length-1))),gm=0;der.bands.forEach(function(b){if(b.gain[gi]<gm)gm=b.gain[gi]});mv.gr=Math.min(0,gm);
+  pkI=Math.max(pkI,mv.inL,mv.inR);pkO=Math.max(pkO,mv.outL,mv.outR)}
+ else if(!playing){mv.inL=mv.inR=mv.outL=mv.outR=-90;mv.gr=0}
+ meter($('#mIn'),[mv.inL,mv.inR]);meter($('#mOut'),[mv.outL,mv.outR]);meter($('#mGr'),[mv.gr],0,1);
+ $('#pkIn').textContent=pkI>-89?pkI.toFixed(1):'-inf';$('#pkOut').textContent=pkO>-89?pkO.toFixed(1):'-inf';$('#pkGr').textContent=mv.gr.toFixed(1);
+ if(scan<1){scan=Math.min(1,scan+.03)}
+ if(playing||scan<1||hover>=0)draw();
+ setTimeout(function(){requestAnimationFrame(frame)},settings.power?60:0)}
+['mIn','mOut','pkIn','pkOut'].forEach(function(id){var e=document.getElementById(id);e.addEventListener('dblclick',function(){pkI=pkO=-90});e.dataset.tip='Double-click to reset the peak read-out.'});
+
+/* ---------- audio ---------- */
+function mkBuf(L,R){var b=ctx.createBuffer(2,L.length,SR);b.copyToChannel(L,0);b.copyToChannel(R,1);return b}
+function curBuf(){if(mode==='dry'){bufs.dry=bufs.dry||mkBuf(sig.L,sig.R);return bufs.dry}
+ if(mode==='delta'){if(!delta){delta=mk(sig.L.length);for(var i=0;i<delta.L.length;i++){delta.L[i]=sig.L[i]-out.L[i];delta.R[i]=sig.R[i]-out.R[i]}}bufs.delta=bufs.delta||mkBuf(delta.L,delta.R);return bufs.delta}
+ bufs.proc=bufs.proc||mkBuf(out.L,out.R);return bufs.proc}
+/* Playback never stops while you adjust: each new version of the sound is
+   started at the same position and crossfaded in over 30 ms (old one fades
+   out), so knob moves are heard right away without gaps or clicks. */
+var srcG=null,XF=.03;
+function master(){if(!gainNode){gainNode=ctx.createGain();gainNode.gain.value=.8;gainNode.connect(ctx.destination)}return gainNode}
+function startAudio(off){if(!ctx)return;ctx.resume();stopSrc();var now=ctx.currentTime;
+ srcG=ctx.createGain();srcG.gain.value=1;srcG.connect(master());
+ srcNode=ctx.createBufferSource();srcNode.buffer=curBuf();srcNode.loop=true;srcNode.connect(srcG);srcNode.start(now,off);t0c=now-off;playing=true;$('#bPlay').textContent='\u25A0 Stop'}
+function restartAudio(off){if(!ctx||!playing||!srcNode){startAudio(off);return}
+ var now=ctx.currentTime,el=(now-t0c)%DUR;if(el<0)el+=DUR;
+ var oldS=srcNode,oldG=srcG;if(oldG.gain.cancelAndHoldAtTime)oldG.gain.cancelAndHoldAtTime(now);else{oldG.gain.cancelScheduledValues(now);oldG.gain.setValueAtTime(oldG.gain.value,now)}oldG.gain.linearRampToValueAtTime(0,now+XF);
+ try{oldS.stop(now+XF+.02)}catch(e){}oldS.onended=function(){try{oldS.disconnect();oldG.disconnect()}catch(e){}};
+ srcG=ctx.createGain();srcG.gain.setValueAtTime(0,now);srcG.gain.linearRampToValueAtTime(1,now+XF);srcG.connect(master());
+ srcNode=ctx.createBufferSource();srcNode.buffer=curBuf();srcNode.loop=true;srcNode.connect(srcG);srcNode.start(now,el);t0c=now-el}
+function stopSrc(){if(srcNode){try{srcNode.onended=null;srcNode.stop()}catch(e){}try{srcNode.disconnect()}catch(e){}srcNode=null}if(srcG){try{srcG.disconnect()}catch(e){}srcG=null}}
+function stopAudio(){posS=pos();stopSrc();playing=false;$('#bPlay').textContent='▶ Play';draw()}
+$('#bPlay').onclick=function(){playing?stopAudio():startAudio(posS)};
+document.querySelectorAll('#ab button').forEach(function(b){b.onclick=function(){setMode(b.dataset.m)}});
+function setMode(m){mode=m;document.querySelectorAll('#ab button').forEach(function(x){x.classList.toggle('on',x.dataset.m===m)});if(playing)restartAudio(pos())}
+$('#sSrc').onchange=function(){if(this.value==='file'){$('#fFile').click();return}stopAudio();posS=0;envIn=null;bufs={};loadSource(this.value);scan=0}
+$('#fFile').onchange=function(){var f=this.files[0];if(!f||!ctx)return;var fr=new FileReader();fr.onload=function(){ctx.decodeAudioData(fr.result,function(buf){
+ stopAudio();posS=0;var n=Math.min(buf.length,Math.floor(30*buf.sampleRate)),L=new Float32Array(n),R=new Float32Array(n);buf.copyFromChannel(L,0);buf.copyFromChannel(R,buf.numberOfChannels>1?1:0);
+ SR=buf.sampleRate;DUR=n/SR;sig={L:L,R:R};envIn=null;bufs={};analyseNow();scan=0},function(){alert('Could not read that file.')})};fr.readAsArrayBuffer(f)};
+var autoPrev=null,autoT=0;
+$('#bScan').onclick=function(){
+ var sg=TC.suggest(an,coreParams()),before={},changed=[],names={tailStart:'Tail start',floor:'Floor',keep:'Keep',fade:'Fade',echo:'Echo',echoTime:'Echo time'};
+ Object.keys(sg.params).forEach(function(id){before[id]=P[id];var k=KM[id];if(!k)return;var v=Math.max(k.min,Math.min(k.max,sg.params[id]));
+  if(k.sync!==undefined&&P.sync){var li=noteList(k),best=0,bd=1e9;li.forEach(function(e,ix){var ms=noteMs(e[1]);if(k.auto&&ix===0&&v!==0)return;var d=Math.abs(ms-v);if(d<bd){bd=d;best=ix}});before[id+'N']=P[id+'N'];P[id+'N']=best;v=Math.round(noteMs(li[best][1]))}
+  if(P[id]!==v){changed.push(id);P[id]=v}});
+ autoPrev=before;refreshKnobs();
+ changed.forEach(function(id){var e=knobEls[id];e.classList.add('flash');setTimeout(function(){e.classList.remove('flash')},1600)});
+ $('#autoTxt').textContent='Auto: '+(changed.length?changed.map(function(id){return names[id]+' '+fmt(KM[id],P[id])}).join(', '):'settings already fit')+'  ('+sg.why.join('; ')+')';
+ $('#autoMsg').style.display='flex';clearTimeout(autoT);autoT=setTimeout(function(){$('#autoMsg').style.display='none'},15000);
+ deriveNow();scan=0;draw()};
+$('#bUndo').onclick=function(){if(!autoPrev)return;Object.keys(autoPrev).forEach(function(id){P[id]=autoPrev[id]});autoPrev=null;refreshKnobs();deriveNow();$('#autoMsg').style.display='none'};
+function resync(){K.forEach(function(k){if(k.sync!==undefined&&P.sync){P[k.id]=Math.round(noteMs(noteList(k)[P[k.id+'N']][1]))}});$('#bSync').classList.toggle('on',!!P.sync);$('#cBpm').textContent=P.bpm;refreshKnobs();soon()}
+$('#bSync').onclick=function(){P.sync=P.sync?0:1;resync()};
+$('#iBpm').onchange=function(){var v=+this.value;if(!(v>=40&&v<=300)){this.value=P.bpm;return}P.bpm=v;resync()};
+function amtVis(){var r=$('#amtRow');if(r)r.style.display=showBands?'flex':'none'}
+$('#bView').onclick=function(){view=view==='wave'?'db':'wave';this.textContent='View: '+(view==='wave'?'Wave':'dB');draw()};
+$('#bBands').onclick=function(){showBands=!showBands;this.classList.toggle('on',showBands);amtVis();draw()};
+
+/* ---------- presets ---------- */
+function allPresets(){return FACT.map(function(f){return{n:f.n,p:f.p,f:1}}).concat(user.map(function(u){return{n:u.n,p:u.p,f:0}}))}
+function fillSel(){var s=$('#pSel');s.innerHTML='';allPresets().forEach(function(p,i){var o=document.createElement('option');o.value=i;o.textContent=(p.f?'• ':'')+p.n;if(p.n===curName)o.selected=true;s.appendChild(o)})}
+function snap(){var o={sync:P.sync};K.forEach(function(k){o[k.id]=P[k.id];if(k.sync!==undefined)o[k.id+'N']=P[k.id+'N']});o.bands=P.bands;o.amount=P.amount.slice();return o}
+function applyP(p){var d={sync:0,bands:3,amount:[100,100,100,100]};K.forEach(function(k){d[k.id]=k.def;if(k.sync!==undefined)d[k.id+'N']=k.sync});Object.keys(d).forEach(function(k){P[k]=p[k]!==undefined?JSON.parse(JSON.stringify(p[k])):d[k]});$('#bSync').classList.toggle('on',!!P.sync);refreshKnobs();analyseNow();buildAmounts()}
+function pick(i){var a=allPresets(),p=a[(i+a.length)%a.length];curName=p.n;applyP(p.p);fillSel()}
+$('#pSel').onchange=function(){pick(+this.value)};
+$('#pPrev').onclick=function(){var a=allPresets(),i=a.findIndex(function(p){return p.n===curName});pick(i-1)};
+$('#pNext').onclick=function(){var a=allPresets(),i=a.findIndex(function(p){return p.n===curName});pick(i+1)};
+
+/* ---------- dialogs ---------- */
+var modal=$('#modal'),dlg=$('#dlg');
+function openDlg(html,btns){dlg.innerHTML=html+'<div class="btns"></div>';var b=$('.btns',dlg);btns.forEach(function(x){var e=document.createElement('button');e.textContent=x.t;if(x.c)e.className=x.c;e.onclick=function(){var r=x.f?x.f():true;if(r!==false)closeDlg()};b.appendChild(e)});modal.style.display='flex'}
+function closeDlg(){modal.style.display='none'}
+modal.addEventListener('pointerdown',function(e){if(e.target===modal)closeDlg()});
+function uniq(n){var a=allPresets().map(function(p){return p.n});if(a.indexOf(n)<0)return n;var i=2;while(a.indexOf(n+' '+i)>=0)i++;return n+' '+i}
+$('#pSave').onclick=function(){var cur=user.find(function(u){return u.n===curName});
+ openDlg('<h2>Save preset</h2><p>Name</p><input type="text" id="dn" value="'+(cur?curName:uniq(curName+' copy')).replace(/"/g,'')+'">'+(cur?'<p>This name already exists.</p>':''),
+ (cur?[{t:'Overwrite',c:'mint',f:function(){cur.p=snap();saveUser()}}]:[]).concat([{t:'Save as new',c:cur?'':'mint',f:function(){var n=$('#dn').value.trim()||'Untitled';if(cur&&n===cur.n)n=uniq(n);if(allPresets().some(function(p){return p.n===n})){n=uniq(n)}user.push({n:n,p:snap()});curName=n;saveUser();fillSel()}},{t:'Cancel'}]))};
+$('#pRen').onclick=function(){var f=FACT.find(function(x){return x.n===curName});
+ openDlg('<h2>Rename</h2>'+(f?'<p>Factory presets keep their name. This makes your own copy.</p>':'')+'<input type="text" id="dn" value="'+curName.replace(/"/g,'')+'">',[{t:'OK',c:'mint',f:function(){var n=$('#dn').value.trim();if(!n)return false;if(f){user.push({n:uniq(n),p:snap()});curName=user[user.length-1].n}else{var u=user.find(function(x){return x.n===curName});if(u){u.n=n;curName=n}}saveUser();fillSel()}},{t:'Cancel'}])};
+$('#pDel').onclick=function(){var u=user.find(function(x){return x.n===curName});if(!u){openDlg('<h2>Delete</h2><p>Factory presets cannot be deleted.</p>',[{t:'OK'}]);return}
+ openDlg('<h2>Delete "'+curName.replace(/</g,'')+'"?</h2><p>This cannot be undone.</p>',[{t:'Delete',c:'mint',f:function(){user=user.filter(function(x){return x!==u});saveUser();pick(0)}},{t:'Cancel'}])};
+$('#pExp').onclick=function(){var t=JSON.stringify({tailchaser:1,name:curName,params:snap()});openDlg('<h2>Export preset</h2><p>Copy this text and keep it somewhere.</p><textarea id="dx" readonly>'+t.replace(/</g,'&lt;')+'</textarea>',[{t:'Select all',f:function(){$('#dx').select();return false}},{t:'Close'}])};
+$('#pImp').onclick=function(){openDlg('<h2>Import preset</h2><p>Paste the preset text.</p><textarea id="dx"></textarea><p id="de" style="color:var(--pink)"></p>',[{t:'Import',c:'mint',f:function(){try{var o=JSON.parse($('#dx').value);if(!o||o.tailchaser!==1||typeof o.params!=='object')throw 0;var p={};K.forEach(function(k){var v=o.params[k.id];if(typeof v==='number'&&isFinite(v))p[k.id]=Math.max(k.min,Math.min(k.max,v));if(k.sync!==undefined){var nv=o.params[k.id+'N'];if(typeof nv==='number'&&isFinite(nv))p[k.id+'N']=Math.max(0,Math.min(noteList(k).length-1,Math.round(nv)))}});p.sync=o.params.sync?1:0;
+ if(typeof o.params.bands==='number')p.bands=Math.max(1,Math.min(4,Math.round(o.params.bands)));var n=uniq(String(o.name||'Imported').slice(0,40));user.push({n:n,p:p});saveUser();curName=n;applyP(p);fillSel()}catch(e){$('#de').textContent='That is not a Tail Chaser preset.';return false}}},{t:'Cancel'}])};
+
+$('#bGuide').onclick=function(){openDlg('<h2>Guide</h2><ul><li><b>What it does:</b> finds the tails of reverb and delay (and any quiet leftovers) and fades them out, so the mix stays tight with more silence between hits.</li><li><b>Scan:</b> in the plugin, play the track once. The plugin learns where every hit and tail is, then reads the cut curve exactly, with no delay. Knobs work instantly after a scan.</li><li><b>The display:</b> lavender = original level, mint = cleaned level, pink = what was removed. Each band has its own lane; yellow triangles are hits, orange lines are where a tail starts.</li><li><b>Start here:</b> press <b>Auto</b>. It listens to the audio and sets Tail start, Floor, Keep, Fade and Echo time for it; the changed knobs flash and a line says why. Undo puts your settings back. Then Depth sets how much is removed.</li><li><b>Check it:</b> press 3 (Removed). Hear only what is cut. If you hear notes, back off.</li><li><b>Delays:</b> Echo removes repeats. Echo time on Auto learns the delay time from the song (shown in the Echo chip); a quiet note that is not on that time grid is kept. Set it by hand if Auto shows none.</li><li><b>Sync:</b> Keep, Fade and Echo time in note values that follow the tempo.</li><li><b>Center:</b> lower it to keep the dry middle natural and clear mostly the wide reverb at the sides.</li></ul><p>Keys: <kbd>Space</kbd> play/stop &nbsp; <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> original/cleaned/removed &nbsp; <kbd>Home</kbd> to start &nbsp; double-click a knob to reset it.</p>',[{t:'Close'}])};
+$('#bSet').onclick=function(){openDlg('<h2>Settings</h2><label><input type="checkbox" id="sb"'+(settings.bubbles?' checked':'')+'> Info bubbles</label><label><input type="checkbox" id="sp"'+(settings.power?' checked':'')+'> Power saving (slower display)</label><label>Look <select id="st"><option value="a">A Neon Navy</option><option value="b">B Purple Soda Pop</option><option value="c">C PurrOne</option></select></label>',[{t:'OK',c:'mint',f:function(){settings.bubbles=$('#sb').checked;settings.power=$('#sp').checked;settings.theme=$('#st').value;document.body.dataset.theme=settings.theme;saveSet();draw()}}]);$('#st').value=settings.theme};
+$('#bAbout').onclick=function(){openDlg('<h2>About &amp; Support</h2><p><b>Tail Chaser</b> by Studio 87, version 1 design mockup.</p><p>Licence: AGPL-3.0-or-later. Source: github.com/SpeakingColors/TailChaser</p><p>Your own presets live in the plugin\'s Studio 87 / Tail Chaser / presets folder (Windows: %APPDATA%, macOS: Application Support, Linux: XDG data folder).</p><p>Uninstall: use the uninstaller from the download zip. It leaves your presets unless you tell it to delete them.</p><p><a href="https://ko-fi.com/studio87" target="_blank" rel="noopener" style="color:var(--mint)">Support on Ko-fi</a></p>',[{t:'Close'}])};
+
+/* ---------- print ---------- */
+function dl(name,blob){var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},500)}
+function wavBlob(L,R,sr){var n=L.length,b=new ArrayBuffer(44+n*8),v=new DataView(b),w=function(o,s){for(var i=0;i<s.length;i++)v.setUint8(o+i,s.charCodeAt(i))};
+ w(0,'RIFF');v.setUint32(4,36+n*8,true);w(8,'WAVE');w(12,'fmt ');v.setUint32(16,16,true);v.setUint16(20,3,true);v.setUint16(22,2,true);v.setUint32(24,sr,true);v.setUint32(28,sr*8,true);v.setUint16(32,8,true);v.setUint16(34,32,true);w(36,'data');v.setUint32(40,n*8,true);
+ for(var i=0;i<n;i++){v.setFloat32(44+i*8,L[i],true);v.setFloat32(48+i*8,R[i],true)}return new Blob([b],{type:'audio/wav'})}
+$('#bPrint').onclick=function(){openDlg('<h2>Print the result</h2><p><b>Write automation (plugin only):</b> the plugin has a Cut parameter that is your host\'s automation lane. Set the track to Write, press Write in the plugin, play once; the cuts are recorded as automation. Then switch the plugin to Read and it follows that lane, so you can edit the curve by hand. This is how fader-riding plugins do it. Not available in this mockup, and not yet tried in Bitwig or Studio One.</p><p><b>Export now:</b></p>',
+ [{t:'Cut curve (CSV)',f:function(){var rows=['time_s,'+der.bands.map(function(b,i){return'band'+(i+1)+'_db'}).join(',')],hop=SR*TC.HOP_MS/1000,nh=der.bands[0].gain.length;for(var i=0;i<nh;i+=1){rows.push((i*TC.HOP_MS/1000).toFixed(3)+','+der.bands.map(function(b){return b.gain[i].toFixed(2)}).join(','))}dl('tail-chaser-cuts.csv',new Blob([rows.join('\n')],{type:'text/csv'}));return false}},
+ {t:'Cleaned audio (WAV)',c:'mint',f:function(){dl('tail-chaser-cleaned.wav',wavBlob(out.L,out.R,SR));return false}},{t:'Close'}])};
+
+/* ---------- per band amounts in lanes: small row under display ---------- */
+function buildAmounts(){var row=$('#amtRow');if(!row){row=document.createElement('div');row.id='amtRow';row.style.cssText='display:flex;gap:10px;margin-top:4px;align-items:center';$('#chips').parentNode.insertBefore(row,$('#chips'))}
+ row.style.display=showBands?'flex':'none';row.innerHTML='<span class="chip" style="color:var(--ttl)" data-tip="How much of Depth each band gets. Turn a band down to leave its tails, for example keep the low band natural.">Band amount</span>';
+ for(var b=0;b<P.bands;b++){(function(b){var s=document.createElement('label');s.style.cssText='display:flex;align-items:center;gap:4px;font:600 13px Barlow Condensed;color:'+BC[b];s.innerHTML='B'+(b+1)+'<input type="range" min="0" max="100" value="'+P.amount[b]+'" style="width:110px;accent-color:'+BC[b]+'"><span class="chip" style="min-width:48px;text-align:center">'+P.amount[b]+' %</span>';
+  var r=$('input',s),v=$('.chip',s);r.oninput=function(){P.amount[b]=+r.value;v.textContent=r.value+' %';soon()};r.ondblclick=function(){r.value=100;r.oninput()};row.appendChild(s)})(b)}}
+
+/* ---------- window: scale, handles, cheeks ---------- */
+var scaleDef=1,scale=1,stage=$('#stage');
+function sc(){return scale}
+function fit(){scaleDef=Math.max(.35,Math.min(1.5,Math.min(innerWidth/1360,innerHeight/800)));if(!userScaled)scale=scaleDef;applyScale()}
+var userScaled=false;
+function applyScale(){stage.style.transform='translate(-50%,-50%) scale('+scale+')';$('#zoom').textContent=Math.round(scale/scaleDef*100)+'%';sizeCv();draw()}
+addEventListener('resize',fit);
+var HS=[['nw',-1,-1],['n',0,-1],['ne',1,-1],['e',1,0],['se',1,1],['s',0,1],['sw',-1,1],['w',-1,0]];
+HS.forEach(function(h){var d=document.createElement('div');d.className='h';d.style.cssText='position:fixed;z-index:30;'+(h[1]===0?'left:20%;right:20%;height:8px;':'width:'+(h[2]===0?8:16)+'px;')+(h[2]===0?'top:20%;bottom:20%;':(h[1]===0?'':'height:16px;'))+(h[0]==='nw'?'left:0;top:0;cursor:nwse-resize':h[0]==='ne'?'right:0;top:0;cursor:nesw-resize':h[0]==='se'?'right:0;bottom:0;cursor:nwse-resize':h[0]==='sw'?'left:0;bottom:0;cursor:nesw-resize':h[0]==='n'?'top:0;cursor:ns-resize':h[0]==='s'?'bottom:0;cursor:ns-resize':h[0]==='w'?'left:0;cursor:ew-resize':'right:0;cursor:ew-resize');document.body.appendChild(d);
+ var st0=null;d.onpointerdown=function(e){d.setPointerCapture(e.pointerId);st0={x:e.clientX,y:e.clientY,s:scale}};
+ d.onpointermove=function(e){if(!st0)return;var dx=(e.clientX-st0.x)*h[1],dy=(e.clientY-st0.y)*h[2],k=h[1]&&h[2]?(dx/1360+dy/800)/2:h[1]?dx/1360:dy/800;scale=Math.max(.3,Math.min(2,st0.s*(1+2*k)));userScaled=true;applyScale()};
+ d.onpointerup=function(){st0=null}});
+document.querySelectorAll('.cheek').forEach(function(c){c.addEventListener('dblclick',function(){userScaled=false;scale=scaleDef;applyScale()})});
+function wood(c){var w=44,h=800,k=document.createElement('canvas');k.width=w;k.height=h;var x=k.getContext('2d');x.fillStyle='#3d2210';x.fillRect(0,0,w,h);var s=7;function r(){s=(s*1103515245+12345)&0x7fffffff;return s/0x7fffffff}
+ for(var i=0;i<w;){var wd=1+Math.floor(r()*4);x.fillStyle=r()<.5?'rgba(123,74,38,.4)':'rgba(90,52,25,.75)';x.fillRect(i,0,wd,h);i+=wd+Math.floor(r()*3)}
+ for(var j=0;j<60;j++){x.fillStyle='rgba(20,10,4,.25)';x.fillRect(Math.floor(r()*w),Math.floor(r()*h),1,20+Math.floor(r()*120))}
+ x.fillStyle='#000';x.fillRect(c.id==='chL'?w-2:0,0,2,h);c.style.background='url('+k.toDataURL()+')';c.style.backgroundSize='100% 100%'}
+wood($('#chL'));wood($('#chR'));
+
+/* ---------- info bubbles ---------- */
+var tipEl=$('#tip'),tipT=0;
+function tipHide(){clearTimeout(tipT);tipEl.style.display='none'}
+document.addEventListener('pointerover',function(e){var t=e.target.closest&&e.target.closest('[data-tip]');clearTimeout(tipT);tipEl.style.display='none';if(!t||!settings.bubbles)return;tipT=setTimeout(function(){tipEl.textContent=t.dataset.tip;tipEl.style.display='block';var r=t.getBoundingClientRect(),w=tipEl.offsetWidth;tipEl.style.left=Math.max(4,Math.min(innerWidth-w-4,r.left))+'px';tipEl.style.top=Math.min(innerHeight-tipEl.offsetHeight-4,r.bottom+6)+'px'},1000)});
+document.addEventListener('pointerdown',tipHide);
+
+addEventListener('keydown',function(e){if(modal.style.display==='flex'||e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'||e.target.tagName==='SELECT')return;
+ if(e.code==='Space'){e.preventDefault();$('#bPlay').click()}else if(e.key==='1')setMode('dry');else if(e.key==='2')setMode('proc');else if(e.key==='3')setMode('delta');else if(e.key==='Home')seek(0)});
+
+/* ---------- start ---------- */
+document.body.dataset.theme=settings.theme;
+refreshKnobs();fillSel();buildAmounts();fit();loadSource('drums');scan=0;requestAnimationFrame(frame);
+window.__tc={tap:function(){var a=ctx.createAnalyser();a.fftSize=1024;master().connect(a);return a},get ctx(){return ctx},get envIn(){return envIn.e},get envOut(){return envOut},P:P,K:K,get st(){return st},get der(){return der},get an(){return an},TC:TC,setMode:setMode,pick:pick,applyP:applyP,src:function(n){$('#sSrc').value=n;$('#sSrc').onchange()},fit:fit};
+})();
+</script></body></html>

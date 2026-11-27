@@ -1,5 +1,35 @@
 [
  {
+  "name": "gearupdater",
+  "description": "Launcher for Studio 87 software: browse, download, install and update every plugin and app in one place, no GitHub hunting.",
+  "topics": [
+   "cpp",
+   "juce",
+   "linux-audio",
+   "music-production",
+   "open-source",
+   "plugin-manager",
+   "updater"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-27T23:30:10Z",
+  "release": [
+   "v0.1.2",
+   "https://github.com/SpeakingColors/gearupdater/releases/tag/v0.1.2",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "Pawphet-800",
+  "description": "",
+  "topics": [],
+  "license": "",
+  "pushed": "2026-11-27T23:29:46Z",
+  "release": null,
+  "shot": "docs/design.png"
+ },
+ {
   "name": "jt4000-vst",
   "description": "MIDI controller plugin (VST3 and standalone) for the Behringer JT-4000 (JT-4000 Micro): sends and receives its CC messages from your DAW. Early build.",
   "topics": [
@@ -142,24 +172,21 @@
   "shot": "docs/screenshot.png"
  },
  {
-  "name": "gearupdater",
-  "description": "Launcher for Studio 87 software: browse, download, install and update every plugin and app in one place, no GitHub hunting.",
-  "topics": [
-   "cpp",
-   "juce",
-   "linux-audio",
-   "music-production",
-   "open-source",
-   "plugin-manager",
-   "updater"
-  ],
+  "name": "SofterPaws",
+  "description": "",
+  "topics": [],
   "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-27T12:34:01Z",
-  "release": [
-   "v0.1.2",
-   "https://github.com/SpeakingColors/gearupdater/releases/tag/v0.1.2",
-   "true"
-  ],
+  "pushed": "2026-11-27T05:45:21Z",
+  "release": null,
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "TailChaser",
+  "description": "",
+  "topics": [],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-26T19:36:23Z",
+  "release": null,
   "shot": "docs/screenshot.png"
  },
  {
@@ -1392,32 +1419,5 @@
    "false"
   ],
   "shot": ""
- },
- {
-  "name": "Pawphet-800",
-  "description": "",
-  "topics": [],
-  "license": "",
-  "pushed": "2026-11-27T23:28:27Z",
-  "release": null,
-  "shot": "docs/design.png"
- },
- {
-  "name": "TailChaser",
-  "description": "",
-  "topics": [],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-26T19:36:23Z",
-  "release": null,
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "SofterPaws",
-  "description": "",
-  "topics": [],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-27T05:45:21Z",
-  "release": null,
-  "shot": "docs/screenshot.png"
  }
 ]
