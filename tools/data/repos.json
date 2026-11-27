@@ -1,14 +1,5 @@
 [
  {
-  "name": "SofterPaws",
-  "description": "",
-  "topics": [],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-27T05:45:21Z",
-  "release": null,
-  "shot": "docs/screenshot.png"
- },
- {
   "name": "Whiskerwave-vst",
   "description": "Free open source wavetable synth VST3 for Linux: morphing wavetable oscillators, layered voices, mod matrix, built-in FX, sample your own hardware into wavetables. CC0 waves.",
   "topics": [
@@ -27,12 +18,27 @@
    "wavetable-synth"
   ],
   "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-27T05:22:51Z",
+  "pushed": "2026-11-27T18:02:24Z",
   "release": [
-   "v1.9.1-preview",
-   "https://github.com/SpeakingColors/Whiskerwave-vst/releases/tag/v1.9.1-preview",
+   "v1.9.2-preview",
+   "https://github.com/SpeakingColors/Whiskerwave-vst/releases/tag/v1.9.2-preview",
    "true"
   ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "StarDriftTVLauncher",
+  "description": "Couldn't find a TV Launcher I like, so I made one.",
+  "topics": [
+   "android-tv",
+   "google-tv",
+   "launcher",
+   "no-ads",
+   "open-source"
+  ],
+  "license": "GNU General Public License v3.0",
+  "pushed": "2026-11-27T16:07:18Z",
+  "release": null,
   "shot": "docs/screenshot.png"
  },
  {
@@ -48,12 +54,21 @@
    "updater"
   ],
   "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-27T01:46:44Z",
+  "pushed": "2026-11-27T12:34:01Z",
   "release": [
    "v0.1.2",
    "https://github.com/SpeakingColors/gearupdater/releases/tag/v0.1.2",
    "true"
   ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "SofterPaws",
+  "description": "",
+  "topics": [],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-27T05:45:21Z",
+  "release": null,
   "shot": "docs/screenshot.png"
  },
  {
@@ -305,21 +320,6 @@
   ],
   "license": "GNU Affero General Public License v3.0",
   "pushed": "2026-11-23T05:22:33Z",
-  "release": null,
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "StarDriftTVLauncher",
-  "description": "Couldn't find a TV Launcher I like, so I made one.",
-  "topics": [
-   "android-tv",
-   "google-tv",
-   "launcher",
-   "no-ads",
-   "open-source"
-  ],
-  "license": "GNU General Public License v3.0",
-  "pushed": "2026-11-22T05:22:50Z",
   "release": null,
   "shot": "docs/screenshot.png"
  },
