@@ -1,10 +1,10 @@
 [
  {
-  "name": "TailChaser",
+  "name": "SofterPaws",
   "description": "",
   "topics": [],
   "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-26T19:36:23Z",
+  "pushed": "2026-11-27T05:45:21Z",
   "release": null,
   "shot": "docs/screenshot.png"
  },
@@ -27,10 +27,10 @@
    "wavetable-synth"
   ],
   "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-26T18:31:23Z",
+  "pushed": "2026-11-27T05:22:51Z",
   "release": [
-   "v1.7.9-preview",
-   "https://github.com/SpeakingColors/Whiskerwave-vst/releases/tag/v1.7.9-preview",
+   "v1.9.1-preview",
+   "https://github.com/SpeakingColors/Whiskerwave-vst/releases/tag/v1.9.1-preview",
    "true"
   ],
   "shot": "docs/screenshot.png"
@@ -48,12 +48,21 @@
    "updater"
   ],
   "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-26T16:59:46Z",
+  "pushed": "2026-11-27T01:46:44Z",
   "release": [
    "v0.1.2",
    "https://github.com/SpeakingColors/gearupdater/releases/tag/v0.1.2",
    "true"
   ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "TailChaser",
+  "description": "",
+  "topics": [],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-26T19:36:23Z",
+  "release": null,
   "shot": "docs/screenshot.png"
  },
  {
@@ -91,15 +100,6 @@
   "pushed": "2026-11-26T00:15:50Z",
   "release": null,
   "shot": ""
- },
- {
-  "name": "SofterPaws",
-  "description": "",
-  "topics": [],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-26T00:04:38Z",
-  "release": null,
-  "shot": "docs/screenshot.png"
  },
  {
   "name": "JPurrr-8000",
