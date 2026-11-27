@@ -4,8 +4,56 @@
   "description": "",
   "topics": [],
   "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-26T05:18:04Z",
+  "pushed": "2026-11-26T19:36:23Z",
   "release": null,
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "Whiskerwave-vst",
+  "description": "Free open source wavetable synth VST3 for Linux: morphing wavetable oscillators, layered voices, mod matrix, built-in FX, sample your own hardware into wavetables. CC0 waves.",
+  "topics": [
+   "audio-plugin",
+   "cc0",
+   "cpp",
+   "free-vst",
+   "juce",
+   "linux-audio",
+   "music-production",
+   "open-source",
+   "sound-design",
+   "synthesizer",
+   "vst3",
+   "wavetable",
+   "wavetable-synth"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-26T18:31:23Z",
+  "release": [
+   "v1.7.9-preview",
+   "https://github.com/SpeakingColors/Whiskerwave-vst/releases/tag/v1.7.9-preview",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "gearupdater",
+  "description": "Launcher for Studio 87 software: browse, download, install and update every plugin and app in one place, no GitHub hunting.",
+  "topics": [
+   "cpp",
+   "juce",
+   "linux-audio",
+   "music-production",
+   "open-source",
+   "plugin-manager",
+   "updater"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-26T16:59:46Z",
+  "release": [
+   "v0.1.2",
+   "https://github.com/SpeakingColors/gearupdater/releases/tag/v0.1.2",
+   "true"
+  ],
   "shot": "docs/screenshot.png"
  },
  {
@@ -31,54 +79,6 @@
   "release": [
    "v0.3.1",
    "https://github.com/SpeakingColors/scratchcatduo-vst/releases/tag/v0.3.1",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "Whiskerwave-vst",
-  "description": "Free open source wavetable synth VST3 for Linux: morphing wavetable oscillators, layered voices, mod matrix, built-in FX, sample your own hardware into wavetables. CC0 waves.",
-  "topics": [
-   "audio-plugin",
-   "cc0",
-   "cpp",
-   "free-vst",
-   "juce",
-   "linux-audio",
-   "music-production",
-   "open-source",
-   "sound-design",
-   "synthesizer",
-   "vst3",
-   "wavetable",
-   "wavetable-synth"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-26T04:19:10Z",
-  "release": [
-   "v1.7.6-preview",
-   "https://github.com/SpeakingColors/Whiskerwave-vst/releases/tag/v1.7.6-preview",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "gearupdater",
-  "description": "Launcher for Studio 87 software: browse, download, install and update every plugin and app in one place, no GitHub hunting.",
-  "topics": [
-   "cpp",
-   "juce",
-   "linux-audio",
-   "music-production",
-   "open-source",
-   "plugin-manager",
-   "updater"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-26T03:37:06Z",
-  "release": [
-   "v0.1.2",
-   "https://github.com/SpeakingColors/gearupdater/releases/tag/v0.1.2",
    "true"
   ],
   "shot": "docs/screenshot.png"
