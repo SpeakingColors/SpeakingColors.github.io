@@ -51,6 +51,14 @@ COPY = {
  "tagline": "Multiband compression and multiband sidechain in one plugin.",
  "about": "MultiPaw Compressor combines a multiband compressor and limiter with a sidechain page that works band by band. Use it to squeeze each part of your sound separately, or to duck only the bands that need it. Two pages, one toggle.",
  "points": ["Up to 4 bands, each with its own compressor and limiter", "A multiband sidechain page", "Rhythmic pattern compression", "Master limiter"]},
+"NineLives": {
+ "tagline": "Mastering and audio repair in one plugin: an assistant matches your track to a target.",
+ "about": "Nine Lives is mastering and audio repair in one free plugin. An assistant listens to your track, compares it with a target and sets EQ, multiband compression, width and the Maximizer, and it can fix noise, hum, clicks and clipping on its own. You can save your own reference tracks as targets. Right now it is a design mockup with demo tracks you can try in your browser; the plugin is not built yet.",
+ "points": ["Assistant matches your track to a genre target, or to a reference you saved", "Repair: noise, hum, clicks, clipping, de-ess, de-reverb, de-plosive and a spectral box tool", "Modules: Rebalance, 8-band dynamic EQ, Low End, MultiPaw, ClawShaper, Warmth, Width and Maximizer", "Demo tracks for house, trance, hardstyle, happy hardcore, drum and bass and progressive house", "Your own targets: import tracks, tag, favourite, search and export"]},
+"MeowFlipper": {
+ "tagline": "Builds a reverse reverb for you: a swell that lands exactly on your sound.",
+ "about": "Meow Flipper builds the reverse reverb for you. Drop a sound in, or capture it from your track, and it makes a swell that builds up and lands exactly on the hit. Drag the result from the bottom waveform back onto a track. Right now it is a design mockup with a built-in test sound; the plugin is not built yet.",
+ "points": ["Reverse reverb from a dropped-in or captured sound, with the swell landing on the hit", "Free time or tempo sync, so the swell can start exactly one bar before the hit", "Reverb types: Hall, Plate, Room, Lexicat Hall and Shimmer", "Echo types (Digital, Tape, Ping-pong, Analog), a Color stage and six effect orders", "EQ and pitch views, then drag the finished result out as a wav"]},
 "SofterPaws": {
  "tagline": "A dynamic resonance suppressor that softens harsh, ringing frequencies.",
  "about": "Softer Paws finds harsh, ringing frequencies while the music plays and turns them down only while they ring, so the sound gets softer and smoother without losing its character. It has a de-esser, an external key input and a big live display. Right now it is a design mockup that runs the real sound engine in your browser; the plugin is not built yet.",

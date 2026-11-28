@@ -7,12 +7,27 @@ M = {  # repo -> path of the single-file interactive mockup
  "PurrOne":"docs/mockup/purrone-mockup.html","multipawcompressor":"docs/mockup/MultiPaw.html","Apurrr2500":"docs/mockup/Apurrr2500.html",
  "LapCat2A":"docs/mockup/LapCat2A.html","Pawltec":"docs/mockup/Pawltec.html","FetlinePounce":"docs/mockup/FetlinePounce.html",
  "Furchild":"docs/mockup/Furchild.html","PunchPaw":"docs/mockup/PunchPaw.html","clawshaper":"docs/mockup/ClawShaper.html",
- "Clawpressor-vst":"docs/mockup/index.html","CatRack":"docs/mockup/CatRack.html","Purrrverb":"docs/mockup/shimmerstuff.html","Pawphet-800":"mockup/Pawphet-800_mockup.html","TailChaser":"docs/mockup/index.html","SofterPaws":"docs/mockup/index.html",
+ "Clawpressor-vst":"docs/mockup/index.html","CatRack":"docs/mockup/CatRack.html","Purrrverb":"docs/mockup/shimmerstuff.html","Pawphet-800":"mockup/Pawphet-800_mockup*.html","MeowFlipper":"docs/mockups/MeowFlipper_mockup_v*.html","NineLives":"docs/mockups/NineLives_mockup_v*.html","TailChaser":"docs/mockup/index.html","SofterPaws":"docs/mockup/index.html",
  "scratchcatfx-vst":"docs/mockup/scratchcatfx.html","scratchcatduo-vst":"docs/mockup/scratchcatduo.html","stretch-cat-vst":"docs/mockup/stretchcat.html",
  "copycat-vst":"docs/mockup/copycat.html","CATalog":"docs/mockup/catalog.html","purrfect-cut":"docs/mockup/purrfectcut.html",
  "whiskerscope":"docs/mockup/whisker-scope-mockup.html","Purrrstressor":"docs/mockups/Purrrstressor.html","Meowcorder":"docs/mockup/index.html",
  "hairball":"docs/mockups/Hairball.html","gearupdater":"docs/mockup/index.html","JPurrr-8000":"docs/mockups/JPurrr-8000-mockup-v3.12.html",
  "phasepaw":"docs/mockups/PhasePaw-mockup-v12.html","SynthCookBook":"docs/recipe-book.html","purrrvoicechannel":"docs/mockup/index.html","catspacer":"docs/mockups/Studio87-FX-test-page.html","linux-ultranova-controller":"docs/mockup/index.html","linux-peak-controller":"docs/mockup/index.html","minilogue-xd-controller":"docs/mockup/index.html","drumlogue-linux-controller":"docs/mockup/index.html","modxm-controller-vst":"docs/mockup/index.html","jt4000-vst":"docs/mockup/index.html","Cobalt8M-Controller-VST":"docs/mockup/index.html","mx400-vst-linux":"docs/mockup/index.html","whiskermix":"docs/mockup/index.html","SupurrrSaw-VST":"LOCAL:/private/tmp/claude-501/-Users-jyfjhfhj-Library-Application-Support-Claude-scratch-workspaces-cbacd2fe-dbea-4f2d-bb25-068d43c2fed0-56f4464d-554f-4874-92ad-713fb8143fbe-scratch-2026-11-14-a95345/07864805-ea39-422c-a8d5-09109e39def5/scratchpad/artifact-files/c45d4029-cfd0-4bc4-aba5-bb1a169455e4/index.html","KickKitten":"docs/mockups/KickKitten-v1.html"}
+
+def resolve(repo, path):
+    """A path with * picks the newest matching file in that folder, so a version bump in the repo does not break the demo."""
+    if "*" not in path or path.startswith("LOCAL:"): return path
+    import fnmatch
+    d, pat = path.rsplit("/", 1)
+    names = []
+    try: names = subprocess.run(["gh", "api", f"repos/SpeakingColors/{repo}/contents/{d}", "--jq", ".[].name"], capture_output=True, text=True).stdout.split()
+    except Exception: pass
+    if not names:
+        try: names = [x["name"] for x in json.loads(subprocess.run(["curl", "-sfL", f"https://api.github.com/repos/SpeakingColors/{repo}/contents/{d}"], capture_output=True, text=True).stdout)]
+        except Exception: names = []
+    ok = sorted([n for n in names if fnmatch.fnmatch(n, pat)], key=lambda n: [int(x) for x in re.findall(r"\d+", n)])
+    return d + "/" + ok[-1] if ok else path
+M = {k: resolve(k, v) for k, v in M.items()}
 
 CLAIM = re.compile(r'\s*[^.<>"\n]{0,160}?(?:collects? nothing|no telemetry|nothing is sent anywhere|never uses the network|makes? no network calls?|no network calls?)[^.<>"\n]{0,120}\.', re.I)
 def strip_claims(h):

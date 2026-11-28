@@ -72,6 +72,11 @@ for r in new:
             tojpg(dst, f"{S}/img/full/{nm}.jpg", 82, 1200)
             tojpg(dst, f"{S}/img/thumb/{nm}.jpg", 78, 640); n_sh += 1
     elif os.path.exists(dst + ".new"): os.remove(dst + ".new")
+# a repo with no screenshot of its own can use one kept in tools/overrides/<repo>.png
+for r in new:
+    nm = r["name"]; ov = f"{S}/overrides/{nm}.png"
+    if r["shot"] or not os.path.exists(ov): continue
+    tojpg(ov, f"{S}/img/full/{nm}.jpg", 82, 1200); tojpg(ov, f"{S}/img/thumb/{nm}.jpg", 78, 640); n_sh += 1
 report.append(f"screenshots updated: {n_sh}")
 
 # ---------- 3. mockups ----------
