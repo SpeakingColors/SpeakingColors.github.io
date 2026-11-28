@@ -1,5 +1,35 @@
 [
  {
+  "name": "whiskermix",
+  "description": "TotalMix-style mixer and studio hub for Linux: RME Digiface USB control, MIDI hub, Pulse 16 support and built-in FX. Design phase.",
+  "topics": [
+   "audio-mixer",
+   "linux-audio",
+   "midi",
+   "music-production",
+   "open-source",
+   "rme",
+   "totalmix"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-28T04:24:48Z",
+  "release": [
+   "v0.5.5",
+   "https://github.com/SpeakingColors/whiskermix/releases/tag/v0.5.5",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "NineLives",
+  "description": "",
+  "topics": [],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-28T02:43:53Z",
+  "release": null,
+  "shot": "docs/screenshot.png"
+ },
+ {
   "name": "Whiskerwave-vst",
   "description": "Free open source wavetable synth VST3 for Linux: morphing wavetable oscillators, layered voices, mod matrix, built-in FX, sample your own hardware into wavetables. CC0 waves.",
   "topics": [
@@ -18,10 +48,33 @@
    "wavetable-synth"
   ],
   "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-28T02:05:34Z",
+  "pushed": "2026-11-28T02:43:10Z",
   "release": [
    "v1.9.13-preview",
    "https://github.com/SpeakingColors/Whiskerwave-vst/releases/tag/v1.9.13-preview",
+   "true"
+  ],
+  "shot": "docs/screenshot.png"
+ },
+ {
+  "name": "Pawphet-800",
+  "description": "Free open source cat-themed polyphonic analog-style synth in the spirit of the Pro-800 and Prophet-600. Design and sound prototype with an interactive mockup; VST3 plugin planned. By Studio 87.",
+  "topics": [
+   "synths",
+   "vst3-plugin",
+   "linux-audio",
+   "linux-vst",
+   "music-production",
+   "music-production-software",
+   "music-production-studio",
+   "music-production-tools",
+   "macos-vst"
+  ],
+  "license": "GNU Affero General Public License v3.0",
+  "pushed": "2026-11-28T02:34:00Z",
+  "release": [
+   "v0.1.0",
+   "https://github.com/SpeakingColors/Pawphet-800/releases/tag/v0.1.0",
    "true"
   ],
   "shot": "docs/screenshot.png"
@@ -47,40 +100,12 @@
    "vst3"
   ],
   "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-28T02:05:28Z",
+  "pushed": "2026-11-28T02:30:28Z",
   "release": [
    "v0.3.31",
    "https://github.com/SpeakingColors/SupurrrSaw-VST/releases/tag/v0.3.31",
    "false"
   ],
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "NineLives",
-  "description": "",
-  "topics": [],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-28T02:04:19Z",
-  "release": null,
-  "shot": "docs/screenshot.png"
- },
- {
-  "name": "Pawphet-800",
-  "description": "Free open source cat-themed polyphonic analog-style synth in the spirit of the Pro-800 and Prophet-600. Design and sound prototype with an interactive mockup; VST3 plugin planned. By Studio 87.",
-  "topics": [
-   "synths",
-   "vst3-plugin",
-   "linux-audio",
-   "linux-vst",
-   "music-production",
-   "music-production-software",
-   "music-production-studio",
-   "music-production-tools",
-   "macos-vst"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-28T01:59:56Z",
-  "release": null,
   "shot": "docs/screenshot.png"
  },
  {
@@ -381,27 +406,6 @@
   "shot": "docs/plugin-window.png"
  },
  {
-  "name": "whiskermix",
-  "description": "TotalMix-style mixer and studio hub for Linux: RME Digiface USB control, MIDI hub, Pulse 16 support and built-in FX. Design phase.",
-  "topics": [
-   "audio-mixer",
-   "linux-audio",
-   "midi",
-   "music-production",
-   "open-source",
-   "rme",
-   "totalmix"
-  ],
-  "license": "GNU Affero General Public License v3.0",
-  "pushed": "2026-11-24T04:34:05Z",
-  "release": [
-   "v0.5.5",
-   "https://github.com/SpeakingColors/whiskermix/releases/tag/v0.5.5",
-   "true"
-  ],
-  "shot": "docs/screenshot.png"
- },
- {
   "name": "mwave-fm1-linux-vst",
   "description": "Controller plugin for the M-VAVE FM-1 on Linux. Early work in progress.",
   "topics": [
@@ -559,7 +563,11 @@
   ],
   "license": "GNU Affero General Public License v3.0",
   "pushed": "2026-11-19T06:13:12Z",
-  "release": null,
+  "release": [
+   "v0.5.0",
+   "https://github.com/SpeakingColors/linux-ultranova-controller/releases/tag/v0.5.0",
+   "true"
+  ],
   "shot": "docs/screenshot.png"
  },
  {

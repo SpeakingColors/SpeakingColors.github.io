@@ -899,7 +899,7 @@ function drawLED(txt){const g=LEDg;g.clearRect(0,0,128,58);g.fillStyle='#120206'
 LEDc.style.cursor='pointer';LEDc.addEventListener('click',e=>{startAudio();const r=LEDc.getBoundingClientRect();step(e.clientY-r.top<r.height/2?1:-1);});
 tip(LEDc,'<b>Program.</b> Tap the top half for the next sound, the bottom half for the previous one. Or type a number on the keypad.');
 el('div','position:absolute;left:142px;top:411px;font-size:9px;color:#FF7BB1;pointer-events:none','▲');el('div','position:absolute;left:142px;top:455px;font-size:9px;color:#FF7BB1;pointer-events:none','▼');
-el('div','position:absolute;left:32px;top:474px;font-size:8.5px;font-weight:900;letter-spacing:.22em;color:#FF7BB1','PROGRAM <span style="color:#CD92FE">· 999 SLOTS</span>');
+el('div','position:absolute;left:32px;top:474px;font-size:8.5px;font-weight:900;letter-spacing:.22em;color:#FF7BB1','PROGRAM <span style="color:#CD92FE">· 999 TOTAL</span>');
 const KP=el('div','position:absolute;left:176px;top:404px;width:192px;display:grid;grid-template-columns:repeat(3,58px);gap:5px 8px');
 ['1','2','3','4','5','6','7','8','9','REC','0','BANK'].forEach(k=>{const d=el('div',`color:${k.length>1?'#FF7BB1':'#CD92FE'}`,k,KP);d.className='pad';d.addEventListener('click',()=>keypad(k));});
 tip(KP,'<b>Keypad.</b> Type a 3-digit program number to load it. BANK switches A to G (A is factory). REC saves the current sound to the typed number in a user bank.');
@@ -1169,7 +1169,7 @@ function openBrowser(){bFilter.bank=cur.bank;const d=openOV(`<h4>PRESETS</h4>
   bl.querySelectorAll('.pitem').forEach((it,i)=>{it.querySelector('.nm').textContent=list[i].name;it.addEventListener('click',()=>{loadSlot(bFilter.bank,+it.dataset.n);fill();});});
   d.querySelector('#bh').innerHTML=history.length?history.map((h,i)=>`<div class="cy" data-h="${i}" style="border:0;color:#BDF9EB">${'ABCDEFG'[h.b]}${pad3(h.num)} <span></span></div>`).join(''):'<span style="color:#6b6680">Nothing yet</span>';
   d.querySelectorAll('[data-h]').forEach(e=>{const h=history[+e.dataset.h];e.querySelector('span').textContent=h.name;e.addEventListener('click',()=>{loadSlot(h.b,h.num);fill();});});}}
-SAVE.addEventListener('click',()=>{const b=cur.bank||1,free=(()=>{for(let n=1;n<=999;n++)if(!BANKS[b].find(x=>x.num===n))return n;return 1;})();const num=cur.bank?cur.num:free;
+SAVE.addEventListener('click',()=>{const b=cur.bank||1,free=(()=>{for(let n=1;n<=slotsIn(b);n++)if(!BANKS[b].find(x=>x.num===n))return n;return 1;})();const num=cur.bank?cur.num:free;
  const d=openOV(`<h4>SAVE SOUND</h4><div class="row"><label>NAME</label><input class="txt" id="sn" maxlength="22"></div>
  <div class="row"><label>BANK</label><span class="seg" id="sb">${[1,2,3,4,5,6].map(i=>`<span data-b="${i}" class="${i===b?'on':''}">${'ABCDEFG'[i]}</span>`).join('')}</span></div>
  <div class="row"><label>SLOT</label><input class="txt" id="ss" style="width:90px" inputmode="numeric" value="${num}"></div>
@@ -1179,7 +1179,7 @@ SAVE.addEventListener('click',()=>{const b=cur.bank||1,free=(()=>{for(let n=1;n<
  d.querySelectorAll('#sb span').forEach(s=>s.addEventListener('click',()=>{sb=+s.dataset.b;d.querySelectorAll('#sb span').forEach(x=>x.classList.toggle('on',x===s));}));
  d.querySelectorAll('#sc span').forEach(s=>s.addEventListener('click',()=>{scat=s.dataset.c;d.querySelectorAll('#sc span').forEach(x=>x.classList.toggle('on',x===s));}));
  d.querySelector('#sx').addEventListener('click',closeOV);
- d.querySelector('#sv').addEventListener('click',()=>{const n=Math.min(999,Math.max(1,parseInt(d.querySelector('#ss').value)||1));const name=sn.value.trim()||'My Sound';closeOV();cur.cat=scat;saveTo(sb,n,name);});});
+ d.querySelector('#sv').addEventListener('click',()=>{const n=Math.min(slotsIn(sb),Math.max(1,parseInt(d.querySelector('#ss').value)||1));const name=sn.value.trim()||'My Sound';closeOV();cur.cat=scat;saveTo(sb,n,name);});});
 GEAR.addEventListener('click',()=>{const d=openOV(`<h4>SETTINGS</h4>
  <div class="row"><label>POLYPHONY</label><span class="seg" id="pp">${[8,16,32,64,128,256].map(v=>`<span data-v="${v}" class="${S.poly===v?'on':''}">${v}</span>`).join('')}</span></div>
   <div class="row"><label></label><span style="font-size:10px;color:#9aa0b4;line-height:1.35">128 and 256 are for big stacks. This browser demo runs on one CPU core and may crackle above about 40 voices with layers; ECO (2x) helps. The plugin build will be much lighter.</span></div>
@@ -1223,7 +1223,9 @@ KB.addEventListener('pointerdown',e=>{const t=e.target.closest('[data-n]');if(!t
 KB.addEventListener('pointermove',e=>{if(ptrNote[e.pointerId]===undefined)return;const t=document.elementFromPoint(e.clientX,e.clientY);const n=t&&t.dataset&&t.dataset.n?+t.dataset.n:null;if(n!==null&&n!==ptrNote[e.pointerId]){noteOff(ptrNote[e.pointerId]);ptrNote[e.pointerId]=n;noteOn(n);}});
 const up=e=>{if(ptrNote[e.pointerId]!==undefined){noteOff(ptrNote[e.pointerId]);delete ptrNote[e.pointerId];}};KB.addEventListener('pointerup',up);KB.addEventListener('pointercancel',up);
 document.getElementById('octDn').addEventListener('click',()=>{octave=Math.max(1,octave-1);buildKB();});document.getElementById('octUp').addEventListener('click',()=>{octave=Math.min(7,octave+1);buildKB();});
-const KMAP='awsedftgyhujk';
+/* 999 slots in total over 7 banks: A to F hold 143, G holds 141 */
+function slotsIn(b){return b<6?143:141;}
+const KMAP='awsedftgyhujkolp';
 addEventListener('keydown',e=>{if(e.repeat||e.target.tagName==='INPUT')return;const i=KMAP.indexOf(e.key.toLowerCase());if(i>=0){noteOn(12*octave+i);e.preventDefault();}});
 addEventListener('keyup',e=>{const i=KMAP.indexOf(e.key.toLowerCase());if(i>=0)noteOff(12*octave+i);});
 
