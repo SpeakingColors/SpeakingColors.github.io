@@ -37,6 +37,7 @@ Compressors, limiters, transient shaping and EQ in classic and new styles.
 - [Pawltec](https://speakingcolors.github.io/pawltec/): A tube program EQ with big, smooth lows and highs, in the Pultec style. (test build)
 - [CatRack](https://speakingcolors.github.io/catrack/): A channel strip built from Studio 87's own effects: stack up to 12 in one window. (test build)
 - [Softer Paws](https://speakingcolors.github.io/softerpaws/): A dynamic resonance suppressor that softens harsh, ringing frequencies.
+- [Nine Lives](https://speakingcolors.github.io/ninelives/): Mastering and audio repair in one plugin: an assistant matches your track to a target.
 
 ## Saturation, distortion and tone
 
@@ -57,6 +58,7 @@ Reverb, ducking, volume shaping, phase fixing and freeze effects.
 - [phasepaw](https://speakingcolors.github.io/phasepaw/): See whether your kick and bass fight each other, and fix it.
 - [Hairball](https://speakingcolors.github.io/hairball/): Freeze a sound, shred it into grains and turn it into something new. (test build)
 - [Tail Chaser](https://speakingcolors.github.io/tailchaser/): Fades out the tails of reverbs, delays and room noise so your mix stays tight.
+- [Meow Flipper](https://speakingcolors.github.io/meowflipper/): Builds a reverse reverb for you: a swell that lands exactly on your sound.
 
 ## DJ and creative tools
 
@@ -90,7 +92,7 @@ A calmer home screen for your TV.
 Control your hardware synths from your DAW on Linux.
 
 - [Novation Peak controller](https://speakingcolors.github.io/linux-peak-controller/): Edit and automate your Novation Peak from your DAW. (test build)
-- [Novation UltraNova controller](https://speakingcolors.github.io/linux-ultranova-controller/): Edit your Novation UltraNova or MiniNova from your DAW on Linux. (test build)
+- [Novation UltraNova controller](https://speakingcolors.github.io/linux-ultranova-controller/): Edit your Novation UltraNova or MiniNova from your DAW on Linux.
 - [Korg minilogue xd controller](https://speakingcolors.github.io/minilogue-xd-controller/): Edit and automate your Korg minilogue xd from your DAW. (test build)
 - [Korg drumlogue controller](https://speakingcolors.github.io/drumlogue-linux-controller/): Edit and automate your Korg drumlogue from your DAW on Linux. (test build)
 - [Behringer JT-4000 controller](https://speakingcolors.github.io/jt4000-vst/): Edit and automate your Behringer JT-4000 Micro from your DAW. (test build)

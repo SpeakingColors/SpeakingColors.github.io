@@ -108,7 +108,7 @@ class PawEngine {
     this.defaults = {
       pmFenv:0, pmOscB:0, pmDestA:1, pmDestF:0, vmode:0,
       lfoRate:0.36, lfoAmt:0.0, lfoShape:1, lfoFreq:1, lfoPW:1, lfoFilt:0, lfoMode:0,
-      glide:0, drift:0.3, uniVoices:6, uniDetune:0.32, uniSpread:0.7,
+      glide:0, drift:0.3, uniVoices:6, uniDetune:0.32, uniSpread:0.7, layers:1, layerOct:0, layerSub:0,
       arp:0, seq:0, hold:0, arpMode:2, arpOct:2, arpGate:0.62, arpRate:2, bpm:128,
       aFreq:0, aPW:0.5, aSaw:1, aTri:0, aPulse:0, sync:0, aOct:0, aFine:0,
       bFreq:0, bPW:0.38, bSaw:0, bTri:0, bPulse:1, bKbd:1, bFine:0.07, bOct:0,
@@ -118,7 +118,7 @@ class PawEngine {
       volume:0.7, trim:0, poly:32, tune:0, velSens:0.55, os:4
     };
     for (const k in this.defaults) { this.P[k] = this.defaults[k]; this.S[k] = this.defaults[k]; }
-    this.maxPool = 80;
+    this.maxPool = 272;
     this.voices = [];
     for (let i = 0; i < this.maxPool; i++) this.voices.push(this.newVoice());
     this.held = []; this.monoKey = -1; this.monoVel = 0.85;
@@ -140,7 +140,7 @@ class PawEngine {
     return { on:false, gate:false, note:60, key:60, vel:1, pitch:60, target:60, age:0,
       pA:Math.random(), pB:Math.random(), triA:0, triB:0,
       s1:0, s2:0, s3:0, s4:0, fe:0, fst:0, ae:0, ast:0,
-      fade:1, fadeStep:0, steal:false, det:0, pan:0, dr:0, drT:0, dRnd:0, cutRnd:0, uni:false, g:0 };
+      lA:new Float64Array(3), lB:new Float64Array(3), tA:new Float64Array(3), tB:new Float64Array(3), fade:1, fadeStep:0, steal:false, det:0, pan:0, dr:0, drT:0, dRnd:0, cutRnd:0, uni:false, g:0 };
   }
   scopeHz() { let lo = 999; for (const v of this.voices) if (v.on && v.gate && !v.steal && v.note < lo) lo = v.note; return lo < 999 ? 440 * Math.pow(2, (lo + this.P.aFreq + 12 * this.P.aOct - 69) / 12) : this.lastHz; }
   rand() { this.rng = (this.rng * 1664525 + 1013904223) >>> 0; return this.rng / 4294967296; }
@@ -167,6 +167,17 @@ class PawEngine {
     if (k === 'vmode' || k === 'uniVoices') { this.allOff(true); this.monoKey = -1; }
     if (k === 'hold' && !v) { this.latched = []; this.releaseNotHeld(); }
     if (k === 'arp' || k === 'seq') this.allOff(true);
+  }
+  // Overload guard: called about 30 times a second with the measured CPU load (1 = the whole audio budget).
+  // Stays quiet normally. If the load stays above 85% for about 0.7 s it drops to ECO 2x, then halves the voice limit, so a heavy patch can never choke the browser.
+  guard(ld) {
+    this.hot = ld > 0.85 ? (this.hot || 0) + 1 : Math.max(0, (this.hot || 0) - 2);
+    if (this.hot > 20) {
+      this.hot = 0;
+      if (this.P.os === 4) { this.set('os', 2); return 'eco'; }
+      const p = this.P.poly; if (p > 8) { const n = Math.max(8, p >> 1); this.set('poly', n); return 'poly:' + n; }
+    }
+    return '';
   }
   // ---------- mapping helpers ----------
   tms(x) { return 0.001 * Math.pow(10000, Math.pow(Math.max(0, x), 0.6)); } // 1 ms .. 10 s, more travel in the musical middle
@@ -200,7 +211,7 @@ class PawEngine {
       for (const v of this.voices) if (v.on && v.uni && v.key === n && !v.steal) { v.steal = true; v.fadeStep = 1 / (0.003 * this.sr); }
       for (let i = 0; i < U; i++) {
         const x = U === 1 ? 0 : i / (U - 1) * 2 - 1;
-        const v = this.startVoice(n, n, vel, x, x, 1 / Math.sqrt(U), true);
+        const v = this.startVoice(n, n, vel, x * this.uniDs(U), this.uniPan(i, U), Math.pow(U, -0.3), true);
         v.uni = U > 1; v.uniRnd = (this.rand() - 0.5) * 0.2; v.cutRnd = x * 0.15;
       }
       this.lastHz = 440 * Math.pow(2, (n - 69) / 12); return;
@@ -209,23 +220,27 @@ class PawEngine {
     for (const m of notes) this.startVoice(m, n, vel, 0, 0, notes.length > 1 ? 0.75 : 1);
     this.lastHz = 440 * Math.pow(2, (notes[0] - 69) / 12);
   }
+  // Voices alternate left and right (like the Cobalt's Width), outer voices widest; the SPREAD knob scales it.
+  uniPan(i, U) { if (U < 2) return 0; const x = i / (U - 1) * 2 - 1; return (i % 2 ? 1 : -1) * (0.78 + 0.22 * Math.abs(x)); }
+  // the more voices in the stack, the wider the detune range, so 8x and 16x are clearly fatter than 2x
+  uniDs(U) { return 0.7 + 0.3 * Math.log2(Math.max(2, U)); }
   // MONO / LEGATO / UNISON: one note at a time. UNISON stacks the Voices knob worth of detuned voices on that one note.
   monoPlay(n, vel, legato) {
     const U = this.P.vmode === 3 ? Math.max(1, Math.min(Math.round(this.P.uniVoices), this.P.poly)) : 1;
-    const g = 1 / Math.sqrt(U);
+    const g = Math.pow(U, -0.3), ds = this.uniDs(U);
     const cur = this.voices.filter(v => v.on && v.mono && !v.steal);
     this.monoKey = n; this.monoVel = vel;
     if (cur.length === U) {
       cur.forEach((v, i) => {
         const x = U === 1 ? 0 : i / (U - 1) * 2 - 1;
         if (legato && v.gate) { v.note = n; v.key = n; v.target = n; if (this.P.glide <= 0.001) v.pitch = n; v.age = ++this.age; }
-        else { this.trig(v, n, n, vel, x, x, g, false); v.uni = U > 1; v.mono = true; }
+        else { this.trig(v, n, n, vel, x * ds, this.uniPan(i, U), g, false); v.uni = U > 1; v.mono = true; }
       });
     } else {
       for (const v of cur) { v.steal = true; v.fadeStep = 1 / (0.003 * this.sr); }
       for (let i = 0; i < U; i++) {
         const x = U === 1 ? 0 : i / (U - 1) * 2 - 1;
-        const v = this.startVoice(n, n, vel, x, x, g, true);
+        const v = this.startVoice(n, n, vel, x * ds, this.uniPan(i, U), g, true);
         v.uni = U > 1; v.mono = true; v.uniRnd = (this.rand() - 0.5) * 0.2; v.cutRnd = x * 0.15;
       }
     }
@@ -255,10 +270,10 @@ class PawEngine {
     if (fresh) {
       v.pitch = glide ? (this.lastNote !== undefined ? this.lastNote : note) : note;
       v.s1 = v.s2 = v.s3 = v.s4 = 0; v.fe = 0; v.ae = 0; v.triA = 0; v.triB = 0;
-      v.pA = this.rand(); v.pB = this.rand();
+      v.pA = this.rand(); v.pB = this.rand(); for (let l = 0; l < 3; l++) { v.lA[l] = (v.pA * (l + 2) * 0.6180339 + 0.37 * (l + 1)) % 1; v.lB[l] = (v.pB * (l + 2) * 0.7548777 + 0.29 * (l + 1)) % 1; v.tA[l] = 0; v.tB[l] = 0; }
       v.cutRnd = (this.rand() - 0.5) * 0.6; v.dRnd = this.rand() * 6.28;
       v.tolA = this.rand() - 0.5; v.tolB = this.rand() - 0.5; v.tolT = this.rand() - 0.5; v.jit = 0; v.lpA = 0; v.lpB = 0;
-      v.fade = 1; v.steal = false; v.on = true;
+      v.fade = 1; v.steal = false; v.on = true; v.onT = 0;
     }
     v.note = note; v.key = key; v.target = note; v.vel = vel; v.det = det; v.pan = pan; v.g = gain;
     v.gate = true; v.fst = 0; v.ast = 0; v.age = ++this.age; v.uni = false; v.mono = false;
@@ -356,6 +371,20 @@ class PawEngine {
     const pmDestA = P.pmDestA, pmDestF = P.pmDestF, pmB = pmDestA ? S.pmOscB * 30 / 12 : 0, pmBF = pmDestF ? S.pmOscB * 2 : 0;
     const mixA = S.mixA, mixB = S.mixB, mixN = S.mixN * 0.6;
     const piOS = Math.PI / fsOS, velS = P.velSens, kSlew = 1 - Math.exp(-2 * Math.PI * 16000 / fsOS);
+    // oscillator layers: extra detuned / octave copies of both oscillators inside every voice (cheap, one filter per voice).
+    // Layer gains glide in and out (10 ms) so changing LAYERS never clicks.
+    const NLt = Math.min(3, Math.max(0, Math.round(P.layers) - 1));
+    const lr = this.lr || (this.lr = new Float64Array(3)), lg = this.lg || (this.lg = new Float64Array(3)), lw = this.lw || (this.lw = new Float64Array(3));
+    const dc = 4 + S.uniDetune * 36, ex = [];
+    if (P.layerOct) ex.push(1200 + dc * 0.5);
+    if (P.layerSub) ex.push(-1200 - dc * 0.5);
+    ex.push(dc, -dc, dc * 2);
+    let NL = 0, w2s = 0;
+    for (let l = 0; l < 3; l++) {
+      lg[l] += ((l < NLt ? 1 : 0) - lg[l]) * sm; if (lg[l] < 0.0005 && l >= NLt) lg[l] = 0;
+      lr[l] = exp2(ex[l] / 1200); lw[l] = 0.8 * lg[l]; w2s += lw[l] * lw[l]; if (lg[l] > 0) NL = l + 1;
+    }
+    const lNorm = 1 / Math.sqrt(1 + w2s);
     const vs = this.voices;
     const osL = this.osL, osR = this.osR, NB = m * OS;
     if (!this.mixL || this.mixL.length < 16 * OS) { this.mixL = new Float64Array(16 * 8); this.mixR = new Float64Array(16 * 8); }
@@ -373,7 +402,8 @@ class PawEngine {
       v.dRnd += 0.7 * m / sr * 6.283 * (1 + (vi % 7) * 0.13);
       v.jit = v.jit * 0.97 + (this.rand() - 0.5) * 0.004;
       const drift = S.drift * (0.06 * (Math.sin(v.dRnd) + 0.5 * Math.sin(v.dRnd * 2.31 + vi)) + v.jit);
-      const uniDet = v.uni ? (v.det * S.uniDetune * 0.5 + (v.uniRnd || 0) * S.uniDetune * 0.1) : 0;
+      // stacked voices also wander slowly and independently (a few cents, 0.2 to 0.6 Hz) so the beating keeps moving
+      const uniDet = v.uni ? (v.det * S.uniDetune * 0.5 + (v.uniRnd || 0) * S.uniDetune * 0.1 + (0.02 + 0.06 * S.uniDetune) * (0.65 * Math.sin(v.dRnd * 0.45 + vi * 1.3) + 0.35 * Math.sin(v.dRnd * 0.19 + vi * 2.7))) : 0;
       const base = v.pitch + tune + drift + uniDet + lfoPitch;
       const pAst = base + P.aFreq + 12 * P.aOct + S.aFine + v.tolA * S.drift * 0.05;
       const pBst = (P.bKbd ? base : 24 + tune + lfoPitch) + P.bFreq + 12 * P.bOct + S.bFine + v.tolB * S.drift * 0.05;
@@ -384,10 +414,14 @@ class PawEngine {
       const ampBase = (1 - velS + velS * v.vel) * v.g * 0.42;
       let gl = 1, gr = 1;
       if (v.pan !== 0 && S.uniSpread > 0.001) { const a = (v.pan * S.uniSpread + 1) * 0.785398; gl = Math.cos(a) * 1.4142; gr = Math.sin(a) * 1.4142; stereo = true; }
+      const lA = v.lA, lB = v.lB, tA = v.tA, tB = v.tB;
+      const lrv = this.lrv || (this.lrv = new Float64Array(3)), wd = 1.5 + 4 * S.uniDetune;
+      for (let l = 0; l < NL; l++) lrv[l] = lr[l] * exp2(wd * Math.sin(v.dRnd * 0.35 + l * 2.1 + vi * 0.9) / 1200);
       let aPend = v.aPend || 0, lpA = v.lpA || 0, lpB = v.lpB || 0;
       let s1 = v.s1, s2 = v.s2, s3 = v.s3, s4 = v.s4, pa = v.pA, pb = v.pB, ta = v.triA, tb = v.triB, bPrev = v.bLast || 0;
       const tf = 1 + v.tolT * S.drift * 0.08, fAcv = Math.min(1, fAc * tf), fDcv = Math.min(1, fDc * tf), aDcv = Math.min(1, aDc / tf);
       let fe = v.fe, ae = v.ae, fst = v.fst, ast = v.ast, fade = v.fade, dead = false;
+      let onT = v.onT === undefined ? 1e9 : v.onT; const onN = Math.max(1, Math.round(0.0028 * sr)); // smooth 2.8 ms onset: a 1 ms attack stays snappy but never clicks
       const gate = v.gate;
       for (let i = 0; i < m; i++) {
         if (gate) {
@@ -398,7 +432,8 @@ class PawEngine {
         const cutSt = S.envAmt * 72 * fe + kt + lfoCut + v.cutRnd + (pmDestF ? S.pmFenv * 48 * fe : 0);
         let fcB = cutBase * exp2(cutSt / 12);
         const pmA = pmDestA ? S.pmFenv * 4 * fe : 0;  // octaves
-        const ampG = ae * ampBase * fade;
+        let onG = 1; if (onT < onN) { const q = onT / onN; onG = q * q * (3 - 2 * q); onT++; }
+        const ampG = ae * ampBase * fade * onG;
         const fA1 = fA0 * exp2(pmA);
         for (let o = 0; o < OS; o++) {
           pb += dtB; let wrapB = false; if (pb >= 1) { pb -= 1; wrapB = true; }
@@ -406,7 +441,14 @@ class PawEngine {
           if (bSaw) bo += 2 * pb - 1 - blep(pb, dtB);
           if (bPul) bo += (pb < pwB ? 1 : -1) + blep(pb, dtB) - blep(frac(pb - pwB + 1), dtB);
           if (bTri) { tb = tb * 0.9995 + ((pb < 0.5 ? 1 : -1) + blep(pb, dtB) - blep(frac(pb + 0.5), dtB)) * 4 * dtB; bo += tb; }
-          bo *= bNorm; lpB += (bo - lpB) * kSlew; bo = lpB;
+          if (NL) for (let l = 0; l < NL; l++) {
+            const dl = Math.min(0.45, dtB * lrv[l]); let p = lB[l] + dl; if (p >= 1) p -= 1; lB[l] = p; let w = 0;
+            if (bSaw) w += 2 * p - 1 - blep(p, dl);
+            if (bPul) w += (p < pwB ? 1 : -1) + blep(p, dl) - blep(frac(p - pwB + 1), dl);
+            if (bTri) { const t = tB[l] * 0.9995 + ((p < 0.5 ? 1 : -1) + blep(p, dl) - blep(frac(p + 0.5), dl)) * 4 * dl; tB[l] = t; w += t; }
+            bo += w * lw[l];
+          }
+          bo *= bNorm * lNorm; lpB += (bo - lpB) * kSlew; bo = lpB;
           let dtA = pmB !== 0 ? fA1 * exp2(pmB * bPrev) : fA1; if (dtA > 0.45) dtA = 0.45;
           const paPrev = pa;
           pa += dtA;
@@ -426,6 +468,17 @@ class PawEngine {
           }
           // one-sample delay so the sync correction can reach the sample before the reset
           const aOut = (aPend + prevCorr) * aNorm; aPend = ao; ao = aOut;
+          if (NL && !sync) {
+            let sumL = 0;
+            for (let l = 0; l < NL; l++) {
+              const dl = Math.min(0.45, dtA * lrv[l]); let p = lA[l] + dl; if (p >= 1) p -= 1; lA[l] = p; let w = 0;
+              if (aSaw) w += 2 * p - 1 - blep(p, dl);
+              if (aPul) w += (p < pwA ? 1 : -1) + blep(p, dl) - blep(frac(p - pwA + 1), dl);
+              if (aTri) { const t = tA[l] * 0.9995 + ((p < 0.5 ? 1 : -1) + blep(p, dl) - blep(frac(p + 0.5), dl)) * 4 * dl; tA[l] = t; w += t; }
+              sumL += w * lw[l];
+            }
+            ao = (ao + sumL * aNorm) * lNorm;
+          }
           if (sync) { cAB += ao * bo; cAA += ao * ao; cBB += bo * bo; }
           ao *= pol0 + polStep * (i * OS + o);
           lpA += (ao - lpA) * kSlew; ao = lpA;
@@ -450,7 +503,7 @@ class PawEngine {
         }
       }
       v.s1 = s1; v.s2 = s2; v.s3 = s3; v.s4 = s4; v.pA = pa; v.pB = pb; v.triA = ta; v.triB = tb; v.bLast = bPrev; v.aPend = aPend; v.lpA = lpA; v.lpB = lpB;
-      v.fe = fe; v.ae = ae; v.fst = fst; v.ast = ast; v.fade = fade;
+      v.fe = fe; v.ae = ae; v.fst = fst; v.ast = ast; v.fade = fade; v.onT = onT;
       if (dead || (!gate && ae < 1e-4)) { v.on = false; v.steal = false; }
     }
     this.rng = rng;
@@ -509,60 +562,60 @@ function softClip(x) { // identity below knee, smooth to 1.0 above
 </script>
 <script>// Pawphet-800 factory presets (bank A). Own sounds, made for this synth.
 // [name, category, demo, params, genre]
-const INIT = {pmFenv:0,pmOscB:0,pmDestA:1,pmDestF:0,vmode:0,lfoRate:0.36,lfoAmt:0,lfoShape:1,lfoFreq:0,lfoPW:0,lfoFilt:0,lfoMode:0,
+const INIT = {pmFenv:0,pmOscB:0,pmDestA:1,pmDestF:0,vmode:0,layers:1,layerOct:0,layerSub:0,lfoRate:0.36,lfoAmt:0,lfoShape:1,lfoFreq:0,lfoPW:0,lfoFilt:0,lfoMode:0,
  glide:0,drift:0.3,uniVoices:6,uniDetune:0.32,uniSpread:0.7,aFreq:0,aPW:0.5,aSaw:1,aTri:0,aPulse:0,sync:0,aOct:0,aFine:0,
  bFreq:0,bPW:0.5,bSaw:1,bTri:0,bPulse:0,bKbd:1,bFine:0.07,bOct:0,mixA:0.7,mixB:0.5,mixN:0,cutoff:0.7,res:0.2,envAmt:0.3,kbd:0.5,
  fA:0,fD:0.5,fS:0.4,fR:0.5,aA:0,aD:0.5,aS:0.8,aR:0.45,volume:0.7};
 const FACTORY = [
  ['Velvet Cathedral','PADS','chords',{trim:-0.8,aSaw:1,bSaw:0,bPulse:1,bPW:0.38,mixA:0.62,mixB:0.5,cutoff:0.58,res:0.3,envAmt:0.36,fA:0.5,fD:0.62,fS:0.35,fR:0.62,aA:0.55,aD:0.6,aS:0.8,aR:0.7,lfoShape:1,lfoRate:0.3,lfoAmt:0.35,lfoPW:1,drift:0.45},''],
  ['Cat Nap Pad','PADS','chords',{trim:-1.4,aSaw:0,aPulse:1,aPW:0.3,bSaw:0,bPulse:1,bPW:0.7,bFine:0.12,cutoff:0.45,res:0.35,envAmt:0.1,aA:0.66,aD:0.6,aS:0.9,aR:0.74,lfoShape:0,lfoRate:0.25,lfoAmt:0.4,lfoFilt:1,lfoPW:1,drift:0.6},''],
- ['Neon Boulevard','PADS','chords',{trim:-1,vmode:4,uniVoices:3,uniDetune:0.2,uniSpread:0.9,bFine:0.1,cutoff:0.55,res:0.25,envAmt:0.25,fA:0.55,fD:0.7,fS:0.5,fR:0.7,aA:0.58,aD:0.6,aS:0.9,aR:0.74,lfoShape:1,lfoRate:0.25,lfoAmt:0.15,lfoFilt:1,drift:0.5},'SYNTHWAVE'],
+ ['Neon Boulevard','PADS','chords',{layers:2,trim:-4.6,vmode:4,uniVoices:3,uniDetune:0.2,uniSpread:0.9,bFine:0.1,cutoff:0.55,res:0.25,envAmt:0.25,fA:0.55,fD:0.7,fS:0.5,fR:0.7,aA:0.58,aD:0.6,aS:0.9,aR:0.74,lfoShape:1,lfoRate:0.25,lfoAmt:0.15,lfoFilt:1,drift:0.5},'SYNTHWAVE'],
  ['Midnight Drive','PADS','chords',{trim:-2.1,aSaw:0,aPulse:1,aPW:0.35,bSaw:1,bOct:-1,bFine:0.05,mixB:0.4,cutoff:0.5,res:0.3,envAmt:0.2,fA:0.5,fD:0.6,fS:0.5,aA:0.5,aS:0.9,aR:0.72,lfoShape:0,lfoRate:0.3,lfoAmt:0.35,lfoPW:1,drift:0.5},'SYNTHWAVE'],
  ['Rain on Chrome','PADS','chords',{trim:0.9,bSaw:0,bPulse:1,bPW:0.3,bFreq:7,mixB:0.35,mixN:0.12,cutoff:0.45,res:0.55,envAmt:0.15,aA:0.62,aS:0.9,aR:0.78,lfoShape:1,lfoRate:0.2,lfoAmt:0.4,lfoFilt:1,drift:0.6},'CYBERPUNK'],
  ['Blade Haze','PADS','chords',{trim:0.7,aSaw:0,aTri:1,bSaw:1,bOct:-1,pmOscB:0.12,pmDestA:0,pmDestF:1,mixA:0.7,mixB:0.45,cutoff:0.48,res:0.5,envAmt:0.18,fA:0.6,fD:0.7,fS:0.6,aA:0.66,aS:0.9,aR:0.8,lfoShape:0,lfoRate:0.18,lfoAmt:0.25,lfoFilt:1,drift:0.65},'CYBERPUNK'],
- ['Trance Saw Pad','PADS','chords',{trim:-3,vmode:4,uniVoices:7,uniDetune:0.38,uniSpread:1,bFine:0,cutoff:0.62,res:0.15,envAmt:0.15,fA:0.45,fD:0.6,fS:0.7,aA:0.5,aD:0.6,aS:1,aR:0.66,drift:0.4},'TRANCE'],
+ ['Trance Saw Pad','PADS','chords',{layers:3,trim:-5.9,vmode:4,uniVoices:7,uniDetune:0.38,uniSpread:1,bFine:0,cutoff:0.62,res:0.15,envAmt:0.15,fA:0.45,fD:0.6,fS:0.7,aA:0.5,aD:0.6,aS:1,aR:0.66,drift:0.4},'TRANCE'],
  ['Glass Cloud','PADS','chords',{trim:0.6,aSaw:0,aTri:1,bSaw:0,bPulse:1,bPW:0.25,bOct:1,pmOscB:0.1,pmDestA:0,pmDestF:1,mixB:0.3,cutoff:0.6,res:0.4,envAmt:0.12,aA:0.62,aS:0.85,aR:0.76,lfoShape:0,lfoRate:0.35,lfoAmt:0.25,lfoPW:1,drift:0.5},''],
  ['Silk Strings','STRINGS','chords',{trim:0,bFine:0.09,aFine:-0.04,cutoff:0.62,res:0.12,envAmt:0.12,aA:0.62,aD:0.6,aS:0.85,aR:0.68,lfoShape:0,lfoRate:0.45,lfoAmt:0.12,lfoFreq:1,drift:0.5},''],
- ['Euphoria Strings','STRINGS','chords',{trim:-1.1,vmode:4,uniVoices:4,uniDetune:0.22,uniSpread:0.9,bFine:0.04,cutoff:0.58,res:0.1,envAmt:0.1,aA:0.55,aD:0.6,aS:0.9,aR:0.65,lfoShape:0,lfoRate:0.47,lfoAmt:0.06,lfoFreq:1,drift:0.45},'TRANCE'],
- ['Analog Ensemble','STRINGS','chords',{trim:-2,vmode:4,uniVoices:3,uniDetune:0.25,uniSpread:0.8,cutoff:0.6,res:0.1,envAmt:0.08,aA:0.58,aS:0.9,aR:0.62,lfoShape:0,lfoRate:0.5,lfoAmt:0.05,lfoFreq:1,drift:0.55},'SYNTHWAVE'],
+ ['Euphoria Strings','STRINGS','chords',{layers:2,trim:-3.2,vmode:4,uniVoices:4,uniDetune:0.22,uniSpread:0.9,bFine:0.04,cutoff:0.58,res:0.1,envAmt:0.1,aA:0.55,aD:0.6,aS:0.9,aR:0.65,lfoShape:0,lfoRate:0.47,lfoAmt:0.06,lfoFreq:1,drift:0.45},'TRANCE'],
+ ['Analog Ensemble','STRINGS','chords',{layers:2,trim:-3.8,vmode:4,uniVoices:3,uniDetune:0.25,uniSpread:0.8,cutoff:0.6,res:0.1,envAmt:0.08,aA:0.58,aS:0.9,aR:0.62,lfoShape:0,lfoRate:0.5,lfoAmt:0.05,lfoFreq:1,drift:0.55},'SYNTHWAVE'],
  ['Brass Whiskers','BRASS','brass',{trim:0.4,bFine:0.05,cutoff:0.38,envAmt:0.62,res:0.15,fA:0.38,fD:0.55,fS:0.45,fR:0.5,aA:0.3,aD:0.5,aS:0.9,aR:0.45,drift:0.4},''],
  ['Jump Brass','BRASS','brass',{trim:1.1,bFine:0.06,cutoff:0.36,envAmt:0.55,res:0.2,fA:0.25,fD:0.45,fS:0.5,aA:0.12,aD:0.5,aS:0.9,aR:0.35,drift:0.35},'SYNTHWAVE'],
  ['Poly Horns','BRASS','brass',{trim:-1.8,bSaw:0,bPulse:1,bPW:0.4,cutoff:0.33,envAmt:0.6,res:0.18,fA:0.4,fD:0.55,fS:0.55,aA:0.35,aS:0.9,aR:0.45,lfoShape:0,lfoRate:0.55,lfoAmt:0.05,lfoFreq:1,drift:0.4},''],
- ['Neon Brass Stab','BRASS','brass',{trim:2.6,vmode:4,uniVoices:3,uniDetune:0.15,cutoff:0.3,envAmt:0.7,res:0.35,fA:0,fD:0.38,fS:0.1,aA:0,aD:0.42,aS:0.2,aR:0.3},'CYBERPUNK'],
- ['Polymod Bell','KEYS','chords',{trim:-1.2,aSaw:0,aTri:1,bSaw:0,bPulse:1,bPW:0.5,bFreq:19,pmOscB:0.3,pmDestA:1,mixA:1,mixB:0,cutoff:0.8,res:0.1,envAmt:0.1,aA:0,aD:0.62,aS:0,aR:0.55,fA:0,fD:0.5,fS:0.2},''],
+ ['Neon Brass Stab','BRASS','brass',{trim:1.1,vmode:4,uniVoices:3,uniDetune:0.15,cutoff:0.3,envAmt:0.7,res:0.35,fA:0,fD:0.38,fS:0.1,aA:0,aD:0.42,aS:0.2,aR:0.3},'CYBERPUNK'],
+ ['Polymod Bell','KEYS','chords',{trim:-0.1,aSaw:0,aTri:1,bSaw:0,bPulse:1,bPW:0.5,bFreq:19,pmOscB:0.3,pmDestA:1,mixA:1,mixB:0,cutoff:0.8,res:0.1,envAmt:0.1,aA:0,aD:0.62,aS:0,aR:0.55,fA:0,fD:0.5,fS:0.2},''],
  ['Midnight Keys','KEYS','keys',{trim:0.7,aSaw:0,aTri:1,bSaw:0,bPulse:1,bPW:0.2,mixA:0.7,mixB:0.35,cutoff:0.5,res:0.2,envAmt:0.4,fA:0,fD:0.48,fS:0.15,aA:0,aD:0.55,aS:0.25,aR:0.45},'SYNTHWAVE'],
  ['Glass Harp','KEYS','chords',{trim:-0.3,aSaw:0,aTri:1,bSaw:0,bTri:1,bFreq:12,pmOscB:0.18,pmDestF:1,pmDestA:0,mixA:0.8,mixB:0.5,cutoff:0.55,res:0.45,envAmt:0.25,aA:0.02,aD:0.7,aS:0.1,aR:0.65,fD:0.6,fS:0.2},''],
  ['Electric Purr','KEYS','keys',{trim:1.5,aSaw:0,aTri:1,bSaw:0,bTri:1,bFreq:12,pmOscB:0.08,pmDestA:1,mixB:0.3,cutoff:0.55,res:0.1,envAmt:0.3,fD:0.5,fS:0.2,aA:0,aD:0.62,aS:0.15,aR:0.5},''],
- ['Clav Kitten','KEYS','keys',{trim:1.9,aSaw:0,aPulse:1,aPW:0.15,bSaw:0,bPulse:1,bPW:0.3,bOct:1,mixB:0.25,cutoff:0.5,res:0.45,envAmt:0.5,fD:0.3,fS:0,aD:0.35,aS:0.1,aR:0.2},''],
+ ['Clav Kitten','KEYS','keys',{trim:2.5,aSaw:0,aPulse:1,aPW:0.15,bSaw:0,bPulse:1,bPW:0.3,bOct:1,mixB:0.25,cutoff:0.5,res:0.45,envAmt:0.5,fD:0.3,fS:0,aD:0.35,aS:0.1,aR:0.2},''],
  ['Organ Whiskers','KEYS','keys',{trim:-2.9,aSaw:0,aPulse:1,aPW:0.5,bSaw:0,bPulse:1,bPW:0.5,bOct:1,bFine:0.02,mixB:0.45,cutoff:0.75,res:0,envAmt:0,aA:0.02,aS:1,aR:0.2,lfoShape:0,lfoRate:0.62,lfoAmt:0.04,lfoFreq:1},''],
  ['Rave Piano','KEYS','keys',{trim:1.8,aSaw:0,aTri:1,bSaw:0,bPulse:1,bPW:0.12,bOct:1,mixB:0.4,cutoff:0.68,res:0.1,envAmt:0.25,fD:0.45,fS:0.1,aD:0.55,aS:0.08,aR:0.4},'HAPPY HC'],
  ['Trance Pluck','PLUCK','pluck',{trim:2.1,bFine:0.1,cutoff:0.36,res:0.38,envAmt:0.62,fA:0,fD:0.38,fS:0,fR:0.38,aA:0,aD:0.42,aS:0,aR:0.42,drift:0.25},'TRANCE'],
  ['Chord Pounce','CHORD','stab',{trim:-0.6,vmode:5,bFine:0.08,cutoff:0.4,res:0.3,envAmt:0.5,fD:0.4,fS:0.1,aA:0,aD:0.45,aS:0.3,aR:0.4},''],
  ['Rave Stab','CHORD','stab',{trim:-2.2,vmode:5,bSaw:0,bPulse:1,bPW:0.4,cutoff:0.5,res:0.25,envAmt:0.45,fD:0.36,fS:0.1,aD:0.42,aS:0.15,aR:0.3},'HAPPY HC'],
- ['Happy Pluck','PLUCK','pluck',{trim:2.3,vmode:4,uniVoices:3,uniDetune:0.18,cutoff:0.42,res:0.3,envAmt:0.6,fD:0.35,fS:0.05,aD:0.4,aS:0,aR:0.35},'HAPPY HC'],
+ ['Happy Pluck','PLUCK','pluck',{layers:2,trim:2.8,vmode:4,uniVoices:3,uniDetune:0.18,cutoff:0.42,res:0.3,envAmt:0.6,fD:0.35,fS:0.05,aD:0.4,aS:0,aR:0.35},'HAPPY HC'],
  ['Outrun Arp','PLUCK','arp',{trim:11.3,aSaw:0,aPulse:1,aPW:0.4,bFine:0.05,cutoff:0.45,res:0.35,envAmt:0.5,fD:0.32,fS:0.05,aD:0.38,aS:0.1,aR:0.3},'SYNTHWAVE'],
  ['Neon Rain Arp','PLUCK','arp',{trim:9.6,aSaw:0,aPulse:1,aPW:0.2,bSaw:0,bPulse:1,bPW:0.6,bFine:0.08,mixN:0.05,cutoff:0.38,res:0.55,envAmt:0.55,fD:0.3,fS:0,aD:0.36,aS:0,aR:0.32},'CYBERPUNK'],
- ['Marimba Cat','PLUCK','arp',{trim:9.9,aSaw:0,aTri:1,bSaw:0,bPulse:1,bOct:1,mixB:0.2,cutoff:0.5,res:0.15,envAmt:0.35,fD:0.35,fS:0,aD:0.45,aS:0,aR:0.4},''],
+ ['Marimba Cat','PLUCK','arp',{trim:10.5,aSaw:0,aTri:1,bSaw:0,bPulse:1,bOct:1,mixB:0.2,cutoff:0.5,res:0.15,envAmt:0.35,fD:0.35,fS:0,aD:0.45,aS:0,aR:0.4},''],
  ['Glass Pluck','PLUCK','pluck',{trim:5.5,aSaw:0,aTri:1,bSaw:0,bPulse:1,bFreq:19,pmOscB:0.2,pmDestA:1,mixB:0,cutoff:0.7,res:0.2,envAmt:0.2,fD:0.4,fS:0,aD:0.42,aS:0,aR:0.4},'TRANCE'],
  ['Harp of Lights','PLUCK','arp',{trim:10.9,aSaw:0,aTri:1,bFine:0.06,mixB:0.3,cutoff:0.55,res:0.25,envAmt:0.4,fD:0.4,fS:0,aD:0.5,aS:0,aR:0.5,drift:0.4},''],
- ['Sync Scratch','LEAD','lead',{trim:7.1,vmode:4,uniVoices:3,uniDetune:0.2,mixA:0.9,mixB:0.2,sync:1,aFreq:7,pmFenv:0.45,pmDestA:1,fA:0,fD:0.45,fS:0.2,cutoff:0.72,res:0.25,envAmt:0.2,aA:0.05,aS:0.95,aR:0.35,glide:0.12},''],
- ['Nine Lives Lead','LEAD','lead',{trim:4.1,vmode:4,uniVoices:8,uniDetune:0.35,uniSpread:0.85,bFine:0,cutoff:0.78,res:0.15,envAmt:0.15,fA:0.2,fD:0.5,fS:0.6,aA:0.1,aS:1,aR:0.45,glide:0.08},'TRANCE'],
- ['Uplifting Lead','LEAD','lead',{trim:4.1,vmode:4,uniVoices:8,uniDetune:0.3,uniSpread:1,bFine:0,bOct:1,mixB:0.35,cutoff:0.84,res:0.1,envAmt:0.08,aA:0.05,aS:1,aR:0.4,lfoShape:0,lfoRate:0.6,lfoAmt:0.04,lfoFreq:1},'TRANCE'],
- ['Rave Kitten Lead','LEAD','lead',{trim:4.6,vmode:4,uniVoices:6,uniDetune:0.3,uniSpread:0.8,bOct:1,mixB:0.4,cutoff:0.82,res:0.1,envAmt:0.1,aA:0.02,aS:1,aR:0.3,glide:0.05},'HAPPY HC'],
- ['Hoover Cat','LEAD','hoover',{trim:4.9,vmode:4,uniVoices:6,uniDetune:0.45,uniSpread:0.9,aPulse:1,aPW:0.25,bOct:-1,pmFenv:0.12,pmDestA:1,fA:0.3,fD:0.5,fS:0,cutoff:0.65,res:0.15,envAmt:0.1,lfoShape:0,lfoRate:0.55,lfoAmt:0.5,lfoPW:1,glide:0.2,aS:1,aR:0.4},'HAPPY HC'],
- ['Outrun Lead','LEAD','lead',{trim:10.7,aSaw:1,aPulse:1,aPW:0.45,bFine:0.08,cutoff:0.62,res:0.25,envAmt:0.2,fA:0.2,fD:0.5,fS:0.6,aA:0.05,aS:1,aR:0.4,lfoShape:0,lfoRate:0.6,lfoAmt:0.05,lfoFreq:1,glide:0.08},'SYNTHWAVE'],
- ['Netrunner','LEAD','lead',{trim:10,vmode:4,uniVoices:2,uniDetune:0.1,sync:1,aFreq:12,pmFenv:0.35,pmDestA:1,mixB:0.15,fD:0.5,fS:0.25,cutoff:0.7,res:0.35,envAmt:0.15,aS:1,aR:0.35,lfoShape:1,lfoRate:0.5,lfoAmt:0.2,lfoFilt:1},'CYBERPUNK'],
+ ['Sync Scratch','LEAD','lead',{trim:3.6,vmode:4,uniVoices:3,uniDetune:0.2,mixA:0.9,mixB:0.2,sync:1,aFreq:7,pmFenv:0.45,pmDestA:1,fA:0,fD:0.45,fS:0.2,cutoff:0.72,res:0.25,envAmt:0.2,aA:0.05,aS:0.95,aR:0.35,glide:0.12},''],
+ ['Nine Lives Lead','LEAD','lead',{layers:3,trim:0.1,vmode:4,uniVoices:8,uniDetune:0.35,uniSpread:0.85,bFine:0,cutoff:0.78,res:0.15,envAmt:0.15,fA:0.2,fD:0.5,fS:0.6,aA:0.1,aS:1,aR:0.45,glide:0.08},'TRANCE'],
+ ['Uplifting Lead','LEAD','lead',{layers:3,layerOct:1,trim:1,vmode:4,uniVoices:8,uniDetune:0.3,uniSpread:1,bFine:0,bOct:1,mixB:0.35,cutoff:0.84,res:0.1,envAmt:0.08,aA:0.05,aS:1,aR:0.4,lfoShape:0,lfoRate:0.6,lfoAmt:0.04,lfoFreq:1},'TRANCE'],
+ ['Rave Kitten Lead','LEAD','lead',{layers:3,trim:0.5,vmode:4,uniVoices:6,uniDetune:0.3,uniSpread:0.8,bOct:1,mixB:0.4,cutoff:0.82,res:0.1,envAmt:0.1,aA:0.02,aS:1,aR:0.3,glide:0.05},'HAPPY HC'],
+ ['Hoover Cat','LEAD','hoover',{layers:4,layerSub:1,trim:0.2,vmode:4,uniVoices:6,uniDetune:0.45,uniSpread:0.9,aPulse:1,aPW:0.25,bOct:-1,pmFenv:0.12,pmDestA:1,fA:0.3,fD:0.5,fS:0,cutoff:0.65,res:0.15,envAmt:0.1,lfoShape:0,lfoRate:0.55,lfoAmt:0.5,lfoPW:1,glide:0.2,aS:1,aR:0.4},'HAPPY HC'],
+ ['Outrun Lead','LEAD','lead',{layers:3,trim:9.3,aSaw:1,aPulse:1,aPW:0.45,bFine:0.08,cutoff:0.62,res:0.25,envAmt:0.2,fA:0.2,fD:0.5,fS:0.6,aA:0.05,aS:1,aR:0.4,lfoShape:0,lfoRate:0.6,lfoAmt:0.05,lfoFreq:1,glide:0.08},'SYNTHWAVE'],
+ ['Netrunner','LEAD','lead',{trim:8.8,vmode:4,uniVoices:2,uniDetune:0.1,sync:1,aFreq:12,pmFenv:0.35,pmDestA:1,mixB:0.15,fD:0.5,fS:0.25,cutoff:0.7,res:0.35,envAmt:0.15,aS:1,aR:0.35,lfoShape:1,lfoRate:0.5,lfoAmt:0.2,lfoFilt:1},'CYBERPUNK'],
  ['Arcade Paw','LEAD','lead',{trim:8.6,aSaw:0,aPulse:1,aPW:0.5,bSaw:0,bPulse:1,bPW:0.25,bOct:1,mixB:0.3,cutoff:0.9,res:0,envAmt:0,aA:0,aS:1,aR:0.2},''],
  ['Moonlight Mew','LEAD','lead',{trim:9.7,aSaw:0,aTri:1,bSaw:0,bTri:1,bFine:0.05,cutoff:0.7,res:0.1,envAmt:0,aA:0.25,aS:1,aR:0.5,lfoShape:0,lfoRate:0.58,lfoAmt:0.07,lfoFreq:1,glide:0.12},''],
  ['Whistle Tail','LEAD','lead',{trim:22.2,mixA:0.05,mixB:0,cutoff:0.62,res:1,envAmt:0.2,kbd:1,aA:0.4,aS:1,aR:0.6,lfoShape:0,lfoRate:0.55,lfoAmt:0.06,lfoFilt:1},''],
- ['Deep Purr Bass','BASS','bass',{trim:7.1,vmode:4,uniVoices:2,uniDetune:0.08,uniSpread:0.2,bSaw:0,bPulse:1,bPW:0.5,bOct:-1,mixB:0.7,cutoff:0.32,res:0.32,envAmt:0.45,fA:0,fD:0.4,fS:0.15,aA:0,aD:0.5,aS:0.85,aR:0.25},''],
+ ['Deep Purr Bass','BASS','bass',{layers:2,layerSub:1,trim:5.4,vmode:4,uniVoices:2,uniDetune:0.08,uniSpread:0.2,bSaw:0,bPulse:1,bPW:0.5,bOct:-1,mixB:0.7,cutoff:0.32,res:0.32,envAmt:0.45,fA:0,fD:0.4,fS:0.15,aA:0,aD:0.5,aS:0.85,aR:0.25},''],
  ['Acid Kitten','BASS','acid',{trim:11.1,vmode:2,mixB:0,cutoff:0.28,res:0.78,envAmt:0.62,fD:0.36,fS:0,aA:0,aD:0.5,aS:0.9,aR:0.28,glide:0.1},''],
  ['Night Runner Bass','BASS','bass',{trim:8.7,bSaw:0,bPulse:1,bOct:-1,mixB:0.6,cutoff:0.35,res:0.3,envAmt:0.4,fD:0.35,fS:0.2,aD:0.5,aS:0.9,aR:0.2},'SYNTHWAVE'],
  ['Grid Growl','BASS','bass',{trim:10,bOct:-1,pmOscB:0.25,pmDestA:0,pmDestF:1,mixB:0.5,cutoff:0.3,res:0.5,envAmt:0.45,fD:0.38,fS:0.2,aS:0.9,aR:0.2,lfoShape:3,lfoMode:1,lfoRate:0.6,lfoAmt:0.3,lfoFilt:1},'CYBERPUNK'],
- ['Chrome Reese','BASS','bass',{trim:7.5,vmode:4,uniVoices:4,uniDetune:0.25,uniSpread:0.4,bFine:0,cutoff:0.4,res:0.2,envAmt:0.1,aS:1,aR:0.2,drift:0.4},'CYBERPUNK'],
+ ['Chrome Reese','BASS','bass',{layers:3,layerSub:1,trim:3.3,vmode:4,uniVoices:4,uniDetune:0.25,uniSpread:0.4,bFine:0,cutoff:0.4,res:0.2,envAmt:0.1,aS:1,aR:0.2,drift:0.4},'CYBERPUNK'],
  ['Sub Paw','BASS','bass',{trim:11.9,aSaw:0,aTri:1,bSaw:0,bPulse:1,bOct:-1,mixB:0.25,cutoff:0.3,res:0,envAmt:0.1,aS:1,aR:0.2},''],
- ['Bouncy Bass','BASS','bass',{trim:10.7,bOct:-1,mixB:0.4,cutoff:0.3,res:0.25,envAmt:0.55,fD:0.3,fS:0.05,aD:0.35,aS:0.4,aR:0.15},'HAPPY HC'],
- ['Rolling Bass','BASS','bass',{trim:11.1,bOct:-1,mixB:0.35,cutoff:0.32,res:0.3,envAmt:0.5,fD:0.28,fS:0,aD:0.33,aS:0,aR:0.18},'TRANCE'],
+ ['Bouncy Bass','BASS','bass',{layers:2,trim:10.7,bOct:-1,mixB:0.4,cutoff:0.3,res:0.25,envAmt:0.55,fD:0.3,fS:0.05,aD:0.35,aS:0.4,aR:0.15},'HAPPY HC'],
+ ['Rolling Bass','BASS','bass',{layers:2,trim:11.1,bOct:-1,mixB:0.35,cutoff:0.32,res:0.3,envAmt:0.5,fD:0.28,fS:0,aD:0.33,aS:0,aR:0.18},'TRANCE'],
  ['Pounce Bass','BASS','bass',{trim:10.8,aSaw:0,aPulse:1,aPW:0.3,bOct:-1,mixB:0.3,cutoff:0.3,res:0.35,envAmt:0.6,fD:0.3,fS:0,aD:0.4,aS:0.3,aR:0.15},''],
  ['Static Fur','FX','chords',{trim:9.8,mixA:0.2,mixB:0,mixN:0.9,cutoff:0.5,res:0.65,envAmt:0.3,lfoShape:1,lfoRate:0.2,lfoAmt:0.7,lfoFilt:1,aA:0.55,aS:1,aR:0.7},''],
  ['Neon Riser','FX','hoover',{trim:11.3,mixN:0.6,mixA:0.5,cutoff:0.35,res:0.6,envAmt:0.6,fA:0.85,fS:1,aA:0.7,aS:1,aR:0.6,lfoShape:2,lfoRate:0.65,lfoAmt:0.1,lfoFilt:1},'CYBERPUNK'],
@@ -595,8 +648,9 @@ const PD={ // id: [min,max,int,fmt,tip]
  glide:[0,1,0,v=>v<0.001?'off':fmtT(0.002+2.5*v*v),'<b>Glide.</b> Notes slide in pitch to the next note. Off at zero.'],
  drift:[0,1,0,v=>(v*6).toFixed(1)+' ct','<b>Drift.</b> Each voice wanders a few cents on its own, like analog oscillators, so chords breathe.'],
  uniVoices:[1,16,1,v=>String(v),'<b>Stack and unison voices.</b> How many detuned voices play on each note in STACK mode, or on the one note in UNISON mode.'],
- uniDetune:[0,1,0,v=>'±'+Math.round(v*50)+' ct','<b>Unison detune.</b> Spreads the stacked voices in pitch, evenly, with a touch of analog randomness. Outer voices reach the value shown.'],
- uniSpread:[0,1,0,pct,'<b>Unison spread.</b> Stereo width of the stacked voices.'],
+ uniDetune:[0,1,0,v=>'±'+Math.round(v*50)+' ct','<b>Detune.</b> Spreads the stacked voices and the oscillator layers in pitch, with a touch of analog randomness. Outer stacked voices reach the value shown.'],
+ uniSpread:[0,1,0,pct,'<b>Unison spread.</b> Stereo width of the stacked voices. Voices alternate left and right, the outer ones widest.'],
+ layers:[1,4,1,v=>v===1?'off':v+' osc','<b>Oscillator layers.</b> Stacks extra detuned copies of both oscillators inside every voice, like the Cobalt spread oscillators. 1 is off. At 4 each voice runs 8 oscillators. Works in every voice mode and glides in without clicks. With Sync on, Osc A is not layered. DETUNE sets how far apart the copies are.'],
  aFreq:[-24,24,1,v=>(v>0?'+':'')+v+' st','<b>Osc A frequency.</b> Semitone steps, up to two octaves either way.'],
  aPW:[0.05,0.95,0,pct,'<b>Osc A pulse width.</b> 50% is square; narrower is thinner and nasal.'],
  aOct:[-2,2,1,feet,'<b>Osc A octave.</b> 32\' to 2\', like organ footage.'],
@@ -626,44 +680,57 @@ function setParam(id,v,from){S[id]=v;send({type:'p',k:id,v});if(knobs[id])knobs[
 let ctx=null,node=null,an=null,started=false;
 const pending=[];
 function send(m){if(node)node.port.postMessage(m);else pending.push(m);}
-let meterMsg={pkL:0,pkR:0,clipL:0,clipR:0,active:0,hz:130.8};
+let meterMsg={pkL:0,pkR:0,clipL:0,clipR:0,active:0,hz:130.8},gotMeter=0;
 async function startAudio(){
  if(started)return;started=true;
  try{
-  ctx=new (window.AudioContext||window.webkitAudioContext)({latencyHint:'interactive'});
+  const AC=window.AudioContext||window.webkitAudioContext;
+  try{ctx=new AC({latencyHint:'interactive'});}catch(e){ctx=new AC();}
+  // Safari only allows audio to start inside the click or key press itself: resume and play a silent buffer right now, before any await
+  try{const r=ctx.resume();if(r&&r.catch)r.catch(()=>{});const ub=ctx.createBuffer(1,1,22050),us=ctx.createBufferSource();us.buffer=ub;us.connect(ctx.destination);us.start(0);}catch(e){}
   const src=document.getElementById('engineSrc').textContent+`
 class PawProc extends AudioWorkletProcessor{constructor(){super();this.e=new PawEngine(sampleRate);this.c=0;
  this.port.onmessage=ev=>{const m=ev.data,e=this.e;
   if(m.type==='p')e.set(m.k,m.v);else if(m.type==='on')e.keyOn(m.n,m.vel);else if(m.type==='off')e.keyOff(m.n);
   else if(m.type==='panic')e.panic();else if(m.type==='demo'){if(m.ev){e.panic();e.demo={ev:m.ev,len:m.len};e.demoT=0;e.demoIdx=0;e.demoOn=[];}else{e.demo=null;for(const o of e.demoOn)e.keyOff(o[0]);e.demoOn=[];}}
   else if(m.type==='steps'){e.seqSteps=m.steps;e.seqPos=0;}else if(m.type==='chord'){e.chord=m.iv;}};}
- process(i,o){const L=o[0][0],R=o[0][1]||o[0][0];this.e.render(L,R,L.length);this.c+=L.length;
+ process(i,o){const L=o[0][0],R=o[0][1]||o[0][0];const t0=Date.now();this.e.render(L,R,L.length);this.acc=(this.acc||0)+(Date.now()-t0);this.c+=L.length;
   if(this.c>=1600){const e=this.e;let a=0;for(const v of e.voices)if(v.on&&!v.steal)a++;
-   this.port.postMessage({pkL:e.peakL,pkR:e.peakR,clipL:e.clipL,clipR:e.clipR,active:a,hz:e.scopeHz()});e.peakL=0;e.peakR=0;e.clipL=0;e.clipR=0;this.c=0;}
+   const ldNow=this.acc/(this.c/sampleRate*1000);this.ld=this.ld===undefined?ldNow:this.ld*0.8+ldNow*0.2;this.acc=0;const gd=e.guard(this.ld);
+   this.port.postMessage({pkL:e.peakL,pkR:e.peakR,clipL:e.clipL,clipR:e.clipR,active:a,hz:e.scopeHz(),ld:this.ld,guard:gd});e.peakL=0;e.peakR=0;e.clipL=0;e.clipR=0;this.c=0;}
   return true;}}
 registerProcessor('pawphet',PawProc);`;
   let ok=false;
-  try{const url=URL.createObjectURL(new Blob([src],{type:'application/javascript'}));await ctx.audioWorklet.addModule(url);
-   node=new AudioWorkletNode(ctx,'pawphet',{numberOfInputs:0,outputChannelCount:[2]});node.port.onmessage=ev=>{meterMsg=ev.data;onMeter(ev.data);};ok=true;}catch(e){ok=false;}
-  if(!ok){ // fallback: same engine on the page thread
+  const withTimeout=(p,ms)=>Promise.race([p,new Promise((_,rej)=>setTimeout(()=>rej(new Error('timeout')),ms))]);
+  const makeFallback=()=>{ // same engine on the page thread
    const Eng=new Function(document.getElementById('engineSrc').textContent+';return PawEngine;')();const e=new Eng(ctx.sampleRate);let c=0;
    const sp=ctx.createScriptProcessor(1024,0,2);
-   sp.onaudioprocess=ev=>{const L=ev.outputBuffer.getChannelData(0),R=ev.outputBuffer.getChannelData(1);for(let i=0;i<L.length;i+=128)e.render(L.subarray(i,i+128),R.subarray(i,i+128),128);
-    c+=L.length;if(c>=1600){let a=0;for(const v of e.voices)if(v.on&&!v.steal)a++;meterMsg={pkL:e.peakL,pkR:e.peakR,clipL:e.clipL,clipR:e.clipR,active:a,hz:e.scopeHz()};onMeter(meterMsg);e.peakL=e.peakR=0;e.clipL=e.clipR=0;c=0;}};
+   let acc=0,ld;sp.onaudioprocess=ev=>{const L=ev.outputBuffer.getChannelData(0),R=ev.outputBuffer.getChannelData(1);const t0=performance.now();for(let i=0;i<L.length;i+=128)e.render(L.subarray(i,i+128),R.subarray(i,i+128),128);acc+=performance.now()-t0;
+    c+=L.length;if(c>=1600){let a=0;for(const v of e.voices)if(v.on&&!v.steal)a++;const ldNow=acc/(c/ctx.sampleRate*1000);ld=ld===undefined?ldNow:ld*0.8+ldNow*0.2;acc=0;const gd=e.guard(ld);meterMsg={pkL:e.peakL,pkR:e.peakR,clipL:e.clipL,clipR:e.clipR,active:a,hz:e.scopeHz(),ld,guard:gd};gotMeter=1;onGuard(gd);onMeter(meterMsg);e.peakL=e.peakR=0;e.clipL=e.clipR=0;c=0;}};
    const handle=m=>{if(m.type==='p')e.set(m.k,m.v);else if(m.type==='on')e.keyOn(m.n,m.vel);else if(m.type==='off')e.keyOff(m.n);
     else if(m.type==='panic')e.panic();else if(m.type==='demo'){if(m.ev){e.panic();e.demo={ev:m.ev,len:m.len};e.demoT=0;e.demoIdx=0;e.demoOn=[];}else{e.demo=null;for(const o of e.demoOn)e.keyOff(o[0]);e.demoOn=[];}}
     else if(m.type==='steps'){e.seqSteps=m.steps;e.seqPos=0;}else if(m.type==='chord'){e.chord=m.iv;}};
-   node={port:{postMessage:handle},connect:(d)=>sp.connect(d)};
-  }
+   return {port:{postMessage:handle},connect:(d)=>sp.connect(d),disconnect:()=>{try{sp.disconnect();}catch(x){}}};};
+  const attach=n=>{node=n;n.connect(ctx.destination);n.connect(an);for(const k in S)n.port.postMessage({type:'p',k,v:S[k]});};
   an=ctx.createAnalyser();an.fftSize=4096;an.smoothingTimeConstant=0;
-  node.connect(ctx.destination);node.connect(an);
-  for(const k in S)node.port.postMessage({type:'p',k,v:S[k]});
+  let wk=null;
+  try{const url=URL.createObjectURL(new Blob([src],{type:'application/javascript'}));await withTimeout(ctx.audioWorklet.addModule(url),3000);
+   wk=new AudioWorkletNode(ctx,'pawphet',{numberOfInputs:0,outputChannelCount:[2]});wk.port.onmessage=ev=>{gotMeter=1;meterMsg=ev.data;onGuard(ev.data.guard);onMeter(ev.data);};ok=true;}catch(e){ok=false;wk=null;}
+  attach(ok?wk:makeFallback());
   while(pending.length)node.port.postMessage(pending.shift());
-  if(ctx.state!=='running')await ctx.resume();
-  document.getElementById('hint').textContent='Sound on. Computer keys: A W S E D F T G Y H U J K. MIDI keyboards work where the browser allows.';
+  try{const r=ctx.resume();if(r&&r.catch)r.catch(()=>{});}catch(e){}
+  const say=t=>{document.getElementById('hint').textContent=t;};
+  say('Sound on ('+(ok?'worklet':'fallback')+', '+Math.round(ctx.sampleRate)+' Hz, '+ctx.state+'). Computer keys: A W S E D F T G Y H U J K. MIDI keyboards work where the browser allows.');
+  // if the worklet never answers (some browsers), switch to the same engine on the page thread
+  setTimeout(()=>{if(!gotMeter){if(ok){try{node.disconnect();}catch(x){}ok=false;attach(makeFallback());say('Audio switched to compatibility mode ('+ctx.state+'). Click the page once, then press a key.');}
+   else say('The audio engine is not answering (state: '+ctx.state+'). Click the page once, then press a key.');}},2500);
+  ctx.onstatechange=()=>{if(ctx.state!=='running'){say('Browser paused the audio ('+ctx.state+'). Click the page to resume.');}else say('Sound on ('+(ok?'worklet':'fallback')+', '+Math.round(ctx.sampleRate)+' Hz). Computer keys: A W S E D F T G Y H U J K.');};
   try{if(navigator.requestMIDIAccess){const ma=await navigator.requestMIDIAccess();const hook=()=>ma.inputs.forEach(inp=>inp.onmidimessage=midi);hook();ma.onstatechange=hook;}}catch(e){}
  }catch(err){document.getElementById('hint').textContent='Audio could not start here: '+err.message;started=false;}
 }
+function onGuard(g){if(!g)return;if(g==='eco'){setParam('os',2);drawQ();toast('Heavy load: switched to ECO 2x to protect your browser');}else if(g.indexOf('poly:')===0){const n=+g.slice(5);setParam('poly',n);toast('Still heavy: voice limit lowered to '+n);}}
+function unlockAudio(){if(!started){startAudio();return;}if(ctx&&ctx.state!=='running'){try{const r=ctx.resume();if(r&&r.catch)r.catch(()=>{});}catch(e){}}}
+['click','pointerup','mouseup','touchend','keydown'].forEach(ev=>window.addEventListener(ev,unlockAudio,{capture:true,passive:true}));
 function midi(e){const [st,d1,d2]=e.data;const c=st&0xf0;if(c===0x90&&d2>0)noteOn(d1,d2/127);else if(c===0x80||(c===0x90&&d2===0))noteOff(d1);}
 const heldUI=new Set();
 function noteOn(n,vel=0.85){startAudio();if(heldUI.has(n))return;heldUI.add(n);send({type:'on',n,vel});kbShow(n,true);
@@ -699,7 +766,9 @@ S.tips=store.get('tips');if(S.tips===null)S.tips=true;
 S.eyes=store.get('eyes');if(S.eyes===null)S.eyes=true;
 
 // ================= knob =================
+window.LAYOUT=window.LAYOUT||[];
 function knob(x,y,size,id,label,col,bi){
+ window.LAYOUT.push({t:'k',x,y,size,id,label,col,bi:!!bi});
  const d=el('div',`left:${x-size/2-14}px;top:${y-size/2-10}px;width:${size+28}px`);d.className='k';
  const W=size+28,H=size+20;const c=el('canvas','',null,d);const g=hiDPI(c,W,H);
  el('div',`color:${col}`,label,d).className='l';const vt=el('div','','',d);vt.className='v';
@@ -713,11 +782,11 @@ function knob(x,y,size,id,label,col,bi){
  tip(d,()=>PD[id][4]+'<br><span style="color:#6CC9F5">Drag up or down, Shift for fine, double click to reset.</span>');
  knobs[id]=k;k.draw();return k;}
 // ================= button =================
-function btn(x,y,label,col,get,toggle,tipHtml){const d=el('div',`left:${x-23}px;top:${y}px`);d.className='b';
+function btn(x,y,label,col,get,toggle,tipHtml){window.LAYOUT.push({t:'b',x,y,label,col,tip:tipHtml||''});const d=el('div',`left:${x-23}px;top:${y}px`);d.className='b';
  const led=el('div','','',d);led.className='led';el('div','','',d).className='key';const lb=el('div',`color:${col}`,label,d);lb.className='l';
  const b={draw(){const on=get();led.style.background=on?`radial-gradient(circle at 40% 35%,#fff,${col} 45%,${col})`:'#2a1a22';led.style.boxShadow=on?`0 0 8px 2px ${col}aa,0 0 18px ${col}55`:'inset 0 1px 1px rgba(0,0,0,.8)';},lb};
  d.addEventListener('click',()=>{startAudio();toggle();});if(tipHtml)tip(d,tipHtml);b.draw();return b;}
-function pbtn(x,y,label,col,id,tipHtml){const b=btn(x,y,label,col,()=>!!S[id],()=>setParam(id,S[id]?0:1),tipHtml);(btns[id]=btns[id]||[]).push(b);return b;}
+function pbtn(x,y,label,col,id,tipHtml){const b=btn(x,y,label,col,()=>!!S[id],()=>setParam(id,S[id]?0:1),tipHtml);window.LAYOUT[window.LAYOUT.length-1].id=id;(btns[id]=btns[id]||[]).push(b);return b;}
 function sec(x,y,w,h,title,col){const s=el('div',`left:${x}px;top:${y}px;width:${w}px;height:${h}px`);s.className='sec';if(title)el('h3',`color:${col}`,title,s);s.style.boxShadow=`inset 0 1px 0 rgba(255,255,255,.04), inset 0 -2px 0 ${col}22`;return s}
 let toastT=null;const TO=el('div','','',P);TO.id='toast';
 function toast(t){TO.textContent=t;TO.style.display='block';clearTimeout(toastT);toastT=setTimeout(()=>TO.style.display='none',1800);}
@@ -758,7 +827,7 @@ const EYES=[];
   grp.innerHTML=`<g class="lid"><g filter="url(#glow)"><ellipse rx="${rx}" ry="${ry}" fill="url(#iris)"/></g><ellipse class="pup" rx="${rx*0.24}" ry="${ry*0.82}" fill="#08060c"/><circle class="gl" cx="${-rx*0.38}" cy="${-ry*0.42}" r="${rx*0.22}" fill="#fff" opacity=".95"/></g>`;
   g.appendChild(grp);EYES.push({grp,lid:grp.querySelector('.lid'),pup:grp.querySelector('.pup'),rx,ry,cx,cy});});})();
 el('div','position:absolute;left:24px;top:77px;font-size:9px;font-weight:800;letter-spacing:.42em;color:#02EBBA',
- 'UP TO 64 VOICES <span style="color:#FF7BB1">·</span> TWO OSCILLATORS PER VOICE <span style="color:#FF7BB1">·</span> POLY MOD SYNTHESIZER');
+ 'UP TO 256 VOICES <span style="color:#FF7BB1">·</span> TWO OSCILLATORS PER VOICE <span style="color:#FF7BB1">·</span> POLY MOD SYNTHESIZER');
 
 // ================= HEADER: preset bar, quality, gear, save, studio 87 =================
 const PB=el('div','position:absolute;left:556px;top:20px;width:400px;height:38px;border-radius:8px;background:linear-gradient(#08070a,#121015);box-shadow:inset 0 2px 6px #000,0 1px 0 rgba(255,255,255,.07);display:flex;align-items:center;font-family:"DejaVu Sans Mono",ui-monospace,monospace');
@@ -773,7 +842,7 @@ const Q=el('div','position:absolute;left:972px;top:24px;height:30px;display:flex
 function drawQ(){Q.innerHTML=`<span style="padding:0 10px;${S.os===2?'color:#02EBBA;background:#02EBBA1f;text-shadow:0 0 6px #02EBBA':'color:#5d6b68'}">ECO 2×</span><span style="padding:0 10px;${S.os===4?'color:#02EBBA;background:#02EBBA1f;text-shadow:0 0 6px #02EBBA':'color:#5d6b68'}">HQ 4×</span>`;}
 Q.addEventListener('click',e=>{setParam('os',S.os===4?2:4);drawQ();});drawQ();
 tip(Q,'<b>Quality.</b> HQ 4× runs every voice at four times the sample rate: the smoothest, cleanest top end (default). ECO 2× uses less CPU for big sessions.');
-const GEAR=el('div','left:1100px;top:24px;width:34px;font-size:16px;color:#CD92FE','⚙');GEAR.className='hb';tip(GEAR,'<b>Settings.</b> Polyphony, master tune, velocity, tempo for this page, hover help, animated eyes.');
+const GEAR=el('div','left:1100px;top:24px;width:34px;font-size:16px;color:#CD92FE','⚙');GEAR.className='hb';tip(GEAR,'<b>Settings.</b> Master tune, velocity, tempo for this page, hover help, animated eyes.');
 const SAVE=el('div','left:1142px;top:24px;width:62px;color:#CD92FE','SAVE');SAVE.className='hb';tip(SAVE,'<b>Save</b> the current sound to a user bank. Asks before overwriting.');
 el('div','position:absolute;left:1236px;top:18px;text-align:right;width:200px',
  `<div style="font-weight:900;font-size:22px;letter-spacing:.06em;color:#ece8f2;line-height:1;display:flex;justify-content:flex-end;align-items:baseline">STUDI<svg width="17" height="16" viewBox="26 26 80 76" style="margin:0 1px;align-self:baseline;transform:translateY(1px)"><path d="M30 52 L38 28 L56 44 L72 44 L90 28 L98 52 Q104 68 92 86 Q80 100 64 100 Q48 100 36 86 Q24 68 30 52 Z" fill="#ece8f2"/><path d="M41 67 Q51 58 61 67 Q51 74 41 67 Z" fill="#141217"/><path d="M67 67 Q77 58 87 67 Q77 74 67 67 Z" fill="#141217"/></svg><span style="margin-left:7px;background:linear-gradient(#FEE400,#FF1383);-webkit-background-clip:text;background-clip:text;color:transparent">87</span></div>
@@ -787,18 +856,19 @@ el('div','position:absolute;left:30px;top:222px;font-size:8.5px;font-weight:800;
 pbtn(60,240,'FREQ A',C.pink,'pmDestA','<b>Poly Mod to Osc A pitch.</b>');pbtn(148,240,'FILTER',C.pink,'pmDestF','<b>Poly Mod to the filter cutoff.</b>');
 el('div','position:absolute;left:30px;top:292px;font-size:8.5px;font-weight:800;letter-spacing:.2em;color:#FF7BB1','VOICE MODE');
 const VM=['POLY','MONO','LEGATO','UNISON','STACK','CHORD'];
-const VMT=['<b>Poly.</b> Normal polyphony: every key gets its own voice.','<b>Mono.</b> One note at a time, last note wins, envelopes retrigger. Release a key and the one still held plays again.','<b>Legato.</b> Mono, but playing a new note while another is held does not retrigger the envelopes. Add Glide for slides.','<b>Unison.</b> Mono, and the Voices knob worth of detuned, spread voices all play that one note. The classic fat lead or bass.','<b>Stack.</b> Poly, and every note you play gets its own stack of detuned voices, so chords stay chords and get fat. Pick 2x, 4x or 8x below, or use the Voices knob. A stack of 8 uses 8 of your voices per note, so raise Poly to 32 or 64 in settings for big chords.','<b>Chord.</b> Plays a remembered chord from every key: hold a chord, then click CHORD to capture it.'];
+const VMT=['<b>Poly.</b> Normal polyphony: every key gets its own voice.','<b>Mono.</b> One note at a time, last note wins, envelopes retrigger. Release a key and the one still held plays again.','<b>Legato.</b> Mono, but playing a new note while another is held does not retrigger the envelopes. Add Glide for slides.','<b>Unison.</b> Mono, and the Voices knob worth of detuned, spread voices all play that one note. The classic fat lead or bass.','<b>Stack.</b> Poly, and every note you play gets its own stack of detuned voices, so chords stay chords and get fat, and it switches on 3 oscillator layers inside each voice. Pick 2x, 4x, 8x or 16x below: the bigger the number, the wider the detune, the more layers and the fatter it gets. A stack of 8 uses 8 of your voices per note, so raise Poly (up to 256) in settings for big chords.','<b>Chord.</b> Plays a remembered chord from every key: hold a chord, then click CHORD to capture it.'];
 const vmB=[];
 VM.forEach((nm,i)=>{const x=30+(i%3)*50,y=306+Math.floor(i/3)*19;
  const d=el("div",`position:absolute;left:${x}px;top:${y}px;width:46px;height:16px;border-radius:4px;background:linear-gradient(#2b2830,#18161b);box-shadow:0 2px 3px #000,inset 0 1px 0 rgba(255,255,255,.12);font-size:8px;font-weight:800;letter-spacing:.05em;text-align:center;line-height:16px;cursor:pointer`,nm);
  d.addEventListener('pointerdown',()=>{startAudio();setVM(i);});tip(d,VMT[i]);vmB.push(d);});
 const stB=[];
-[2,4,8].forEach((n,i)=>{const d=el("div",`position:absolute;left:${30+i*50}px;top:346px;width:46px;height:16px;border-radius:4px;background:linear-gradient(#2b2830,#18161b);box-shadow:0 2px 3px #000,inset 0 1px 0 rgba(255,255,255,.12);font-size:8px;font-weight:800;letter-spacing:.05em;text-align:center;line-height:16px;cursor:pointer`,n+'x');
- d.addEventListener('pointerdown',()=>{startAudio();if(S.vmode!==4)setVM(4);setParam('uniVoices',n);});tip(d,'<b>Stack '+n+'x.</b> '+n+' voices on every note. Quick setting for the Voices knob, which also works for Unison.');stB.push([d,n]);});
+[2,4,8,16].forEach((n,i)=>{const d=el("div",`position:absolute;left:${30+i*37}px;top:343px;width:33px;height:16px;border-radius:4px;background:linear-gradient(#2b2830,#18161b);box-shadow:0 2px 3px #000,inset 0 1px 0 rgba(255,255,255,.12);font-size:8px;font-weight:800;letter-spacing:.05em;text-align:center;line-height:16px;cursor:pointer`,n+'x');
+ d.addEventListener('pointerdown',()=>{startAudio();if(S.vmode!==4)setVM(4);setParam('uniVoices',n);setParam('layers',n<=2?2:n<=4?3:4);toast(S.vmode===4?stackMsg():'UNISON '+n+'x');});tip(d,'<b>Stack '+n+'x.</b> '+n+' voices on every note. Quick setting for the Voices knob, which also works for Unison.');stB.push([d,n]);});
 function drawVM(){vmB.forEach((d,i)=>{const on=S.vmode===i;d.style.color=on?'#FF1383':'#BDF9EB';d.style.boxShadow=on?'0 0 8px #FF138388,inset 0 1px 0 rgba(255,255,255,.12),inset 0 0 0 1px #FF1383':'0 2px 3px #000,inset 0 1px 0 rgba(255,255,255,.12)';});
  stB.forEach(([d,n])=>{const on=(S.vmode===4||S.vmode===3)&&Math.round(S.uniVoices)===n;d.style.color=on?'#FF1383':(S.vmode===4?'#BDF9EB':'#7d7a88');d.style.boxShadow=on?'0 0 8px #FF138388,inset 0 1px 0 rgba(255,255,255,.12),inset 0 0 0 1px #FF1383':'0 2px 3px #000,inset 0 1px 0 rgba(255,255,255,.12)';});}
 function setVM(i){if(i===5){const h=[...heldUI].sort((a,b)=>a-b);if(h.length>1){const iv=h.map(n=>n-h[0]);send({type:'chord',iv});toast('Chord memory: '+h.length+' notes captured');}}
- setParam('vmode',i);drawVM();if(i===3&&S.uniVoices<2){setParam('uniVoices',6);}if(i===4&&S.uniVoices<2){setParam('uniVoices',4);}toast('Voice mode: '+VM[i]);}
+ setParam('vmode',i);drawVM();if(i===3&&S.uniVoices<2){setParam('uniVoices',6);}if(i===4&&S.uniVoices<2){setParam('uniVoices',4);}if((i===3||i===4)&&S.layers<2){setParam('layers',3);}if(i===3||i===4){if(S.uniDetune<0.4)setParam('uniDetune',0.4);if(S.uniSpread<0.85)setParam('uniSpread',0.85);}toast(i===4?stackMsg():'Voice mode: '+VM[i]);}
+function stackMsg(){const u=Math.max(1,Math.round(S.uniVoices));return 'STACK '+u+'x: '+u+' voices per note, '+Math.max(1,Math.floor(S.poly/u))+'-note polyphony ('+S.poly+' voices)';}
 
 // ================= LFO =================
 sec(204,104,180,262,'LFO',C.orange);
@@ -832,24 +902,25 @@ el('div','position:absolute;left:142px;top:411px;font-size:9px;color:#FF7BB1;poi
 el('div','position:absolute;left:32px;top:474px;font-size:8.5px;font-weight:900;letter-spacing:.22em;color:#FF7BB1','PROGRAM <span style="color:#CD92FE">· 999 SLOTS</span>');
 const KP=el('div','position:absolute;left:176px;top:404px;width:192px;display:grid;grid-template-columns:repeat(3,58px);gap:5px 8px');
 ['1','2','3','4','5','6','7','8','9','REC','0','BANK'].forEach(k=>{const d=el('div',`color:${k.length>1?'#FF7BB1':'#CD92FE'}`,k,KP);d.className='pad';d.addEventListener('click',()=>keypad(k));});
-tip(KP,'<b>Keypad.</b> Type a 3-digit program number to load it. BANK switches A to D (A is factory). REC saves the current sound to the typed number in a user bank.');
+tip(KP,'<b>Keypad.</b> Type a 3-digit program number to load it. BANK switches A to G (A is factory). REC saves the current sound to the typed number in a user bank.');
 let entryT=null;
 function keypad(k){startAudio();
- if(k==='BANK'){cur.bank=(cur.bank+1)%4;updatePB();toast('Bank '+'ABCD'[cur.bank]);return;}
- if(k==='REC'){const num=+(entry||cur.num);if(cur.bank===0){toast('Bank A is factory: press BANK for B to D');return;}saveTo(cur.bank,num,cur.name||'User '+num);entry='';drawLED(pad3(cur.num));return;}
+ if(k==='BANK'){cur.bank=(cur.bank+1)%7;updatePB();toast('Bank '+'ABCDEFG'[cur.bank]);return;}
+ if(k==='REC'){const num=+(entry||cur.num);if(cur.bank===0){toast('Bank A is factory: press BANK for B to G');return;}saveTo(cur.bank,num,cur.name||'User '+num);entry='';drawLED(pad3(cur.num));return;}
  entry=(entry+k).slice(-3);drawLED(entry.padStart(3,'·'));clearTimeout(entryT);
  if(entry.length===3)go();else entryT=setTimeout(go,900);
- function go(){const n=+entry;entry='';if(!loadSlot(cur.bank,n))toast('Slot '+'ABCD'[cur.bank]+pad3(n)+' is empty');else toast('Loaded '+'ABCD'[cur.bank]+pad3(n)+'  '+cur.name);drawLED(pad3(cur.num));}}
+ function go(){const n=+entry;entry='';if(!loadSlot(cur.bank,n))toast('Slot '+'ABCDEFG'[cur.bank]+pad3(n)+' is empty');else toast('Loaded '+'ABCDEFG'[cur.bank]+pad3(n)+'  '+cur.name);drawLED(pad3(cur.num));}}
 knob(56,544,40,'glide','GLIDE',C.purple);knob(128,544,40,'drift','DRIFT',C.purple);
-el('div','position:absolute;left:178px;top:502px;width:198px;height:86px;border-radius:8px;border:1px solid #FF138355;background:#FF13830a');
-el('div','position:absolute;left:188px;top:495px;padding:0 5px;background:#141217;font-size:8.5px;font-weight:900;letter-spacing:.2em;color:#FF1383','STACK / UNISON');
-knob(214,546,36,'uniVoices','VOICES',C.pink);knob(278,546,36,'uniDetune','DETUNE',C.pink);knob(342,546,36,'uniSpread','SPREAD',C.pink);
-pbtn(56,606,'ARP',C.lav,'arp','<b>Arpeggiator.</b> Hold notes and they play in turn. Click the words below to change mode, rate, octaves and gate.');
-pbtn(116,606,'SEQ',C.lav,'seq','<b>Sequencer.</b> Plays the recorded steps in 1/16 notes; hold a key to transpose it.');
-pbtn(176,606,'HOLD',C.lav,'hold','<b>Hold.</b> Notes keep playing after you let go. Turn off to release.');
-const uniB=btn(236,606,'STACK',C.pink,()=>S.vmode===4,()=>setVM(S.vmode===4?0:4),'<b>Stack</b> on or off (same as the STACK voice mode).');
+el('div','position:absolute;left:160px;top:502px;width:216px;height:86px;border-radius:8px;border:1px solid #FF138355;background:#FF13830a');
+el('div','position:absolute;left:170px;top:495px;padding:0 5px;background:#141217;font-size:8.5px;font-weight:900;letter-spacing:.2em;color:#FF1383','STACK / UNISON');
+knob(190,537,32,'uniVoices','VOICES',C.pink);knob(242,537,32,'layers','LAYERS',C.pink);knob(294,537,32,'uniDetune','DETUNE',C.pink);knob(346,537,32,'uniSpread','SPREAD',C.pink);
+pbtn(52,606,'ARP',C.lav,'arp','<b>Arpeggiator.</b> Hold notes and they play in turn. Click the words below to change mode, rate, octaves and gate.');
+pbtn(108,606,'SEQ',C.lav,'seq','<b>Sequencer.</b> Plays the recorded steps in 1/16 notes; hold a key to transpose it.');
+pbtn(164,606,'HOLD',C.lav,'hold','<b>Hold.</b> Notes keep playing after you let go. Turn off to release.');
+const uniB={draw(){}};
 let recording=false,steps=[];
-const recB=btn(306,606,'RECORD',C.pink,()=>recording,()=>{recording=!recording;if(recording){steps=[];send({type:'steps',steps});toast('Recording: play notes, one per step');}else toast(steps.length+' steps recorded');recB.draw();},'<b>Record</b> sequencer steps: turn on, play notes one by one, turn off, then press SEQ.');
+pbtn(276,606,'+OCT',C.pink,'layerOct','<b>Octave layer.</b> Swaps one oscillator layer for a copy one octave up. Needs LAYERS 2 or more.');pbtn(332,606,'SUB',C.pink,'layerSub','<b>Sub layer.</b> Swaps one oscillator layer for a copy one octave down. Needs LAYERS 2 or more.');
+const recB=btn(220,606,'RECORD',C.pink,()=>recording,()=>{recording=!recording;if(recording){steps=[];send({type:'steps',steps});toast('Recording: play notes, one per step');}else toast(steps.length+' steps recorded');recB.draw();},'<b>Record</b> sequencer steps: turn on, play notes one by one, turn off, then press SEQ.');
 const AR=el('div','position:absolute;left:30px;top:658px;font-size:9px;font-weight:900;letter-spacing:.16em;color:#CD92FE');
 const AM=['UP','DOWN','UP·DOWN','RANDOM'],ARR=['1/4','1/8','1/16','1/32'],AG=[0.25,0.5,0.62,0.8,1];
 function drawAR(){AR.innerHTML=`ARP <span class="cy" data-a="m">${AM[S.arpMode]}</span>&nbsp;&nbsp;RATE <span class="cy" data-a="r">${ARR[S.arpRate]}</span>&nbsp;&nbsp;OCT <span class="cy" data-a="o">${S.arpOct}</span>&nbsp;&nbsp;GATE <span class="cy" data-a="g">${Math.round(S.arpGate*100)}%</span>`;
@@ -875,6 +946,13 @@ sec(888,386,132,300,'MIXER',C.teal);
 knob(954,444,50,'mixA','OSC A',C.orange);knob(954,538,50,'mixB','OSC B',C.purple);knob(954,626,34,'mixN','NOISE',C.teal);
 
 // ================= FILTER =================
+// polyphony picker lives on the oscillator screen, next to the voice lights
+const PP=el('div','position:absolute;left:760px;top:140px;display:flex;gap:3px;align-items:center;z-index:5');
+const PPL=el('div','position:absolute;left:716px;top:143px;font-size:8px;font-weight:800;letter-spacing:.14em;color:#02EBBA;z-index:5','POLY');
+function drawPP(){PP.innerHTML=[8,16,32,64,128,256].map(v=>`<span data-v="${v}" style="min-width:26px;text-align:center;padding:0 3px;height:15px;line-height:15px;border-radius:4px;font-size:9px;font-weight:800;cursor:pointer;background:${S.poly===v?'#02EBBA22':'#0d1513'};color:${S.poly===v?'#02EBBA':'#5d6b68'};box-shadow:${S.poly===v?'inset 0 0 0 1px #02EBBA':'inset 0 0 0 1px #1b2a27'}">${v}</span>`).join('');}
+PP.addEventListener('pointerdown',e=>{const t=e.target.closest('span[data-v]');if(!t)return;startAudio();setParam('poly',+t.dataset.v);drawPP();toast('Polyphony: '+t.dataset.v+' voices');});
+drawPP();listeners.push(id=>{if(id==='poly')drawPP();});
+tip(PP,'<b>Polyphony.</b> How many voices can sound at once, 8 to 256. A Stack uses several voices per note, so big stacks and long pads need more. The plugin build is much lighter than this browser demo.');
 const fs=el('div','left:1032px;top:100px;width:334px;height:126px;cursor:crosshair');fs.className='screen';
 const fcv=el('canvas','',null,fs);const fg=hiDPI(fcv,320,112);el('div','',null,fs).className='glass';
 tip(fs,'<b>Filter curve.</b> Drag left and right for cutoff, up and down for resonance.');
@@ -1009,10 +1087,10 @@ function drawScope(){const g=og,W=SC.W,H=SC.H,top=SC.top,bot=SC.bot,mid=(top+bot
  [['OSC A ',C.orange],[wn(S.aSaw,S.aTri,S.aPulse,S.aPW),C.ice],['  +  ',C.rose],['OSC B ',C.purple],[wn(S.bSaw,S.bTri,S.bPulse,S.bPW),C.ice],
   [(S.pmFenv>0.005||S.pmOscB>0.005)?'   POLY MOD → '+[S.pmDestA&&'FREQ A',S.pmDestF&&'FILTER'].filter(Boolean).join('+'):'',C.pink]].forEach(([s,c])=>{g.fillStyle=c;g.fillText(s,tx,8);tx+=g.measureText(s).width;});
  // voices
- const poly=S.poly,act=Math.min(poly,meterMsg.active||0),cols=poly/2,sp=Math.min(10,170/cols),xs=W-14-cols*sp;
- g.font='800 9px Inter,sans-serif';g.textAlign='right';g.fillStyle=C.teal;g.fillText('VOICES',xs-8,4);g.fillStyle=C.ice;g.fillText(act+' / '+poly,xs-8,15);g.textAlign='left';
- for(let i=0;i<poly;i++){const x=xs+(i%cols)*sp+sp/2,y=10+Math.floor(i/cols)*9;g.beginPath();g.arc(x,y,Math.min(2.8,sp*0.32),0,7);
-  if(i<act){g.save();g.shadowColor=C.teal;g.shadowBlur=6;g.fillStyle=C.mint;g.fill();g.restore();}else{g.fillStyle='#0d2622';g.fill();}}
+ const poly=S.poly,act=Math.min(poly,meterMsg.active||0),nd=Math.min(poly,64),lit=Math.round(act/poly*nd),cols=nd/2,sp=Math.min(10,170/cols),xs=W-14-cols*sp;
+ g.font='800 9px Inter,sans-serif';g.textAlign='right';g.fillStyle=C.teal;g.fillText('VOICES',xs-8,4);g.fillStyle=C.ice;g.fillText(act+' / '+poly+'   CPU '+Math.min(999,Math.round((meterMsg.ld||0)*100))+'%',xs-8,15);g.textAlign='left';
+ for(let i=0;i<nd;i++){const x=xs+(i%cols)*sp+sp/2,y=10+Math.floor(i/cols)*9;g.beginPath();g.arc(x,y,Math.min(2.8,sp*0.32),0,7);
+  if(i<lit){g.save();g.shadowColor=C.teal;g.shadowBlur=6;g.fillStyle=C.mint;g.fill();g.restore();}else{g.fillStyle='#0d2622';g.fill();}}
  g.font='700 8px "DejaVu Sans Mono",ui-monospace,monospace';g.textBaseline='alphabetic';g.fillStyle='rgba(108,201,245,.75)';g.fillText('+1',x0+3,top+9);g.fillText(' 0',x0+3,mid+10);g.fillText('-1',x0+3,bot-3);
  const nn=12*Math.log2(hz/440)+69,nm=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'][((Math.round(nn)%12)+12)%12]+(Math.floor(Math.round(nn)/12)-1);
  g.fillStyle=C.yellow;g.textAlign='right';g.fillText((live?nm+'  '+hz.toFixed(1)+' Hz   ':'PREVIEW   ')+'SYNC '+(S.sync?'ON':'OFF')+'   DETUNE B '+(S.bFine>=0?'+':'')+Math.round(S.bFine*100)+' ct',x1-4,bot-3);g.textAlign='left';
@@ -1044,8 +1122,8 @@ function eyes(now){if(!S.eyes){EYES.forEach(e=>{e.lid.setAttribute('transform','
   e.lid.setAttribute('transform',`scale(1 ${sy})`);e.pup.setAttribute('transform',`translate(${dx} ${dy}) scale(${1+lv*1.6} 1)`);});}
 
 // ================= presets =================
-const BANKS=[FACTORY.map(([name,cat,demo,ov,genre],i)=>({num:i+1,name,cat,demo,genre:genre||'',p:Object.assign({},INIT,ov)})),[],[],[]];
-const userB=store.get('banks');if(userB)for(let b=1;b<4;b++)if(userB[b])BANKS[b]=userB[b];
+const BANKS=[FACTORY.map(([name,cat,demo,ov,genre],i)=>({num:i+1,name,cat,demo,genre:genre||'',p:Object.assign({},INIT,ov)})),[],[],[],[],[],[]];
+const userB=store.get('banks');if(userB)for(let b=1;b<7;b++)if(userB[b])BANKS[b]=userB[b];
 const cur={bank:0,num:1,name:'',cat:'',demo:'chords'};
 let history=store.get('history')||[];
 const pad3=n=>String(n).padStart(3,'0');
@@ -1054,15 +1132,15 @@ function applyPreset(pr){for(const k in INIT){S[k]=pr.p[k]!==undefined?pr.p[k]:I
  for(const id in knobs)knobs[id].draw();for(const id in btns)btns[id].forEach(b=>b.draw());uniB.draw();drawVM();drawLM();listeners.forEach(f=>f('*'));}
 function loadSlot(b,num){const pr=BANKS[b].find(x=>x.num===num);if(!pr)return false;applyPreset(pr);Object.assign(cur,{bank:b,num,name:pr.name,cat:pr.cat,genre:pr.genre||'',demo:pr.demo||'chords'});
  history=[{b,num,name:pr.name},...history.filter(h=>!(h.b===b&&h.num===num))].slice(0,8);store.set('history',history);updatePB();drawLED(pad3(num));selDemo(cur.demo,cur.genre);if(demoOn)startDemo();return true;}
-function updatePB(){document.getElementById('pBank').textContent='BANK '+'ABCD'[cur.bank];document.getElementById('pNum').textContent=pad3(cur.num);document.getElementById('pName').textContent=cur.name.toUpperCase();document.getElementById('pCat').textContent=cur.genre||cur.cat;selDemo(cur.demo,true);}
+function updatePB(){document.getElementById('pBank').textContent='BANK '+'ABCDEFG'[cur.bank];document.getElementById('pNum').textContent=pad3(cur.num);document.getElementById('pName').textContent=cur.name.toUpperCase();document.getElementById('pCat').textContent=cur.genre||cur.cat;selDemo(cur.demo,true);}
 function step(d){const list=BANKS[cur.bank].slice().sort((a,b)=>a.num-b.num);if(!list.length)return;let i=list.findIndex(x=>x.num===cur.num);i=(i+d+list.length)%list.length;loadSlot(cur.bank,list[i].num);}
 document.getElementById('pPrev').addEventListener('click',()=>step(-1));document.getElementById('pNext').addEventListener('click',()=>step(1));
 document.getElementById('pBank').addEventListener('click',()=>openBrowser());document.getElementById('pNum').addEventListener('click',()=>openBrowser());document.getElementById('pNum').style.cursor='pointer';document.getElementById('pName').addEventListener('click',()=>openBrowser());
 function snapshot(){const p={};for(const k in INIT)p[k]=S[k];p.trim=S.trim;return p;}
 function saveTo(b,num,name,force){const ex=BANKS[b].find(x=>x.num===num);
- if(ex&&!force){confirmDlg(`Overwrite ${'ABCD'[b]}${pad3(num)} "${ex.name}"?`,()=>saveTo(b,num,name,true));return;}
+ if(ex&&!force){confirmDlg(`Overwrite ${'ABCDEFG'[b]}${pad3(num)} "${ex.name}"?`,()=>saveTo(b,num,name,true));return;}
  const pr={num,name,cat:cur.cat||'USER',demo:cur.demo,p:snapshot()};BANKS[b]=BANKS[b].filter(x=>x.num!==num).concat([pr]);store.set('banks',BANKS);
- Object.assign(cur,{bank:b,num,name});updatePB();drawLED(pad3(num));toast('Saved to '+'ABCD'[b]+pad3(num));}
+ Object.assign(cur,{bank:b,num,name});updatePB();drawLED(pad3(num));toast('Saved to '+'ABCDEFG'[b]+pad3(num));}
 
 // ================= dialogs =================
 const OV=el('div','','',P);OV.className='overlay';
@@ -1078,7 +1156,7 @@ function openBrowser(){bFilter.bank=cur.bank;const d=openOV(`<h4>PRESETS</h4>
   <div style="font-size:10px;font-weight:900;letter-spacing:.2em;color:#02EBBA;margin:14px 0 8px">HISTORY</div><div id="bh" style="font-size:12px;line-height:1.9"></div></div>
  <div style="flex:1"><input class="txt" id="bq" placeholder="Search by name" value=""><div id="bc" style="margin:10px 0 0"></div><div id="bg" style="margin:0 0 4px"></div><div class="plist" id="bl"></div></div></div>`,300,120,860);
  const q=d.querySelector('#bq');q.value=bFilter.q;q.addEventListener('input',()=>{bFilter.q=q.value;fill();});fill();
- function fill(){d.querySelector('#bb').innerHTML='ABCD'.split('').map((b,i)=>`<span class="chip ${bFilter.bank===i?'on':''}" data-b="${i}">${b}${i?' USER':' FACTORY'}</span>`).join('');
+ function fill(){d.querySelector('#bb').innerHTML='ABCDEFG'.split('').map((b,i)=>`<span class="chip ${bFilter.bank===i?'on':''}" data-b="${i}">${b}${i?' USER':' FACTORY'}</span>`).join('');
   d.querySelectorAll('[data-b]').forEach(c=>c.addEventListener('click',()=>{bFilter.bank=+c.dataset.b;fill();}));
   const cats=['ALL',...new Set(BANKS[bFilter.bank].map(p=>p.cat))];
   d.querySelector('#bc').innerHTML=cats.map(c=>`<span class="chip ${bFilter.cat===c?'on':''}" data-c="${c}">${c}</span>`).join('');
@@ -1089,11 +1167,11 @@ function openBrowser(){bFilter.bank=cur.bank;const d=openOV(`<h4>PRESETS</h4>
   const list=BANKS[bFilter.bank].filter(p=>(bFilter.cat==='ALL'||p.cat===bFilter.cat)&&(bFilter.genre==='ALL'||p.genre===bFilter.genre)&&p.name.toLowerCase().includes(bFilter.q.toLowerCase())).sort((a,b)=>a.num-b.num);
   const bl=d.querySelector('#bl');bl.innerHTML=list.length?list.map(p=>`<div class="pitem ${cur.bank===bFilter.bank&&cur.num===p.num?'cur':''}" data-n="${p.num}"><span class="n">${pad3(p.num)}</span><span class="nm"></span><span class="c">${p.genre?p.genre+' · ':''}${p.cat}</span></div>`).join(''):'<div style="color:#6CC9F5;font-size:13px;padding:10px">'+(bFilter.bank?'Empty user bank. Use SAVE to store your sounds here.':'Nothing matches.')+'</div>';
   bl.querySelectorAll('.pitem').forEach((it,i)=>{it.querySelector('.nm').textContent=list[i].name;it.addEventListener('click',()=>{loadSlot(bFilter.bank,+it.dataset.n);fill();});});
-  d.querySelector('#bh').innerHTML=history.length?history.map((h,i)=>`<div class="cy" data-h="${i}" style="border:0;color:#BDF9EB">${'ABCD'[h.b]}${pad3(h.num)} <span></span></div>`).join(''):'<span style="color:#6b6680">Nothing yet</span>';
+  d.querySelector('#bh').innerHTML=history.length?history.map((h,i)=>`<div class="cy" data-h="${i}" style="border:0;color:#BDF9EB">${'ABCDEFG'[h.b]}${pad3(h.num)} <span></span></div>`).join(''):'<span style="color:#6b6680">Nothing yet</span>';
   d.querySelectorAll('[data-h]').forEach(e=>{const h=history[+e.dataset.h];e.querySelector('span').textContent=h.name;e.addEventListener('click',()=>{loadSlot(h.b,h.num);fill();});});}}
 SAVE.addEventListener('click',()=>{const b=cur.bank||1,free=(()=>{for(let n=1;n<=999;n++)if(!BANKS[b].find(x=>x.num===n))return n;return 1;})();const num=cur.bank?cur.num:free;
  const d=openOV(`<h4>SAVE SOUND</h4><div class="row"><label>NAME</label><input class="txt" id="sn" maxlength="22"></div>
- <div class="row"><label>BANK</label><span class="seg" id="sb">${[1,2,3].map(i=>`<span data-b="${i}" class="${i===b?'on':''}">${'ABCD'[i]}</span>`).join('')}</span></div>
+ <div class="row"><label>BANK</label><span class="seg" id="sb">${[1,2,3,4,5,6].map(i=>`<span data-b="${i}" class="${i===b?'on':''}">${'ABCDEFG'[i]}</span>`).join('')}</span></div>
  <div class="row"><label>SLOT</label><input class="txt" id="ss" style="width:90px" inputmode="numeric" value="${num}"></div>
  <div class="row"><label>CATEGORY</label><span class="seg" id="sc">${['PADS','KEYS','LEAD','BASS','PLUCK','BRASS','FX'].map(c=>`<span data-c="${c}" class="${c===cur.cat?'on':''}">${c}</span>`).join('')}</span></div>
  <div style="margin-top:14px"><span class="btn" id="sv">SAVE</span><span class="btn alt" id="sx">CANCEL</span></div>`,420,140,620);
@@ -1103,7 +1181,8 @@ SAVE.addEventListener('click',()=>{const b=cur.bank||1,free=(()=>{for(let n=1;n<
  d.querySelector('#sx').addEventListener('click',closeOV);
  d.querySelector('#sv').addEventListener('click',()=>{const n=Math.min(999,Math.max(1,parseInt(d.querySelector('#ss').value)||1));const name=sn.value.trim()||'My Sound';closeOV();cur.cat=scat;saveTo(sb,n,name);});});
 GEAR.addEventListener('click',()=>{const d=openOV(`<h4>SETTINGS</h4>
- <div class="row"><label>POLYPHONY</label><span class="seg" id="pp">${[8,16,32,64].map(v=>`<span data-v="${v}" class="${S.poly===v?'on':''}">${v}</span>`).join('')}</span></div>
+ <div class="row"><label>POLYPHONY</label><span class="seg" id="pp">${[8,16,32,64,128,256].map(v=>`<span data-v="${v}" class="${S.poly===v?'on':''}">${v}</span>`).join('')}</span></div>
+  <div class="row"><label></label><span style="font-size:10px;color:#9aa0b4;line-height:1.35">128 and 256 are for big stacks. This browser demo runs on one CPU core and may crackle above about 40 voices with layers; ECO (2x) helps. The plugin build will be much lighter.</span></div>
  <div class="row"><label>MASTER TUNE</label><input type="range" id="mt" min="-100" max="100" value="${S.tune}"><span id="mtv" style="color:#BDF9EB">${S.tune} ct</span></div>
  <div class="row"><label>VELOCITY</label><input type="range" id="vs" min="0" max="100" value="${Math.round(S.velSens*100)}"><span id="vsv" style="color:#BDF9EB">${Math.round(S.velSens*100)}%</span></div>
  <div class="row"><label>TEMPO (PAGE)</label><input type="range" id="bp" min="70" max="180" value="${S.bpm}"><span id="bpv" style="color:#BDF9EB">${S.bpm} BPM</span></div>
@@ -1149,6 +1228,7 @@ addEventListener('keydown',e=>{if(e.repeat||e.target.tagName==='INPUT')return;co
 addEventListener('keyup',e=>{const i=KMAP.indexOf(e.key.toLowerCase());if(i>=0)noteOff(12*octave+i);});
 
 // ================= layout scale =================
+window.__EXP={PD,VMT,C};
 function fit(){const w=Math.min(innerWidth,1600);const s=w/1600;SY.style.transform=`scale(${s})`;const wr=document.getElementById('wrap');wr.style.width=(1600*s)+'px';wr.style.height=(720*s)+'px';buildKB();}
 addEventListener('resize',fit);fit();
 
