@@ -16,8 +16,8 @@ COPY = {
  "points": ["Supersaw sound in the JP-8000 style", "Presets for anthem leads, hands-up leads, rolling basses, pads and trance plucks", "A melody generator with chord names", "Plugin and standalone for Linux, Windows and macOS"]},
 "Whiskerwave-vst": {
  "tagline": "A wavetable synth with morphing waves and a tool to sample your own gear.",
- "about": "Whiskerwave mixes wavetable oscillators that morph smoothly from one wave to the next with layered voices, a flexible modulation matrix and built-in effects. A sampling tool lets you turn your own hardware into new wavetables, and the included waves are free to use. It isn't released yet.",
- "points": ["Wavetable oscillators that morph between waves", "Layered voices and a flexible modulation matrix", "Built-in effects", "Sample your own hardware into wavetables", "Included waves are free to use for anything (CC0)"]},
+ "about": "Whiskerwave mixes wavetable oscillators that morph smoothly from one wave to the next with layered voices, a flexible modulation matrix and built-in effects. A sampling tool lets you turn your own hardware into new wavetables, and the included waves are free to use. It is tuned for dance, house, UK hardcore and hardstyle. Right now you can play the full design as a preview in your browser, with its own sound engine; the VST3 plugin comes after the C++ port of this design.",
+ "points": ["6 oscillators (wavetable, sample and grain engines), unison up to 8, 12 warp modes, FM, AM and ring", "2 filters with 47 types, 8 envelopes, 4 LFOs and a drag-to-modulate matrix", "30 effects on tracks and buses, a mixer, an arpeggiator and 72 presets", "Wave Lab and a tool to sample your own hardware into wavetables", "Included waves are free to use for anything (CC0)"]},
 # ---------------- Compressors, limiters and EQ
 "Apurrr2500": {
  "tagline": "A stereo bus compressor for gluing a mix together.",
